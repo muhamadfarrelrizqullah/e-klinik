@@ -37,6 +37,76 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Master Data</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-pengajuan') ? 'active' : '' }}"
+                            href="{{ route('admin-pengajuan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-file-right fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Pengajuan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-user') ? 'active' : '' }}"
+                            href="{{ route('admin-user') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-profile-user fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data User</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-divisi') ? 'active' : '' }}"
+                            href="{{ route('admin-divisi') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-filter fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Divisi</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-poli') ? 'active' : '' }}"
+                            href="{{ route('admin-poli') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-flag fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Poli</span>
+                        </a>
+                    </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-profil') ? 'active' : '' }}"
+                            href="{{ route('admin-profil') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-setting-4 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Edit Akun</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
