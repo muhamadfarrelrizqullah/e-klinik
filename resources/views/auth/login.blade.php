@@ -124,15 +124,15 @@
                         if (response.success) {
                             swalMixinSuccess.fire({
                                 icon: 'success',
-                                title: 'Login Successful!',
-                                text: 'Redirecting to dashboard...',
+                                title: 'Login Berhasil!',
+                                text: 'Mengalihkan ke halaman dashboard...',
                             }).then(() => {
                                 window.location.href = response.redirect;
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Login Failed!',
+                                title: 'Login Gagal!',
                                 text: response.message,
                             });
                         }
@@ -147,7 +147,7 @@
                         }
                         Swal.fire({
                             icon: 'error',
-                            title: 'Login Failed!',
+                            title: 'Login Gagal!',
                             html: errorMessage,
                         });
                     }

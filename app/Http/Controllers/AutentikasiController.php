@@ -28,6 +28,10 @@ class AutentikasiController extends Controller
         $request->validate([
             'nip' => 'required|digits:8',
             'password' => 'required',
+        ],[
+            'nip.required' => 'Nip wajib diisi',
+            'nip.digits' => 'Nip harus 8 digit',
+            'password.required' => 'Password wajib diisi',
         ]);
 
         $credentials = $request->only('nip', 'password');

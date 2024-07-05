@@ -24,8 +24,6 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1990-01-01',
                 'tinggi_badan' => 180.5,
                 'berat_badan' => 75.3,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nip' => '22222222',
@@ -37,8 +35,6 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1985-05-15',
                 'tinggi_badan' => 165.4,
                 'berat_badan' => 60.2,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nip' => '33333333',
@@ -50,8 +46,6 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1985-05-15',
                 'tinggi_badan' => 165.4,
                 'berat_badan' => 60.2,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
         ]);
     }
