@@ -2,10 +2,10 @@
 
 <html lang="en">
 	<head>
-		<title>Landing - E Klinik</title>
+		<title>Landing - E Klinik PAL</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="assets/media/logos/favicon.png" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
@@ -25,9 +25,9 @@
 											<span class="path2"></span>
 										</i>
 									</button>
-									<a href="landing.html">
-										<img alt="Logo" src="assets/media/logos/landing.svg" class="logo-default h-25px h-lg-30px" />
-										<img alt="Logo" src="assets/media/logos/landing-dark.svg" class="logo-sticky h-20px h-lg-25px" />
+									<a href="{{ route('landing') }}">
+										<img alt="Logo" src="assets/media/logos/pal-dark.png" class="logo-default h-25px h-lg-30px" />
+										<img alt="Logo" src="assets/media/logos/pal.png" class="logo-sticky h-20px h-lg-25px" />
 									</a>
 								</div>
 								<div class="d-lg-block" id="kt_header_nav_wrapper">
@@ -55,7 +55,7 @@
 									</div>
 								</div>
 								<div class="flex-equal text-end ms-1">
-									<a href="authentication/layouts/corporate/sign-in.html" class="btn btn-success">Sign In</a>
+									<a href="{{ route('login') }}" class="btn btn-primary">Login</a>
 								</div>
 							</div>
 						</div>
@@ -937,8 +937,8 @@
 					<div class="container">
 						<div class="d-flex flex-column flex-md-row flex-stack py-7 py-lg-10">
 							<div class="d-flex align-items-center order-2 order-md-1">
-								<a href="landing.html">
-									<img alt="Logo" src="assets/media/logos/landing.svg" class="h-15px h-md-20px" />
+								<a href="{{ route('landing') }}">
+									<img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-15px h-md-20px" />
 								</a>
 								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com">&copy; 2023 Keenthemes Inc.</span>
 							</div>
