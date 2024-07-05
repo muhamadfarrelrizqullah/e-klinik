@@ -66,9 +66,9 @@
                 </div>
                 <div class="w-lg-500px d-flex flex-stack px-10 mx-auto">
                     <div class="me-10">
-                        <a href="{{ route('landing') }}"><img alt="Logo" src="assets/media/logos/bumn.png"
+                        <a><img alt="Logo" src="assets/media/logos/bumn.png"
                                 class="theme-light-show h-40px app-sidebar-logo-default" /></a>
-                        <a href="{{ route('landing') }}"><img alt="Logo" src="assets/media/logos/bumn-dark.png"
+                        <a><img alt="Logo" src="assets/media/logos/bumn-dark.png"
                                 class="theme-dark-show h-40px app-sidebar-logo-default" /></a>
                     </div>
                     <div class="d-flex fw-semibold text-primary fs-base gap-5">
