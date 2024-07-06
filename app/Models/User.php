@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Divisi;
+use App\Models\Pengajuan;
+use App\Models\Rekap;
+use App\Models\PivotPolisUser;
+
+
 
 class User extends Model
 {
@@ -42,6 +48,6 @@ class User extends Model
 
     public function pivotPolisUsers()
     {
-        return $this->hasMany(PivotPolisUser::class, 'id_dokter');
+        return $this->hasMany(PivotPoliUser::class, 'id_dokter');
     }
 }

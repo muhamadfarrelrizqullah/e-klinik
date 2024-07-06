@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Poli;
+use App\Models\User;
 
-class PivotPolisUser extends Model
+class PivotPoliUser extends Model
 {
     use HasFactory;
 
