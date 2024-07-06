@@ -2,44 +2,46 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nip', 'nama', 'password', 'status', 'role', 'divisi_id', 
+        'tanggal_lahir', 'tinggi_badan', 'berat_badan'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class);
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public function pengajuansAsPasien()
+    {
+        return $this->hasMany(Pengajuan::class, 'id_pasien');
+    }
+
+    public function pengajuansAsDokter()
+    {
+        return $this->hasMany(Pengajuan::class, 'id_dokter');
+    }
+
+    public function rekapsAsPasien()
+    {
+        return $this->hasMany(Rekap::class, 'id_pasien');
+    }
+
+    public function rekapsAsDokter()
+    {
+        return $this->hasMany(Rekap::class, 'id_dokter');
+    }
+
+    public function pivotPolisUsers()
+    {
+        return $this->hasMany(PivotPolisUser::class, 'id_dokter');
+    }
 }
