@@ -34,11 +34,11 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card card-flush h-xl-100">
                             <div class="card-body">
-                                <ul class="nav nav-pills nav-pills-custom mb-3">
+                                <ul id="navRole" class="nav nav-pills nav-pills-custom mb-3">
                                     <li class="nav-item mb-3 me-3 me-lg-6">
-                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2 active"
+                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-row overflow-hidden w-100 h-auto p-3 active"
                                             data-bs-toggle="pill" href="#kt_stats_widget_6_tab_1">
-                                            <div class="nav-icon mb-3">
+                                            <div class="nav-icon me-3 d-flex align-items-center">
                                                 <i class="ki-duotone ki-people fs-1">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -47,15 +47,16 @@
                                                     <span class="path5"></span>
                                                 </i>
                                             </div>
-                                            <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Pasien</span>
                                             <span
-                                                class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                                                class="nav-text text-gray-800 fw-bold fs-6 lh-1 d-flex align-items-center">Pasien</span>
+                                            <span
+                                                class="bullet-custom position-absolute start-0 bottom-0 w-100 h-4px bg-primary"></span>
                                         </a>
                                     </li>
                                     <li class="nav-item mb-3 me-3 me-lg-6">
-                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2"
+                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-row overflow-hidden w-100 h-auto p-3"
                                             data-bs-toggle="pill" href="#kt_stats_widget_6_tab_2">
-                                            <div class="nav-icon mb-3">
+                                            <div class="nav-icon me-3 d-flex align-items-center">
                                                 <i class="ki-duotone ki-syringe fs-1">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -64,15 +65,16 @@
                                                     <span class="path5"></span>
                                                 </i>
                                             </div>
-                                            <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Dokter</span>
                                             <span
-                                                class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                                                class="nav-text text-gray-800 fw-bold fs-6 lh-1 d-flex align-items-center">Dokter</span>
+                                            <span
+                                                class="bullet-custom position-absolute start-0 bottom-0 w-100 h-4px bg-primary"></span>
                                         </a>
                                     </li>
                                     <li class="nav-item mb-3 me-3 me-lg-6">
-                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2"
+                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-row overflow-hidden w-100 h-auto p-3"
                                             data-bs-toggle="pill" href="#kt_stats_widget_6_tab_3">
-                                            <div class="nav-icon mb-3">
+                                            <div class="nav-icon me-3 d-flex align-items-center">
                                                 <i class="ki-duotone ki-brifecase-timer fs-1">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -83,9 +85,10 @@
                                                     <span class="path7"></span>
                                                 </i>
                                             </div>
-                                            <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Admin</span>
                                             <span
-                                                class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                                                class="nav-text text-gray-800 fw-bold fs-6 lh-1 d-flex align-items-center">Admin</span>
+                                            <span
+                                                class="bullet-custom position-absolute start-0 bottom-0 w-100 h-4px bg-primary"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -194,16 +197,26 @@
                         data: 'status',
                         name: 'status',
                         orderable: true,
-                        render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        render: function(data, type, row) {
+                            if (data === 'Aktif') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            }
                         }
                     },
                     {
                         data: 'role',
                         name: 'role',
                         orderable: true,
-                        render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        render: function(data, type, row) {
+                            if (data === 'Admin') {
+                                return `<span class="badge badge-primary">${data}</span>`;
+                            } else if (data === 'Dokter') {
+                                return `<span class="badge badge-warning">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-success">${data}</span>`;
+                            }
                         }
                     },
                     {
@@ -211,7 +224,7 @@
                         name: 'divisi_nama',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
                         }
                     },
                     {
@@ -222,13 +235,13 @@
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail()" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-note-2 fs-2">
+                                    <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
                                 </a>
                                 <a onclick="modalEdit()" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                                    <i class="ki-duotone ki-pencil fs-2">
+                                    <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
@@ -252,6 +265,18 @@
                 ],
                 iDisplayLength: 10,
                 responsive: true,
+                language: {
+                    paginate: {
+                        "previous": "Sebelumnya",
+                        "next": "Selanjutnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ entri",
+                    zeroRecords: "Tidak ditemukan data yang sesuai",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
+                },
             });
         }
 
@@ -261,6 +286,12 @@
             var tabelAdmin = initializeDataTable('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
 
             $(window).resize(function() {
+                tabelPasien.columns.adjust().responsive.recalc();
+                tabelDokter.columns.adjust().responsive.recalc();
+                tabelAdmin.columns.adjust().responsive.recalc();
+            });
+
+            $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
                 tabelPasien.columns.adjust().responsive.recalc();
                 tabelDokter.columns.adjust().responsive.recalc();
                 tabelAdmin.columns.adjust().responsive.recalc();
@@ -290,7 +321,7 @@
         #TabelUserAdmin thead th:first-child::after,
         #TabelUserAdmin thead th:first-child::before,
         #TabelUserDokter thead th:first-child::after,
-        #TabelUserDokter thead th:first-child::before, 
+        #TabelUserDokter thead th:first-child::before,
         #TabelUserPasien thead th:first-child::after,
         #TabelUserPasien thead th:first-child::before {
             display: none !important;
@@ -298,11 +329,16 @@
         }
 
         @media only screen and (max-width: 768px) {
+
             #TabelUserAdmin td,
             #TabelUserDokter td,
             #TabelUserPasien td {
                 white-space: normal;
                 word-wrap: break-word;
+            }
+            
+            #navRole {
+                justify-content: center;
             }
         }
     </style>
