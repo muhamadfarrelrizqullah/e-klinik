@@ -34,6 +34,10 @@ Route::get('/admin/poli', [PoliController::class, 'index'])->name('admin-poli');
 Route::get('/admin/pengajuan', [PengajuanController::class, 'index'])->name('admin-pengajuan');
 Route::get('/admin/profil', [ProfilController::class, 'index'])->name('admin-profil');
 
+Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->name('admin-datauser-pasien');
+Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
+Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
