@@ -44,8 +44,9 @@
                                 <div class="text-gray-500 fw-semibold fs-6">Silakan masuk ke akun Anda</div>
                             </div>
                             <div class="fv-row mb-8">
-                                <input type="number" placeholder="Masukkan 8 digit nip anda" name="nip"
-                                    class="form-control bg-transparent" />
+                                <input type="text" placeholder="Masukkan 8 digit NIP anda" name="nip"
+                                    class="form-control bg-transparent" pattern="\d{8}"
+                                    title="NIP harus berupa 8 digit angka" />
                             </div>
                             <div class="fv-row mb-8">
                                 <input type="password" placeholder="Masukkan password anda" name="password"
@@ -83,9 +84,11 @@
                         <img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-60px h-lg-80px" />
                     </a>
                     <div class="d-none d-lg-block text-white fs-base text-center">
-                        <a class="opacity-75-hover text-warning fw-bold me-1">PT PAL Indonesia (Persero) </a>mempunyai reputasi sebagai kekuatan utama untuk <br>
+                        <a class="opacity-75-hover text-warning fw-bold me-1">PT PAL Indonesia (Persero) </a>mempunyai
+                        reputasi sebagai kekuatan utama untuk <br>
                         pengembangan industri maritim nasional. Sebagai usaha untuk mendukung pondasi <br>
-                        bagi industri maritim, <a class="opacity-75-hover text-warning fw-bold me-1">PT PAL Indonesia (Persero) </a>bekerja keras untuk menyampaikan <br> 
+                        bagi industri maritim, <a class="opacity-75-hover text-warning fw-bold me-1">PT PAL Indonesia
+                            (Persero) </a>bekerja keras untuk menyampaikan <br>
                         pengetahuan, keterampilan dan teknologi untuk masyarakat luas industri maritim nasional. <br>
                     </div>
                 </div>
@@ -153,6 +156,10 @@
                     }
                 });
             });
+        });
+
+        document.querySelector('input[name="nip"]').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     </script>
 </body>
