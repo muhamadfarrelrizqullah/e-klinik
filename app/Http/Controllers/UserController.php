@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\UserResetPWRequest;
 use App\Http\Requests\UserTambahRequest;
 use App\Models\Divisi;
 use App\Models\User;
@@ -83,28 +85,17 @@ class UserController extends Controller
         return response()->json(['message' => 'User berhasil dihapus.']);
     }
 
-    public function update(Request $request)
+    public function update(UserEditRequest $request)
     {
         try {
             $userId = Auth::id();
             $request->validate([
-                'id' => 'required|exists:users,id',
-                'nip' => 'required|digits:8',
-                'nama' => 'required|string|max:255',
-                'status' => 'required|in:Aktif,Tidak Aktif',
-                'role' => 'required|in:Admin,Dokter,Pasien',
-                'divisi' => 'required|exists:divisis,id',
-                'tanggal_lahir' => 'required|date|date_format:Y-m-d',
-                'tinggi_badan' => 'nullable|integer',
-                'berat_badan' => 'nullable|integer',
+                
             ]);
-
             $user = User::findOrFail($request->id);
-
             if ($userId === $user->id) {
                 return response()->json(['message' => 'Anda tidak dapat mengedit data Anda sendiri.'], 403);
             }
-
             $user->nip = $request->nip;
             $user->nama = $request->nama;
             $user->status = $request->status;
@@ -114,27 +105,20 @@ class UserController extends Controller
             $user->tinggi_badan = $request->tinggi_badan;
             $user->berat_badan = $request->berat_badan;
             $user->save();
-
             return response()->json(['success' => 'User berhasil diupdate.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
         }
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword(UserResetPWRequest $request)
     {
         try {
-            $request->validate([
-                'id' => 'required|exists:users,id',
-                'tanggal_lahir' => 'required|date|date_format:Y-m-d',
-            ]);
-
             $user = User::findOrFail($request->id);
             $tanggal_lahir = \Carbon\Carbon::parse($request->tanggal_lahir);
             $newPassword = $tanggal_lahir->format('dmY');
             $user->password = Hash::make($newPassword);
             $user->save();
-
             return response()->json(['success' => 'Password berhasil direset.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
