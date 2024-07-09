@@ -42,6 +42,8 @@ Route::put('/admin/data-user-edit', [UserController::class, 'update'])->name('ad
 Route::delete('/admin/data-user-delete/{id}', [UserController::class, 'destroy'])->name('admin-datauser-delete');
 Route::post('/admin/data-user-reset-password', [UserController::class, 'resetPassword'])->name('admin-datauser-resetpassword');
 
+Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin-datadivisi');
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
