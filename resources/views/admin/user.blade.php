@@ -160,9 +160,201 @@
     </div>
 @endsection
 
+@section('modals')
+    <div id="modalDetail" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail User</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNip" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNama" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Status</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailStatus" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Role</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailRole" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Divisi</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailDivisiNama" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Tanggal Lahir</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailTanggalLahir" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailTinggiBadan" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailBeratBadan" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAdd" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalAddLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tambah User Baru</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('admin-datauser-tambah') }}" method="POST">
+                        @csrf
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">NIP</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan nip user" id="addNip" name="nip" pattern="\d{8}"
+                                    title="NIP harus berupa 8 digit angka">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Nama</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan nama user" id="addNama" name="nama">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="required fs-6 fw-semibold mb-2">Status</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="addStatus" name="status">
+                                <option value="" selected disabled>Masukkan status user</option>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Tidak Aktif">Tidak Aktif</option>
+                            </select>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Role</label>
+                                <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                    id="addRole" name="role">
+                                    <option value="" selected disabled>Masukkan role user</option>
+                                    <option value="Pasien">Pasien</option>
+                                    <option value="Dokter">Dokter</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Divisi</label>
+                                <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                    id="addDivisi" name="divisi">
+                                    <option value="" selected disabled>Masukkan divisi user</option>
+                                    @foreach ($divisis as $divisi)
+                                        <option value="{{ $divisi->id }}">{{ $divisi->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="fs-6 fw-semibold mb-2">Tanggal Lahir</label>
+                            <div class="position-relative d-flex align-items-center">
+                                <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                    <span class="path6"></span>
+                                </i>
+                                <input type="date" class="form-control form-control-solid ps-12" placeholder=""
+                                    id="addTanggalLahir" name="tanggal_lahir" />
+                            </div>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan tinggi badan user" id="addTinggiBadan" name="tinggi_badan">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan berat badan user" id="addBeratBadan" name="berat_badan">
+                            </div>
+                        </div>
+                        <div class="text-center pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @push('script')
     <script>
-        // Yajra DataTable User 3 Role
         function initializeDataTable(selector, ajaxUrl) {
             return $(selector).DataTable({
                 processing: true,
@@ -234,7 +426,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail()" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -296,7 +488,75 @@
                 tabelDokter.columns.adjust().responsive.recalc();
                 tabelAdmin.columns.adjust().responsive.recalc();
             });
+
+            $('#modalAdd form').on('submit', function(e) {
+                const swalMixinSuccess = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                });
+                e.preventDefault();
+                let data = $(this).serialize();
+                let form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: "POST",
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                        $('#modalAdd').modal('hide');
+                        tabelPasien.ajax.reload();
+                        tabelDokter.ajax.reload();
+                        tabelAdmin.ajax.reload();
+                        swalMixinSuccess.fire(
+                            'Success!',
+                            'User berhasil ditambah.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseJSON.message);
+                        Swal.fire(
+                            'Error!',
+                            'Error menambahkan user: ' + xhr.responseJSON.message,
+                            'error'
+                        );
+                    }
+                });
+            });
         });
+
+        function restrictInputToNumbers(event) {
+            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+        }
+        const inputs = document.querySelectorAll(
+        'input[name="nip"], input[name="tinggi_badan"], input[name="berat_badan"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', restrictInputToNumbers);
+        });
+
+        $('#modalAdd').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+        function modalDetail(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan) {
+            $('#detailNip').val(nip);
+            $('#detailNama').val(nama);
+            $('#detailStatus').val(status);
+            $('#detailRole').val(role);
+            $('#detailDivisiNama').val(divisi_nama);
+            let date = new Date(tanggal_lahir);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = String(date.getFullYear());
+            let formattedBirthdate = `${day}/${month}/${year}`;
+            $('#detailTanggalLahir').val(formattedBirthdate);
+            $('#detailTinggiBadan').val(tinggi_badan);
+            $('#detailBeratBadan').val(berat_badan);
+            $('#modalDetail').modal('show');
+        }
     </script>
 @endpush
 
@@ -336,7 +596,7 @@
                 white-space: normal;
                 word-wrap: break-word;
             }
-            
+
             #navRole {
                 justify-content: center;
             }

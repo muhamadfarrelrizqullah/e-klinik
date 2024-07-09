@@ -37,6 +37,7 @@ Route::get('/admin/profil', [ProfilController::class, 'index'])->name('admin-pro
 Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->name('admin-datauser-pasien');
 Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
 Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
+Route::post('/admin/data-user-tambah', [UserController::class, 'store'])->name('admin-datauser-tambah');
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
