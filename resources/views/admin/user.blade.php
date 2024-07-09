@@ -342,7 +342,117 @@
                                 class="btn btn-light me-3">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
-                                <span class="indicator-progress">Please wait...
+                                <span class="indicator-progress">Tunggu....
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit User</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('admin-datauser-edit') }}" method="PUT">
+                        @csrf
+                        <input type="hidden" id="id" name="id">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">NIP</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan nip user" id="updateNip" name="nip" pattern="\d{8}"
+                                    title="NIP harus berupa 8 digit angka">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Nama</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan nama user" id="updateNama" name="nama">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="required fs-6 fw-semibold mb-2">Status</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="updateStatus" name="status">
+                                <option value="" selected disabled>Masukkan status user</option>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Tidak Aktif">Tidak Aktif</option>
+                            </select>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Role</label>
+                                <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                    id="updateRole" name="role">
+                                    <option value="" selected disabled>Masukkan role user</option>
+                                    <option value="Pasien">Pasien</option>
+                                    <option value="Dokter">Dokter</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Divisi</label>
+                                <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                    id="updateDivisiId" name="divisi">
+                                    <option value="" selected disabled>Masukkan divisi user</option>
+                                    @foreach ($divisis as $divisi)
+                                        <option value="{{ $divisi->id }}">{{ $divisi->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
+                            <div class="position-relative d-flex align-items-center">
+                                <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                    <span class="path6"></span>
+                                </i>
+                                <input type="date" class="form-control form-control-solid ps-12" placeholder=""
+                                    id="updateTanggalLahir" name="tanggal_lahir" />
+                            </div>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan tinggi badan user" id="updateTinggiBadan" name="tinggi_badan">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                    placeholder="Masukkan berat badan user" id="updateBeratBadan" name="berat_badan">
+                            </div>
+                        </div>
+                        <div class="text-center pt-15">
+                            <button type="button" class="btn btn-warning" id="resetPasswordBtn"
+                                class="btn btn-light me-3">Reset Password</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan</span>
+                                <span class="indicator-progress">Tunggu....
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
@@ -432,7 +542,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalEdit()" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <a onclick="modalEdit('${row.id}', '${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_id}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -586,7 +696,6 @@
             });
         }
 
-
         function restrictInputToNumbers(event) {
             event.target.value = event.target.value.replace(/[^0-9]/g, '');
         }
@@ -616,6 +725,129 @@
             $('#detailBeratBadan').val(berat_badan);
             $('#modalDetail').modal('show');
         }
+
+        $('#modalEdit form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            e.preventDefault();
+            let data = $(this).serialize();
+            let form = $(this);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda ingin menyimpan perubahan ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: "PUT",
+                        data: data,
+                        success: function(response) {
+                            console.log(response);
+                            $('#modalEdit').modal('hide');
+                            tabelPasien.ajax.reload();
+                            tabelDokter.ajax.reload();
+                            tabelAdmin.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Saved!',
+                                'User berhasil diupdate.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseJSON.message);
+                            Swal.fire(
+                                'Error!',
+                                'Error mengupdate user: ' + xhr.responseJSON.message,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+
+        function modalEdit(id, nip, nama, status, role, divisi_id, tanggal_lahir, tinggi_badan, berat_badan) {
+            $('#id').val(id);
+            $('#updateNip').val(nip);
+            $('#updateNama').val(nama);
+            $('#updateStatus').val(status);
+            $('#updateRole').val(role);
+            $('#updateDivisiId').val(divisi_id);
+            $('#updateTanggalLahir').val(tanggal_lahir);
+            $('#updateTinggiBadan').val(tinggi_badan);
+            $('#updateBeratBadan').val(berat_badan);
+            $('#modalEdit').modal('show');
+        }
+
+        document.getElementById('resetPasswordBtn').addEventListener('click', function() {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+
+            let userId = document.getElementById('id').value;
+            let tanggalLahir = document.getElementById('updateTanggalLahir').value;
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Password akan direset berdasarkan tanggal lahir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, reset!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('admin-datauser-resetpassword') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({
+                                id: userId,
+                                tanggal_lahir: tanggalLahir
+                            })
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                swalMixinSuccess.fire(
+                                    'Saved!',
+                                    'Password user berhasil direset.',
+                                    'success'
+                                );
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: 'Gagal mereset password: ' + data.message,
+                                });
+                            }
+                        }).catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Terjadi kesalahan: ' + error.message,
+                            });
+                        });
+                }
+            });
+        });
     </script>
 @endpush
 

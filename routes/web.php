@@ -40,6 +40,7 @@ Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name
 Route::post('/admin/data-user-tambah', [UserController::class, 'store'])->name('admin-datauser-tambah');
 Route::put('/admin/data-user-edit', [UserController::class, 'update'])->name('admin-datauser-edit');
 Route::delete('/admin/data-user-delete/{id}', [UserController::class, 'destroy'])->name('admin-datauser-delete');
+Route::post('/admin/data-user-reset-password', [UserController::class, 'resetPassword'])->name('admin-datauser-resetpassword');
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
