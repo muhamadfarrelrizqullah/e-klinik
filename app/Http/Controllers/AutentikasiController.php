@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
 
 class AutentikasiController extends Controller
 {
@@ -23,17 +24,8 @@ class AutentikasiController extends Controller
         return redirect('/login');
     }
 
-    public function loginProcess(Request $request)
+    public function loginProcess(LoginRequest $request)
     {
-        $request->validate([
-            'nip' => 'required|digits:8',
-            'password' => 'required',
-        ],[
-            'nip.required' => 'Nip wajib diisi',
-            'nip.digits' => 'Nip harus 8 digit',
-            'password.required' => 'Password wajib diisi',
-        ]);
-
         $credentials = $request->only('nip', 'password');
 
         if (Auth::attempt($credentials)) {
