@@ -8,9 +8,7 @@ class AdminPoliSQL
 {
     public function getPoliData()
     {
-        return Poli::select([
-            'id',
-            'nama',
-        ]);
+        return Poli::select(['id', 'nama'])
+            ->get();;
     }
 }

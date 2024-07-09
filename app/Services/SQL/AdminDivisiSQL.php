@@ -8,9 +8,7 @@ class AdminDivisiSQL
 {
     public function getDivisiData()
     {
-        return Divisi::select([
-            'id',
-            'nama',
-        ]);
+        return Divisi::select(['id', 'nama'])
+            ->get();;
     }
 }
