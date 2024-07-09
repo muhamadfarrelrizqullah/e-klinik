@@ -37,14 +37,14 @@ class AutentikasiController extends Controller
                 } elseif (Auth::user()->role == 'Pasien') {
                     return response()->json(['success' => true, 'redirect' => route('pasien-dashboard')]);
                 } else {
-                    return response()->json(['success' => false, 'message' => 'Error Auth']);
+                    return response()->json(['success' => false, 'message' => 'Error autentikasi']);
                 }
             } else {
                 Auth::logout();
-                return response()->json(['success' => false, 'message' => 'Account is not active']);
+                return response()->json(['success' => false, 'message' => 'Akun tidak aktif']);
             }
         } else {
-            return response()->json(['success' => false, 'message' => 'Invalid nip or password']);
+            return response()->json(['success' => false, 'message' => 'Nip atau password tidak valid']);
         }
     }
 }
