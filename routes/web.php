@@ -44,6 +44,8 @@ Route::post('/admin/data-user-reset-password', [UserController::class, 'resetPas
 
 Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin-datadivisi');
 
+Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
