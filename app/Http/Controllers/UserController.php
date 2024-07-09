@@ -51,4 +51,24 @@ class UserController extends Controller
             ->addIndexColumn()
             ->make(true);
     }
+
+    public function store(UserTambahRequest $request)
+    {
+        $user = new User;
+        $user->nip = $request->nip;
+        $user->nama = $request->nama;
+        $user->status = $request->status;
+        $user->role = $request->role;
+        $user->divisi_id = $request->divisi;
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->tinggi_badan = $request->tinggi_badan;
+        $user->berat_badan = $request->berat_badan;
+
+        $tanggal_lahir = \Carbon\Carbon::parse($request->tanggal_lahir);
+        $password = $tanggal_lahir->format('dmY');
+        $user->password = Hash::make($password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'User berhasil ditambah');
+    }
 }
