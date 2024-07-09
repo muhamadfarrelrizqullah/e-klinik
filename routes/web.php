@@ -38,6 +38,8 @@ Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->na
 Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
 Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
 Route::post('/admin/data-user-tambah', [UserController::class, 'store'])->name('admin-datauser-tambah');
+Route::put('/admin/data-user-edit', [UserController::class, 'update'])->name('admin-datauser-edit');
+Route::delete('/admin/data-user-delete/{id}', [UserController::class, 'destroy'])->name('admin-datauser-delete');
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');

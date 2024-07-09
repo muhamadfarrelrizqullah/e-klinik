@@ -307,7 +307,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold mb-2">Tanggal Lahir</label>
+                            <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
                             <div class="position-relative d-flex align-items-center">
                                 <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
                                     <span class="path1"></span>
@@ -438,7 +438,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="deleteData()" class="btn btn-icon btn-bg-light btn-active-color-danger btn-xl">
+                                <a onclick="deleteData(${row.id})" class="btn btn-icon btn-bg-light btn-active-color-danger btn-xl">
                                     <i class="ki-duotone ki-trash fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -472,67 +472,126 @@
             });
         }
 
-        $(document).ready(function() {
-            var tabelPasien = initializeDataTable('#TabelUserPasien', "{{ route('admin-datauser-pasien') }}");
-            var tabelDokter = initializeDataTable('#TabelUserDokter', "{{ route('admin-datauser-dokter') }}");
-            var tabelAdmin = initializeDataTable('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
 
-            $(window).resize(function() {
-                tabelPasien.columns.adjust().responsive.recalc();
-                tabelDokter.columns.adjust().responsive.recalc();
-                tabelAdmin.columns.adjust().responsive.recalc();
+        var tabelPasien = initializeDataTable('#TabelUserPasien', "{{ route('admin-datauser-pasien') }}");
+        var tabelDokter = initializeDataTable('#TabelUserDokter', "{{ route('admin-datauser-dokter') }}");
+        var tabelAdmin = initializeDataTable('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
+
+        $(window).resize(function() {
+            tabelPasien.columns.adjust().responsive.recalc();
+            tabelDokter.columns.adjust().responsive.recalc();
+            tabelAdmin.columns.adjust().responsive.recalc();
+        });
+
+        $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
+            tabelPasien.columns.adjust().responsive.recalc();
+            tabelDokter.columns.adjust().responsive.recalc();
+            tabelAdmin.columns.adjust().responsive.recalc();
+        });
+
+        $('#modalAdd form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
             });
-
-            $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
-                tabelPasien.columns.adjust().responsive.recalc();
-                tabelDokter.columns.adjust().responsive.recalc();
-                tabelAdmin.columns.adjust().responsive.recalc();
-            });
-
-            $('#modalAdd form').on('submit', function(e) {
-                const swalMixinSuccess = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 4000,
-                    timerProgressBar: true,
-                });
-                e.preventDefault();
-                let data = $(this).serialize();
-                let form = $(this);
-                $.ajax({
-                    url: form.attr('action'),
-                    type: "POST",
-                    data: data,
-                    success: function(response) {
-                        console.log(response);
-                        $('#modalAdd').modal('hide');
-                        tabelPasien.ajax.reload();
-                        tabelDokter.ajax.reload();
-                        tabelAdmin.ajax.reload();
-                        swalMixinSuccess.fire(
-                            'Success!',
-                            'User berhasil ditambah.',
-                            'success'
-                        );
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseJSON.message);
-                        Swal.fire(
-                            'Error!',
-                            'Error menambahkan user: ' + xhr.responseJSON.message,
-                            'error'
-                        );
-                    }
-                });
+            e.preventDefault();
+            let data = $(this).serialize();
+            let form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                    $('#modalAdd').modal('hide');
+                    tabelPasien.ajax.reload();
+                    tabelDokter.ajax.reload();
+                    tabelAdmin.ajax.reload();
+                    swalMixinSuccess.fire(
+                        'Success!',
+                        'User berhasil ditambah.',
+                        'success'
+                    );
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseJSON.message);
+                    Swal.fire(
+                        'Error!',
+                        'Error menambahkan user: ' + xhr.responseJSON.message,
+                        'error'
+                    );
+                }
             });
         });
+
+        function deleteData(id) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/data-user-delete/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.message);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Deleted:', data);
+                            tabelPasien.ajax.reload();
+                            tabelDokter.ajax.reload();
+                            tabelAdmin.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Deleted!',
+                                'User berhasil dihapus.',
+                                'success'
+                            );
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Error menghapus user: ' + error.message,
+                                'error'
+                            );
+                        });
+                }
+            });
+        }
+
 
         function restrictInputToNumbers(event) {
             event.target.value = event.target.value.replace(/[^0-9]/g, '');
         }
         const inputs = document.querySelectorAll(
-        'input[name="nip"], input[name="tinggi_badan"], input[name="berat_badan"]');
+            'input[name="nip"], input[name="tinggi_badan"], input[name="berat_badan"]');
         inputs.forEach(input => {
             input.addEventListener('input', restrictInputToNumbers);
         });

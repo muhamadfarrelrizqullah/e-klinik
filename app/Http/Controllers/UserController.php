@@ -69,6 +69,16 @@ class UserController extends Controller
         $user->password = Hash::make($password);
         $user->save();
 
-        return redirect()->back()->with('success', 'User berhasil ditambah');
+        return redirect()->back()->with('success', 'User berhasil ditambah.');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User tidak ada.'], 404);
+        }
+        $user->delete();
+        return response()->json(['message' => 'User berhasil dihapus.']);
     }
 }
