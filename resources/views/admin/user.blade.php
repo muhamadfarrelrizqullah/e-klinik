@@ -237,6 +237,10 @@
                                     id="detailBeratBadan" readonly>
                             </div>
                         </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -337,7 +341,7 @@
                                     placeholder="Masukkan berat badan user" id="addBeratBadan" name="berat_badan">
                             </div>
                         </div>
-                        <div class="text-center pt-15">
+                        <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
                             <button type="submit" class="btn btn-primary">
@@ -447,7 +451,7 @@
                                     placeholder="Masukkan berat badan user" id="updateBeratBadan" name="berat_badan">
                             </div>
                         </div>
-                        <div class="text-center pt-15">
+                        <div class="text-end pt-15">
                             <button type="button" class="btn btn-warning" id="resetPasswordBtn"
                                 class="btn btn-light me-3">Reset Password</button>
                             <button type="submit" class="btn btn-primary">
@@ -465,6 +469,7 @@
 
 @push('script')
     <script>
+        // Inisialisasi datatable
         function initializeDataTable(selector, ajaxUrl) {
             return $(selector).DataTable({
                 processing: true,
@@ -582,23 +587,24 @@
             });
         }
 
-
+        // Memasukkan kedaalam variabel
         var tabelPasien = initializeDataTable('#TabelUserPasien', "{{ route('admin-datauser-pasien') }}");
         var tabelDokter = initializeDataTable('#TabelUserDokter', "{{ route('admin-datauser-dokter') }}");
         var tabelAdmin = initializeDataTable('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
 
+        // Fix tampilan tabel berubah setelah dilakukan responsif
         $(window).resize(function() {
             tabelPasien.columns.adjust().responsive.recalc();
             tabelDokter.columns.adjust().responsive.recalc();
             tabelAdmin.columns.adjust().responsive.recalc();
         });
-
         $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
             tabelPasien.columns.adjust().responsive.recalc();
             tabelDokter.columns.adjust().responsive.recalc();
             tabelAdmin.columns.adjust().responsive.recalc();
         });
 
+        // Menangani penanganan form modal add
         $('#modalAdd form').on('submit', function(e) {
             const swalMixinSuccess = Swal.mixin({
                 toast: true,
@@ -637,6 +643,7 @@
             });
         });
 
+        // Menangani penanganan fungsi delete data
         function deleteData(id) {
             const swalMixinSuccess = Swal.mixin({
                 toast: true,
@@ -645,7 +652,6 @@
                 timer: 4000,
                 timerProgressBar: true,
             });
-
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Anda tidak akan dapat mengembalikan ini!",
@@ -696,6 +702,7 @@
             });
         }
 
+        // Regex input nip, tinggi badan, berat badan
         function restrictInputToNumbers(event) {
             event.target.value = event.target.value.replace(/[^0-9]/g, '');
         }
@@ -705,10 +712,12 @@
             input.addEventListener('input', restrictInputToNumbers);
         });
 
+        // Clear form modal add
         $('#modalAdd').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
         });
 
+        // Pengambilan data modal detail
         function modalDetail(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan) {
             $('#detailNip').val(nip);
             $('#detailNama').val(nama);
@@ -726,6 +735,7 @@
             $('#modalDetail').modal('show');
         }
 
+        // Penangaan form modal edit
         $('#modalEdit form').on('submit', function(e) {
             const swalMixinSuccess = Swal.mixin({
                 toast: true,
@@ -777,6 +787,7 @@
             });
         });
 
+        // Pengambilan data old modal edit
         function modalEdit(id, nip, nama, status, role, divisi_id, tanggal_lahir, tinggi_badan, berat_badan) {
             $('#id').val(id);
             $('#updateNip').val(nip);
@@ -790,6 +801,7 @@
             $('#modalEdit').modal('show');
         }
 
+        // Penanganan untuk fungsi reset password
         document.getElementById('resetPasswordBtn').addEventListener('click', function() {
             const swalMixinSuccess = Swal.mixin({
                 toast: true,
@@ -798,10 +810,8 @@
                 timer: 4000,
                 timerProgressBar: true,
             });
-
             let userId = document.getElementById('id').value;
             let tanggalLahir = document.getElementById('updateTanggalLahir').value;
-
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Password akan direset berdasarkan tanggal lahir!",
@@ -826,6 +836,7 @@
                         }).then(response => response.json())
                         .then(data => {
                             if (data.success) {
+                                $('#modalEdit').modal('hide');
                                 swalMixinSuccess.fire(
                                     'Saved!',
                                     'Password user berhasil direset.',
