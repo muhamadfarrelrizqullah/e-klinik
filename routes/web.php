@@ -38,6 +38,8 @@ Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->na
 Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
 Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
 
+Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
