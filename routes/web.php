@@ -43,6 +43,9 @@ Route::delete('/admin/data-user-delete/{id}', [UserController::class, 'destroy']
 Route::post('/admin/data-user-reset-password', [UserController::class, 'resetPassword'])->name('admin-datauser-resetpassword');
 
 Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin-datadivisi');
+Route::post('/admin/data-divisi-tambah', [DivisiController::class, 'store'])->name('admin-datadivisi-tambah');
+Route::put('/admin/data-divisi-edit', [DivisiController::class, 'update'])->name('admin-datadivisi-edit');
+Route::delete('/admin/data-divisi-delete/{id}', [DivisiController::class, 'destroy'])->name('admin-datadivisi-delete');
 
 Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
 
