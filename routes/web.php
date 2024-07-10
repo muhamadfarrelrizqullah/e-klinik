@@ -39,6 +39,9 @@ Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->na
 Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
 
 Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin-datadivisi');
+Route::post('/admin/data-divisi-tambah', [DivisiController::class, 'store'])->name('admin-datadivisi-tambah');
+Route::put('/admin/data-divisi-edit', [DivisiController::class, 'update'])->name('admin-datadivisi-edit');
+Route::delete('/admin/data-divisi-delete/{id}', [DivisiController::class, 'destroy'])->name('admin-datadivisi-delete');
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
