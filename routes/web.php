@@ -46,6 +46,10 @@ Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin
 
 Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
 
+Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name('admin-datapengajuan');
+Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
+Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
