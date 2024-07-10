@@ -22,7 +22,7 @@ class PengajuanEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:users,id',
+            'id' => 'required|exists:pengajuans,id',
             'pasien' => 'required|exists:users,id',
             'dokter' => 'required|exists:users,id',
             'keluhan' => 'required|string|max:255',
