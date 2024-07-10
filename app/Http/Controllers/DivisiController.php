@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DivisiEditRequest;
-use App\Http\Requests\DivisiTambaRequest;
+use App\Http\Requests\DivisiTambahRequest;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
 use App\Services\SQL\AdminDivisiSQL;
@@ -28,7 +28,7 @@ class DivisiController extends Controller
             ->make(true);
     }
 
-    public function store(DivisiTambaRequest $request)
+    public function store(DivisiTambahRequest $request)
     {
         $divisi = new Divisi();
         $divisi->nama = $request->nama;
