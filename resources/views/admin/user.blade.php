@@ -378,7 +378,7 @@
                                     <span class="required">NIP</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                    placeholder="Masukkan nip user" id="updateNip" name="nip" pattern="\d{8}"
+                                    placeholder="" id="updateNip" name="nip" pattern="\d{8}"
                                     title="NIP harus berupa 8 digit angka">
                             </div>
                             <div class="col-md-6 fv-row">
@@ -386,14 +386,14 @@
                                     <span class="required">Nama</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                    placeholder="Masukkan nama user" id="updateNama" name="nama">
+                                    placeholder="" id="updateNama" name="nama">
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="required fs-6 fw-semibold mb-2">Status</label>
                             <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
                                 id="updateStatus" name="status">
-                                <option value="" selected disabled>Masukkan status user</option>
+                                <option value="" selected disabled>Pilih status user</option>
                                 <option value="Aktif">Aktif</option>
                                 <option value="Tidak Aktif">Tidak Aktif</option>
                             </select>
@@ -403,7 +403,7 @@
                                 <label class="required fs-6 fw-semibold mb-2">Role</label>
                                 <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
                                     id="updateRole" name="role">
-                                    <option value="" selected disabled>Masukkan role user</option>
+                                    <option value="" selected disabled>Pilih role user</option>
                                     <option value="Pasien">Pasien</option>
                                     <option value="Dokter">Dokter</option>
                                     <option value="Admin">Admin</option>
@@ -413,7 +413,7 @@
                                 <label class="required fs-6 fw-semibold mb-2">Divisi</label>
                                 <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
                                     id="updateDivisiId" name="divisi">
-                                    <option value="" selected disabled>Masukkan divisi user</option>
+                                    <option value="" selected disabled>Pilih divisi user</option>
                                     @foreach ($divisis as $divisi)
                                         <option value="{{ $divisi->id }}">{{ $divisi->nama }}</option>
                                     @endforeach
@@ -441,14 +441,14 @@
                                     <span>Tinggi Badan</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                    placeholder="Masukkan tinggi badan user" id="updateTinggiBadan" name="tinggi_badan">
+                                    placeholder="" id="updateTinggiBadan" name="tinggi_badan">
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span>Berat Badan</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                    placeholder="Masukkan berat badan user" id="updateBeratBadan" name="berat_badan">
+                                    placeholder="" id="updateBeratBadan" name="berat_badan">
                             </div>
                         </div>
                         <div class="text-end pt-15">
