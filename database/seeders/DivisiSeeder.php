@@ -14,22 +14,28 @@ class DivisiSeeder extends Seeder
     public function run(): void
     {
         DB::table('divisis')->insert([
-            [
-                'nama' => 'IT',
-            ],
-            [
-                'nama' => 'Akutansi',
-            ],
-            [
-                'nama' => 'HR',
-            ],
-            [
-                'nama' => 'Marketing',
-            ],
-            [
-                'nama' => 'Operations',
-            ],
+            ['nama' => 'Akuntansi',],
+            ['nama' => 'Desain',],
+            ['nama' => 'Human Capital Management',],
+            ['nama' => 'Kapal Niaga',],
+            ['nama' => 'Kapal Perang',],
+            ['nama' => 'Kapal Selam',],
+            ['nama' => 'Kawasan & K3LH',],
+            ['nama' => 'Legal',],
+            ['nama' => 'Manajemen Risiko',],
+            ['nama' => 'Office of The Board',],
+            ['nama' => 'Pemasaran & Penjualan Kapal',],
+            ['nama' => 'Pemeliharaan & Perbaikan',],
+            ['nama' => 'Penjualan Rekayasa Umum, Pemeliharaan, & Perbaikan',],
+            ['nama' => 'Perbendaharaan',],
+            ['nama' => 'Perencanaan Strategis Perusahaan',],
+            ['nama' => 'Production Management Office',],
+            ['nama' => 'Rekayasa Umum',],
+            ['nama' => 'Supply Chain',],
+            ['nama' => 'Technology & Quality Assurance',],
+            ['nama' => 'Teknologi Informasi',],
+            ['nama' => 'Satuan Pengawasan Intern',],
+            ['nama' => 'Sekretaris Perusahaan',],
         ]);
-        
     }
 }
