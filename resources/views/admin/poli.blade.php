@@ -42,6 +42,7 @@
                                             <tr class="fw-bold text-muted">
                                                 <th>No</th>
                                                 <th>Nama</th>
+                                                <th>Jumlah User</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -78,6 +79,13 @@
                             <input type="text" class="form-control form-control-solid" placeholder="" id="detailNama"
                                 readonly>
                         </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Jumlah User</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailJumlahUser"
+                                readonly>
+                        </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -107,8 +115,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Nama</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Masukkan nama poli" id="addNama"
-                                name="nama">
+                            <input type="text" class="form-control form-control-solid" placeholder="Masukkan nama poli"
+                                id="addNama" name="nama">
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -172,7 +180,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datapoli') }}",
-                order: [[1, 'asc']],
+                order: [
+                    [1, 'asc']
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -191,13 +201,21 @@
                         }
                     },
                     {
+                        data: 'user_count',
+                        name: 'user_count',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
                         data: null,
                         name: 'aksi',
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nama}', '${row.user_count}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -254,8 +272,9 @@
         });
 
         // Pengambilan data modal detail
-        function modalDetail(nama) {
+        function modalDetail(nama, user_count) {
             $('#detailNama').val(nama);
+            $('#detailJumlahUser').val(user_count);
             $('#modalDetail').modal('show');
         }
 
@@ -419,14 +438,17 @@
             text-align: center;
             white-space: nowrap;
         }
+
         #TabelPoli thead th:first-child {
             cursor: default;
         }
+
         #TabelPoli thead th:first-child::after,
         #TabelPoli thead th:first-child::before {
             display: none !important;
             pointer-events: none;
         }
+
         @media only screen and (max-width: 768px) {
             #TabelPoli td {
                 white-space: normal;
