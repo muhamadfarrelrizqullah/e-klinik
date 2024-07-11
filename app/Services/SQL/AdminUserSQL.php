@@ -28,6 +28,8 @@ class AdminUserSQL
     public function getDokterData()
     {
         return User::join('divisis', 'users.divisi_id', '=', 'divisis.id')
+            ->leftJoin('pivot_polis_users', 'users.id', '=', 'pivot_polis_users.id_dokter')
+            ->leftJoin('polis', 'pivot_polis_users.id_poli', '=', 'polis.id')
             ->select([
                 'users.id',
                 'users.nip',
@@ -40,9 +42,23 @@ class AdminUserSQL
                 'users.tinggi_badan',
                 'users.berat_badan',
             ])
+            ->selectRaw("string_agg(polis.nama, ', ') as poli_nama")
             ->where('users.role', '=', 'Dokter')
+            ->groupBy(
+                'users.id',
+                'users.nip',
+                'users.nama',
+                'users.status',
+                'users.role',
+                'divisis.id',
+                'divisis.nama',
+                'users.tanggal_lahir',
+                'users.tinggi_badan',
+                'users.berat_badan'
+            )
             ->get();
     }
+
 
     public function getAdminData()
     {

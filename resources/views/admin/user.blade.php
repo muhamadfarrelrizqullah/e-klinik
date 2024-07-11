@@ -125,6 +125,7 @@
                                                         <th>Status</th>
                                                         <th>Role</th>
                                                         <th>Divisi</th>
+                                                        <th>Poli</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -235,6 +236,99 @@
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
                                     id="detailBeratBadan" readonly>
+                            </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetailDokter" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailDokterLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail User</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNipDokter" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNamaDokter" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Status</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailStatusDokter" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Role</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailRoleDokter" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Divisi</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailDivisiNamaDokter" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Poli</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailPoliNamaDokter" readonly>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Tanggal Lahir</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailTanggalLahirDokter" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailTinggiBadanDokter" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailBeratBadanDokter" readonly>
                             </div>
                         </div>
                         <div class="text-end pt-15">
@@ -469,15 +563,144 @@
 
 @push('script')
     <script>
-        // Inisialisasi datatable
-        function initializeDataTable(selector, ajaxUrl) {
-            return $(selector).DataTable({
+        // Inisialisasi datatable dokter
+        $(document).ready(function() {
+            tabelDokter = $('#TabelUserDokter').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: ajaxUrl,
-                order: [
-                    [2, 'asc']
+                ajax: "{{ route('admin-datauser-dokter') }}",
+                order: [[2, 'asc']],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nip',
+                        name: 'nip',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Aktif') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'role',
+                        name: 'role',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Admin') {
+                                return `<span class="badge badge-primary">${data}</span>`;
+                            } else if (data === 'Dokter') {
+                                return `<span class="badge badge-warning">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-success">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'divisi_nama',
+                        name: 'divisi_nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'poli_nama',
+                        name: 'poli_nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetailDokter('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}', '${row.poli_nama}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetailDokter">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalEdit('${row.id}', '${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_id}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                    <i class="ki-duotone ki-wrench fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="deleteData(${row.id})" class="btn btn-icon btn-bg-light btn-active-color-danger btn-xl">
+                                    <i class="ki-duotone ki-trash fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                    </i>
+                                </a>
+                            </div>`;
+                        }
+                    }
                 ],
+                aLengthMenu: [
+                    [10, 30, 50, -1],
+                    [10, 30, 50, "All"]
+                ],
+                iDisplayLength: 10,
+                responsive: true,
+                language: {
+                    paginate: {
+                        "previous": "Sebelumnya",
+                        "next": "Selanjutnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ entri",
+                    zeroRecords: "Tidak ditemukan data yang sesuai",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
+                },
+            });
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabelDokter.columns.adjust().responsive.recalc();
+            });
+        });
+
+        // Inisialisasi datatable Pasien
+        $(document).ready(function() {
+            tabelPasien = $('#TabelUserPasien').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin-datauser-pasien') }}",
+                order: [[2, 'asc']],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -588,17 +811,19 @@
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
             });
-        }
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabelPasien.columns.adjust().responsive.recalc();
+            });
+        });
 
-        // Inisialisasi datatable admin
-        function initializeDataTableAdmin(selector, ajaxUrl) {
-            return $(selector).DataTable({
+        // Inisialisasi datatable
+        $(document).ready(function() {
+            tabelAdmin = $('#TabelUserAdmin').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: ajaxUrl,
-                order: [
-                    [2, 'asc']
-                ],
+                ajax: "{{ route('admin-datauser-admin') }}",
+                order: [[2, 'asc']],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -700,19 +925,12 @@
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
             });
-        }
-
-        // Memasukkan kedaalam variabel
-        var tabelPasien = initializeDataTable('#TabelUserPasien', "{{ route('admin-datauser-pasien') }}");
-        var tabelDokter = initializeDataTable('#TabelUserDokter', "{{ route('admin-datauser-dokter') }}");
-        var tabelAdmin = initializeDataTableAdmin('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
-
-        // Fix tampilan tabel berubah setelah dilakukan responsif
-        $(window).resize(function() {
-            tabelPasien.columns.adjust().responsive.recalc();
-            tabelDokter.columns.adjust().responsive.recalc();
-            tabelAdmin.columns.adjust().responsive.recalc();
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabelAdmin.columns.adjust().responsive.recalc();
+            });
         });
+
         $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
             tabelPasien.columns.adjust().responsive.recalc();
             tabelDokter.columns.adjust().responsive.recalc();
@@ -848,6 +1066,25 @@
             $('#detailTinggiBadan').val(tinggi_badan);
             $('#detailBeratBadan').val(berat_badan);
             $('#modalDetail').modal('show');
+        }
+
+        // Pengambilan data modal detail dokter
+        function modalDetailDokter(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan, poli_nama) {
+            $('#detailNipDokter').val(nip);
+            $('#detailNamaDokter').val(nama);
+            $('#detailStatusDokter').val(status);
+            $('#detailRoleDokter').val(role);
+            $('#detailDivisiNamaDokter').val(divisi_nama);
+            let date = new Date(tanggal_lahir);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = String(date.getFullYear());
+            let formattedBirthdate = `${day}/${month}/${year}`;
+            $('#detailTanggalLahirDokter').val(formattedBirthdate);
+            $('#detailTinggiBadanDokter').val(tinggi_badan);
+            $('#detailBeratBadanDokter').val(berat_badan);
+            $('#detailPoliNamaDokter').val(poli_nama);
+            $('#modalDetailDokter').modal('show');
         }
 
         // Penangaan form modal edit
