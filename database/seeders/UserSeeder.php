@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'nip' => '33333333',
-                'nama' => 'Farrrel',
+                'nama' => 'Farrel',
                 'password' => Hash::make('password123'),
                 'status' => 'Aktif',
                 'role' => 'Pasien',

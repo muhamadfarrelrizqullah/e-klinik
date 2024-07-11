@@ -20,6 +20,16 @@ class DivisiSeeder extends Seeder
             [
                 'nama' => 'Akutansi',
             ],
+            [
+                'nama' => 'HR',
+            ],
+            [
+                'nama' => 'Marketing',
+            ],
+            [
+                'nama' => 'Operations',
+            ],
         ]);
+        
     }
 }
