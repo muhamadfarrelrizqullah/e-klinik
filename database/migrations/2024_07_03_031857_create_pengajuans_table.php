@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pasien');
-            $table->unsignedBigInteger('id_dokter');
+            $table->unsignedBigInteger('id_dokter')->nullable();
             $table->string('keluhan');
             $table->enum('status', ['Pending', 'Ditolak', 'Diterima', 'Diproses', 'Selesai'])->default('Pending');
             $table->date('tanggal_pengajuan')->nullable();
