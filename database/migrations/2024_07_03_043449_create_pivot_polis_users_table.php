@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pivot_polis_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_dokter')->unique();
+            $table->unsignedBigInteger('id_dokter');
             $table->unsignedBigInteger('id_poli');
             $table->timestamps();
 
