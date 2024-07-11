@@ -42,6 +42,7 @@
                                             <tr class="fw-bold text-muted">
                                                 <th>No</th>
                                                 <th>Nama</th>
+                                                <th>Jumlah User</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -107,8 +108,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Nama</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Masukkan nama divisi" id="addNama"
-                                name="nama">
+                            <input type="text" class="form-control form-control-solid" placeholder="Masukkan nama divisi"
+                                id="addNama" name="nama">
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -184,6 +185,14 @@
                     {
                         data: 'nama',
                         name: 'nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'users_count',
+                        name: 'users_count',
                         orderable: true,
                         render: function(data, type, row, meta) {
                             return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;

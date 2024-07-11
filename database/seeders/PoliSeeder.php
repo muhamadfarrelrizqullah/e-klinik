@@ -23,6 +23,12 @@ class PoliSeeder extends Seeder
             [
                 'nama' => 'Anak',
             ],
+            [
+                'nama' => 'Kulit',
+            ],
+            [
+                'nama' => 'THT',
+            ],
         ]);
     }
 }
