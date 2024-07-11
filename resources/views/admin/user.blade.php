@@ -377,16 +377,16 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span class="required">NIP</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="" id="updateNip" name="nip" pattern="\d{8}"
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="updateNip" name="nip" pattern="\d{8}"
                                     title="NIP harus berupa 8 digit angka">
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span class="required">Nama</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="" id="updateNama" name="nama">
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="updateNama" name="nama">
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
@@ -440,15 +440,15 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span>Tinggi Badan</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="" id="updateTinggiBadan" name="tinggi_badan">
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="updateTinggiBadan" name="tinggi_badan">
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span>Berat Badan</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="" id="updateBeratBadan" name="berat_badan">
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="updateBeratBadan" name="berat_badan">
                             </div>
                         </div>
                         <div class="text-end pt-15">
@@ -475,6 +475,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: ajaxUrl,
+                order: [
+                    [2, 'asc']
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -587,10 +590,122 @@
             });
         }
 
+        // Inisialisasi datatable admin
+        function initializeDataTableAdmin(selector, ajaxUrl) {
+            return $(selector).DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: ajaxUrl,
+                order: [
+                    [2, 'asc']
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nip',
+                        name: 'nip',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Aktif') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'role',
+                        name: 'role',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Admin') {
+                                return `<span class="badge badge-primary">${data}</span>`;
+                            } else if (data === 'Dokter') {
+                                return `<span class="badge badge-warning">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-success">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'divisi_nama',
+                        name: 'divisi_nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="resetPasswordModal('${row.id}', '${row.tanggal_lahir}')" class="btn btn-icon btn-bg-light btn-active-color-danger btn-xl me-1">
+                            <i class="ki-duotone ki-timer fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </a>
+                            </div>`;
+                        }
+                    }
+                ],
+                aLengthMenu: [
+                    [10, 30, 50, -1],
+                    [10, 30, 50, "All"]
+                ],
+                iDisplayLength: 10,
+                responsive: true,
+                language: {
+                    paginate: {
+                        "previous": "Sebelumnya",
+                        "next": "Selanjutnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ entri",
+                    zeroRecords: "Tidak ditemukan data yang sesuai",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
+                },
+            });
+        }
+
         // Memasukkan kedaalam variabel
         var tabelPasien = initializeDataTable('#TabelUserPasien', "{{ route('admin-datauser-pasien') }}");
         var tabelDokter = initializeDataTable('#TabelUserDokter', "{{ route('admin-datauser-dokter') }}");
-        var tabelAdmin = initializeDataTable('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
+        var tabelAdmin = initializeDataTableAdmin('#TabelUserAdmin', "{{ route('admin-datauser-admin') }}");
 
         // Fix tampilan tabel berubah setelah dilakukan responsif
         $(window).resize(function() {
@@ -859,6 +974,62 @@
                 }
             });
         });
+
+        // Penanganan untuk fungsi reset password khusus admin
+        function resetPasswordModal(id, tanggalLahir) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Password akan direset berdasarkan tanggal lahir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, reset!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('admin-datauser-resetpassword') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({
+                                id: id,
+                                tanggal_lahir: tanggalLahir
+                            })
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                swalMixinSuccess.fire(
+                                    'Saved!',
+                                    'Password user berhasil direset.',
+                                    'success'
+                                );
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: 'Gagal mereset password: ' + data.message,
+                                });
+                            }
+                        }).catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Terjadi kesalahan: ' + error.message,
+                            });
+                        });
+                }
+            });
+        }
     </script>
 @endpush
 
