@@ -79,6 +79,13 @@
                             <input type="text" class="form-control form-control-solid" placeholder="" id="detailNama"
                                 readonly>
                         </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Jumlah User</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailJumlahUser"
+                                readonly>
+                        </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -173,6 +180,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datadivisi') }}",
+                order: [[1, 'asc']],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -205,7 +213,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nama}', '${row.users_count}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -262,8 +270,9 @@
         });
 
         // Pengambilan data modal detail
-        function modalDetail(nama) {
+        function modalDetail(nama, users_count) {
             $('#detailNama').val(nama);
+            $('#detailJumlahUser').val(users_count);
             $('#modalDetail').modal('show');
         }
 
