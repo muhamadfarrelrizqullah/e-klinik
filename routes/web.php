@@ -39,6 +39,9 @@ Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->na
 Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
 
 Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
+Route::post('/admin/data-poli-tambah', [PoliController::class, 'store'])->name('admin-datapoli-tambah');
+Route::put('/admin/data-poli-edit', [PoliController::class, 'update'])->name('admin-datapoli-edit');
+Route::delete('/admin/data-poli-delete/{id}', [PoliController::class, 'destroy'])->name('admin-datapoli-delete');
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
