@@ -48,6 +48,9 @@ Route::put('/admin/data-divisi-edit', [DivisiController::class, 'update'])->name
 Route::delete('/admin/data-divisi-delete/{id}', [DivisiController::class, 'destroy'])->name('admin-datadivisi-delete');
 
 Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
+Route::post('/admin/data-poli-tambah', [PoliController::class, 'store'])->name('admin-datapoli-tambah');
+Route::put('/admin/data-poli-edit', [PoliController::class, 'update'])->name('admin-datapoli-edit');
+Route::delete('/admin/data-poli-delete/{id}', [PoliController::class, 'destroy'])->name('admin-datapoli-delete');
 
 Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name('admin-datapengajuan');
 Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
