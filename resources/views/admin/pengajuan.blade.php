@@ -42,6 +42,8 @@
                                                 <th>Nama Dokter</th>
                                                 <th>Keluhan</th>
                                                 <th>Status</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Tanggal Pemeriksaan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -272,6 +274,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datapengajuan') }}",
+                order: [
+                    [5, 'asc'],
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -324,6 +329,30 @@
                         }
                     },
                     {
+                        data: 'tanggal_pengajuan',
+                        name: 'tanggal_pengajuan',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            var tanggal = new Date(data);
+                            var day = tanggal.getDate().toString().padStart(2, '0');
+                            var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                            var year = tanggal.getFullYear();
+                            return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
+                        }
+                    },
+                    {
+                        data: 'tanggal_pemeriksaan',
+                        name: 'tanggal_pemeriksaan',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            var tanggal = new Date(data);
+                            var day = tanggal.getDate().toString().padStart(2, '0');
+                            var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                            var year = tanggal.getFullYear();
+                            return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
+                        }
+                    },
+                    {
                         data: null,
                         name: 'aksi',
                         orderable: false,
@@ -336,7 +365,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                {{--<a onclick="modalEdit('${row.id}', '${row.id_pasien}', '${row.id_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                {{-- <a onclick="modalEdit('${row.id}', '${row.id_pasien}', '${row.id_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -350,7 +379,7 @@
                                         <span class="path4"></span>
                                         <span class="path5"></span>
                                     </i>
-                                </a>--}}
+                                </a> --}}
                             </div>`;
                         }
                     }
