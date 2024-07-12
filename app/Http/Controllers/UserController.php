@@ -90,7 +90,7 @@ class UserController extends Controller
         try {
             $userId = Auth::id();
             $request->validate([
-                
+
             ]);
             $user = User::findOrFail($request->id);
             if ($userId === $user->id) {

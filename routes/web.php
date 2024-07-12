@@ -58,3 +58,4 @@ Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->na
 
 //Pasien
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
+Route::get('/pasien/dasboardPasien', [DashboardController::class, 'dasboardPasien'])->name('pasien-pengajuan');
