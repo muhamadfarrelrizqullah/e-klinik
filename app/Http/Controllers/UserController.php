@@ -6,11 +6,13 @@ use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserResetPWRequest;
 use App\Http\Requests\UserTambahRequest;
 use App\Models\Divisi;
+use App\Models\Poli;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\SQL\AdminUserSQL;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -25,7 +27,8 @@ class UserController extends Controller
     public function index()
     {
         $divisis = Divisi::all();
-        return view('admin.user', compact('divisis'));
+        $polis = Poli::all();
+        return view('admin.user', compact('divisis', 'polis'));
     }
 
     public function readPasien()
@@ -64,13 +67,23 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->divisi_id = $request->divisi;
         $user->tanggal_lahir = $request->tanggal_lahir;
-        $user->tinggi_badan = $request->tinggi_badan;
-        $user->berat_badan = $request->berat_badan;
+        $user->tinggi_badan = $request->tinggi_badan ?? 0;
+        $user->berat_badan = $request->berat_badan ?? 0;
 
         $tanggal_lahir = \Carbon\Carbon::parse($request->tanggal_lahir);
         $password = $tanggal_lahir->format('dmY');
         $user->password = Hash::make($password);
         $user->save();
+
+        if ($request->has('polis')) {
+            foreach ($request->polis as $poliId) {
+                DB::table('pivot_polis_users')->insert([
+                    'id_dokter' => $user->id,
+                    'id_poli' => $poliId,
+                    'created_at' => now()
+                ]);
+            }
+        }
 
         return redirect()->back()->with('success', 'User berhasil ditambah.');
     }
@@ -89,9 +102,6 @@ class UserController extends Controller
     {
         try {
             $userId = Auth::id();
-            $request->validate([
-                
-            ]);
             $user = User::findOrFail($request->id);
             if ($userId === $user->id) {
                 return response()->json(['message' => 'Anda tidak dapat mengedit data Anda sendiri.'], 403);
@@ -102,9 +112,19 @@ class UserController extends Controller
             $user->role = $request->role;
             $user->divisi_id = $request->divisi;
             $user->tanggal_lahir = $request->tanggal_lahir;
-            $user->tinggi_badan = $request->tinggi_badan;
-            $user->berat_badan = $request->berat_badan;
+            $user->tinggi_badan = $request->tinggi_badan ?? 0;
+            $user->berat_badan = $request->berat_badan ?? 0;
             $user->save();
+
+            if ($request->has('polis')) {
+                foreach ($request->polis as $poliId) {
+                    DB::table('pivot_polis_users')->insert([
+                        'id_dokter' => $user->id,
+                        'id_poli' => $poliId,
+                        'created_at' => now()
+                    ]);
+                }
+            }
             return response()->json(['success' => 'User berhasil diupdate.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);

@@ -248,7 +248,8 @@
         </div>
     </div>
 
-    <div id="modalDetailDokter" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailDokterLabel">
+    <div id="modalDetailDokter" class="modal fade" tabindex="-1" aria-hidden="true"
+        aria-labelledby="modalDetailDokterLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -405,6 +406,15 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="fs-6 fw-semibold mb-2">Poli</label>
+                            <select class="form-select form-select-solid" data-placeholder="Pilih poli" id="addPoli"
+                                name="polis[]" multiple>
+                                @foreach ($polis as $poli)
+                                    <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
                             <div class="position-relative d-flex align-items-center">
                                 <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
@@ -515,6 +525,15 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="fs-6 fw-semibold mb-2">Poli</label>
+                            <select class="form-select form-select-solid" data-placeholder="Pilih poli" id="updatePoli"
+                                name="polis[]" multiple>
+                                @foreach ($polis as $poli)
+                                    <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
                             <div class="position-relative d-flex align-items-center">
                                 <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
@@ -563,13 +582,45 @@
 
 @push('script')
     <script>
+        // Multiple select add modal
+        $(document).ready(function() {
+            $('#addPoli').select2({
+                allowClear: true
+            });
+        });
+
+        // Multiple select update modal
+        $(document).ready(function() {
+            $('#updatePoli').select2({
+                allowClear: true
+            });
+        });
+
+        // Handle poli select role dokter
+        $(document).ready(function() {
+            $('#addRole').change(function() {
+                var selectedRole = $(this).val();
+                if (selectedRole !== 'Dokter') {
+                    $('#addPoli').prop('disabled', true); 
+                } else {
+                    $('#addPoli').prop('disabled', false); 
+                }
+            });
+            if ($('#addRole').val() !== 'Dokter') {
+                $('#addPoli').prop('disabled', true); 
+            }
+        });
+
+
         // Inisialisasi datatable dokter
         $(document).ready(function() {
             tabelDokter = $('#TabelUserDokter').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datauser-dokter') }}",
-                order: [[2, 'asc']],
+                order: [
+                    [2, 'asc']
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -700,7 +751,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datauser-pasien') }}",
-                order: [[2, 'asc']],
+                order: [
+                    [2, 'asc']
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -823,7 +876,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datauser-admin') }}",
-                order: [[2, 'asc']],
+                order: [
+                    [2, 'asc']
+                ],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -1069,7 +1124,8 @@
         }
 
         // Pengambilan data modal detail dokter
-        function modalDetailDokter(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan, poli_nama) {
+        function modalDetailDokter(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan,
+            poli_nama) {
             $('#detailNipDokter').val(nip);
             $('#detailNamaDokter').val(nama);
             $('#detailStatusDokter').val(status);

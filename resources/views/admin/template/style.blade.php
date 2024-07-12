@@ -6,5 +6,6 @@
 <link rel="stylesheet" href="assets/plugins/custom/datatables.net/jquery.dataTables.css">
 <link rel="stylesheet" href="assets/plugins/custom/datatables.responsive/responsive.dataTables.min.css">
 <link rel="stylesheet" href="assets/plugins/custom/sweetalert2/sweetalert2.min.css">
+<link rel="stylesheet" href="assets/plugins/custom/select2/select2.min.css">
 
 @stack('style')

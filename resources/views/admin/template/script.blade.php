@@ -16,6 +16,7 @@
 <script src="assets/plugins/custom/datatables.net-bs5/dataTables.bootstrap5.js"></script>
 <script src="assets/plugins/custom/datatables.responsive/dataTables.responsive.js"></script>
 <script src="assets/plugins/custom/apexcharts/apexcharts.min.js"></script>
+<script src="assets/plugins/custom/select2/select2.min.js"></script>
 
 {{-- custom --}}
 <script src="assets/plugins/custom/apexcharts/apexcharts.js"></script>
