@@ -413,6 +413,7 @@
                                     <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
                                 @endforeach
                             </select>
+                            <small class="text-muted">Input Poli hanya aktif jika Role adalah Dokter.</small>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
@@ -532,6 +533,7 @@
                                     <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
                                 @endforeach
                             </select>
+                            <small class="text-muted">Input Poli hanya aktif jika Role adalah Dokter.</small>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
@@ -598,19 +600,31 @@
 
         // Handle poli select role dokter
         $(document).ready(function() {
+            $('#updateRole').change(function() {
+                var selectedRole = $(this).val();
+                if (selectedRole !== 'Dokter') {
+                    $('#updatePoli').prop('disabled', true);
+                } else {
+                    $('#updatePoli').prop('disabled', false);
+                }
+            });
+            if ($('#updateRole').val() !== 'Dokter') {
+                $('#updatePoli').prop('disabled', true);
+            }
+        });
+        $(document).ready(function() {
             $('#addRole').change(function() {
                 var selectedRole = $(this).val();
                 if (selectedRole !== 'Dokter') {
-                    $('#addPoli').prop('disabled', true); 
+                    $('#addPoli').prop('disabled', true);
                 } else {
-                    $('#addPoli').prop('disabled', false); 
+                    $('#addPoli').prop('disabled', false);
                 }
             });
             if ($('#addRole').val() !== 'Dokter') {
-                $('#addPoli').prop('disabled', true); 
+                $('#addPoli').prop('disabled', true);
             }
         });
-
 
         // Inisialisasi datatable dokter
         $(document).ready(function() {
@@ -986,6 +1000,7 @@
             });
         });
 
+        // Fix tampilan tabel berubah setelah dilakukan responsif
         $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
             tabelPasien.columns.adjust().responsive.recalc();
             tabelDokter.columns.adjust().responsive.recalc();
@@ -1100,9 +1115,12 @@
             input.addEventListener('input', restrictInputToNumbers);
         });
 
-        // Clear form modal add
+        // Clear form modal
         $('#modalAdd').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
+        });
+        $('#modalEdit').on('hidden.bs.modal', function() {
+            $('#updatePoli').val(null).trigger('change');
         });
 
         // Pengambilan data modal detail
