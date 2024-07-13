@@ -80,7 +80,6 @@ class UserController extends Controller
                 DB::table('pivot_polis_users')->insert([
                     'id_dokter' => $user->id,
                     'id_poli' => $poliId,
-                    'created_at' => now()
                 ]);
             }
         }
@@ -116,12 +115,12 @@ class UserController extends Controller
             $user->berat_badan = $request->berat_badan ?? 0;
             $user->save();
 
+            DB::table('pivot_polis_users')->where('id_dokter', $user->id)->delete();
             if ($request->has('polis')) {
                 foreach ($request->polis as $poliId) {
                     DB::table('pivot_polis_users')->insert([
                         'id_dokter' => $user->id,
                         'id_poli' => $poliId,
-                        'created_at' => now()
                     ]);
                 }
             }

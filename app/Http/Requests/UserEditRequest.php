@@ -21,7 +21,7 @@ class UserEditRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'id' => 'required|exists:users,id',
             'nip' => 'required|digits:8',
             'nama' => 'required|string|max:255',
@@ -32,6 +32,12 @@ class UserEditRequest extends FormRequest
             'tinggi_badan' => 'nullable|integer',
             'berat_badan' => 'nullable|integer',
         ];
+        // Jika role adalah Dokter, tambahkan validasi untuk polis
+        if ($this->role === 'Dokter') {
+            $rules['polis'] = 'required|array';
+            $rules['polis.*'] = 'required|exists:polis,id';
+        }
+        return $rules;
     }
 
     public function messages()
@@ -54,6 +60,10 @@ class UserEditRequest extends FormRequest
             'tanggal_lahir.date_format' => 'Tanggal lahir harus dalam format YYYY-MM-DD.',
             'tinggi_badan.integer' => 'Tinggi badan harus berupa angka.',
             'berat_badan.integer' => 'Berat badan harus berupa angka.',
+            'polis.required' => 'Poli harus diisi.',
+            'polis.array' => 'Poli harus berupa array.',
+            'polis.*.required' => 'Setiap poli harus valid.',
+            'polis.*.exists' => 'Poli yang dipilih tidak valid.',
         ];
     }
 }
