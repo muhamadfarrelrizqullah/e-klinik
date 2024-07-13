@@ -14,8 +14,10 @@ class AdminPoliSQL
             'polis.nama',
             DB::raw('COUNT(pivot_polis_users.id) as user_count')
         ])
-        ->leftJoin('pivot_polis_users', 'polis.id', '=', 'pivot_polis_users.id_poli')
-        ->groupBy('polis.id', 'polis.nama')
-        ->get();
+            ->leftJoin('pivot_polis_users', 'polis.id', '=', 'pivot_polis_users.id_poli')
+            ->leftJoin('users', 'pivot_polis_users.id_dokter', '=', 'users.id')
+            ->whereNull('users.deleted_at')
+            ->groupBy('polis.id', 'polis.nama')
+            ->get();
     }
 }
