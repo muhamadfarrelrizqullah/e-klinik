@@ -52,7 +52,7 @@ class PengajuanController extends Controller
             $pengajuan->status = $request->status;
             $pengajuan->tanggal_pengajuan = $request->tanggal_pengajuan;
             $pengajuan->tanggal_pemeriksaan = $request->tanggal_pemeriksaan;
-            $pengajuan->catatan = $request->catatan;
+            $pengajuan->catatan = $request->catatan ?? "Tidak ada catatan";
             $pengajuan->save();
             return response()->json(['success' => 'Pengajuan berhasil diupdate.']);
         } catch (\Throwable $th) {
