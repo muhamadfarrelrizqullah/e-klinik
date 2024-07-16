@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfilEditRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -25,24 +26,18 @@ class ProfilController extends Controller
         return view('admin.profil-edit', compact('users'));
     }
 
-    public function update(Request $request)
+    public function update(ProfilEditRequest $request)
     {
         try {
             $userId = Auth::id();
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'tinggi_badan' => 'required',
-                'berat_badan' => 'required',
-                'password' => 'required|string|min:5',
-                'confirmPassword' => 'required|string|same:password',
-            ]);
             $user = User::findOrFail($userId);
-            $user->name = $request->input('name');
-            $user->name = $request->input('tinggi_badan');
-            $user->name = $request->input('berat_badan');
+            $user->nama = $request->input('nama');
+            $user->tanggal_lahir = $request->input('tanggal_lahir');
+            $user->tinggi_badan = $request->input('tinggi_badan') ?? 0;
+            $user->berat_badan = $request->input('berat_badan') ?? 0;
             $user->password = bcrypt($request->input('password'));
             $user->save();
-            return response()->json(['success' => 'User updated successfully']);
+            return response()->json(['success' => 'User berhasil diupdate.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
         }
