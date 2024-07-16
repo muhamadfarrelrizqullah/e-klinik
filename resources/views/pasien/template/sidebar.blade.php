@@ -37,6 +37,40 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Master Data</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('pasien-pengajuan') ? 'active' : '' }}"
+                            href="{{ route('pasien-pengajuan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-file-right fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Pengajuan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('pasien-profil') ? 'active' : '' }}"
+                            href="{{ route('pasien-profil') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-setting-4 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Edit Akun</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
