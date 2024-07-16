@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PengajuanEditRequest;
-use App\Http\Requests\PengajuanTambaRequest;
+use App\Http\Requests\PengajuanTambahRequest;
 use App\Models\Pengajuan;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
@@ -80,7 +80,7 @@ class PengajuanController extends Controller
             ->make(true);
     }
 
-    public function store(PengajuanTambaRequest $request)
+    public function store(PengajuanTambahRequest $request)
     {
         $pasienId = Auth::id();
         $statusAwal = "Pending"; 

@@ -39,7 +39,6 @@
                                             <tr class="fw-bold text-muted">
                                                 <th>No</th>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Dokter</th>
                                                 <th>Keluhan</th>
                                                 <th>Status</th>
                                                 <th>Tanggal Pengajuan</th>
@@ -201,7 +200,7 @@
                 serverSide: true,
                 ajax: "{{ route('pasien-datapengajuan') }}",
                 order: [
-                    [5, 'asc'],
+                    [4, 'asc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -215,14 +214,6 @@
                     {
                         data: 'nama_pasien',
                         name: 'nama_pasien',
-                        orderable: true,
-                        render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
-                        }
-                    },
-                    {
-                        data: 'nama_dokter',
-                        name: 'nama_dokter',
                         orderable: true,
                         render: function(data, type, row, meta) {
                             return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
