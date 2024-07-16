@@ -10,4 +10,9 @@ class PengajuanController extends Controller
     {
         return view('admin.pengajuan');
     }
+
+    public function indexPasien()
+    {
+        return view('pasien.pengajuan');
+    }
 }
