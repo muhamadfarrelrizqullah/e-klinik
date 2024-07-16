@@ -56,6 +56,10 @@ Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name(
 Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
 Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
 
+Route::get('/admin/profil-edit', [ProfilController::class, 'edit'])->name('admin-profil-edit');
+Route::put('/admin/profil-edit/update', [ProfilController::class, 'update'])->name('admin-profil-update');
+
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
