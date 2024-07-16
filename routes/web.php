@@ -63,3 +63,6 @@ Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->na
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
 Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
 Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pasien-profil');
+
+Route::get('/pasien/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('pasien-datapengajuan');
+Route::post('/pasien/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('pasien-datapengajuan-tambah');

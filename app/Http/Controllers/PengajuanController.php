@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PengajuanEditRequest;
+use App\Http\Requests\PengajuanTambaRequest;
 use App\Models\Pengajuan;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
+use App\Services\SQL\PasienPengajuanSQL;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
     protected $DataPengajuan;
-    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL)
+    protected $PasienPengajuan;
+    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL)
     {
         $this->DataPengajuan = $AdminPengajuanSQL;
+        $this->PasienPengajuan = $PasienPengajuanSQL;
     }
 
     public function index()
@@ -63,5 +69,33 @@ class PengajuanController extends Controller
     public function indexPasien()
     {
         return view('pasien.pengajuan');
+    }
+
+    public function readPasien()
+    {
+        $data = $this->PasienPengajuan->getPengajuanData();
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function store(PengajuanTambaRequest $request)
+    {
+        $pasienId = Auth::id();
+        $statusAwal = "Pending"; 
+        $statusQr = "null";
+        $catatan = "Tidak ada catatan";
+
+        $pengajuan = new Pengajuan();
+        $pengajuan->id_pasien = $pasienId;
+        $pengajuan->keluhan = $request->keluhan;
+        $pengajuan->status = $statusAwal;
+        $pengajuan->tanggal_pengajuan = Carbon::now();
+        $pengajuan->status_qrcode = $statusQr;
+        $pengajuan->catatan = $catatan;
+        $pengajuan->save();
+
+        return redirect()->back()->with('success', 'Pengajuan berhasil ditambah.');
     }
 }
