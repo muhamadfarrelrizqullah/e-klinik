@@ -67,3 +67,6 @@ Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->na
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
 Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
 Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pasien-profil');
+
+Route::get('/pasien/profil-edit', [ProfilController::class, 'edit'])->name('pasien-profil-edit');
+Route::post('/pasien/profil-edit', [ProfilController::class, 'update'])->name('pasien-profil-update');
