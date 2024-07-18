@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PengajuanEditRequest;
 use App\Http\Requests\PengajuanTambahRequest;
 use App\Models\Pengajuan;
+use App\Models\Poli;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
 use App\Services\SQL\PasienPengajuanSQL;
@@ -68,7 +69,8 @@ class PengajuanController extends Controller
 
     public function indexPasien()
     {
-        return view('pasien.pengajuan');
+        $polis = Poli::all();
+        return view('pasien.pengajuan', compact('polis'));
     }
 
     public function readPasien()
@@ -90,8 +92,10 @@ class PengajuanController extends Controller
         $pengajuan = new Pengajuan();
         $pengajuan->id_pasien = $pasienId;
         $pengajuan->keluhan = $request->keluhan;
+        $pengajuan->id_poli = $request->poli;
         $pengajuan->status = $statusAwal;
         $pengajuan->tanggal_pengajuan = Carbon::now();
+        $pengajuan->tanggal_pemeriksaan = $request->tanggal_pemeriksaan;
         $pengajuan->status_qrcode = $statusQr;
         $pengajuan->catatan = $catatan;
         $pengajuan->save();

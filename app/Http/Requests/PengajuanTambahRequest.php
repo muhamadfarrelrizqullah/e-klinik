@@ -24,10 +24,11 @@ class PengajuanTambahRequest extends FormRequest
         return [
             'pasien' => 'nullable|exists:users,id',
             'dokter' => 'nullable|exists:users,id',
+            'poli' => 'required|exists:polis,id',
             'keluhan' => 'required|string|max:255',
             'status' => 'nullable|in:Pending,Ditolak,Diterima,Diproses,Selesai',
             'tanggal_pengajuan' => 'nullable|date|date_format:Y-m-d',
-            'tanggal_pemeriksaan' => 'nullable|date|date_format:Y-m-d',
+            'tanggal_pemeriksaan' => 'required|date|date_format:Y-m-d',
             'catatan' => 'nullable|string|max:255',
         ];
     }
@@ -37,12 +38,15 @@ class PengajuanTambahRequest extends FormRequest
         return [
             'pasien.exists' => 'Pasien yang dipilih tidak valid.',
             'dokter.exists' => 'Dokter yang dipilih tidak valid.',
+            'poli.exists' => 'Poli yang dipilih tidak valid.',
+            'poli.required' => 'Poli harus diisi.',
             'keluhan.required' => 'Keluhan harus diisi.',
             'keluhan.string' => 'Keluhan harus berupa teks.',
             'keluhan.max' => 'Keluhan maksimal 255 karakter.',
             'status.in' => 'Status tidak valid.',
             'tanggal_pengajuan.date' => 'Tanggal pengajuan harus berupa tanggal yang valid.',
             'tanggal_pengajuan.date_format' => 'Tanggal pengajuan harus dalam format YYYY-MM-DD.',
+            'tanggal_pemeriksaan.required' => 'Tanggal Pemeriksaan harus diisi.',
             'tanggal_pemeriksaan.date' => 'Tanggal pemeriksaan harus berupa tanggal yang valid.',
             'tanggal_pemeriksaan.date_format' => 'Tanggal pemeriksaan harus dalam format YYYY-MM-DD.',
             'catatan.string' => 'Catatan harus berupa teks.',

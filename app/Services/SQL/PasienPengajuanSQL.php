@@ -13,6 +13,7 @@ class PasienPengajuanSQL
 
         return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
             ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
+            ->join('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
                 'pengajuans.keluhan',
@@ -28,6 +29,8 @@ class PasienPengajuanSQL
                 'pengajuans.id_dokter',
                 'dokter.nama as nama_dokter',
                 'dokter.nip as nip_dokter',
+                'polis.id as id_poli',
+                'polis.nama as nama_poli',
             ])
             ->where('pengajuans.id_pasien', $userId)
             ->get();
