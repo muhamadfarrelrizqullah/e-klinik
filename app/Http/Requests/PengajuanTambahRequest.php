@@ -29,6 +29,8 @@ class PengajuanTambahRequest extends FormRequest
             'status' => 'nullable|in:Pending,Ditolak,Diterima,Diproses,Selesai',
             'tanggal_pengajuan' => 'nullable|date|date_format:Y-m-d',
             'tanggal_pemeriksaan' => 'required|date|date_format:Y-m-d',
+            'tinggi_badan' => 'nullable|integer',
+            'berat_badan' => 'nullable|integer',
             'catatan' => 'nullable|string|max:255',
         ];
     }
@@ -49,6 +51,8 @@ class PengajuanTambahRequest extends FormRequest
             'tanggal_pemeriksaan.required' => 'Tanggal Pemeriksaan harus diisi.',
             'tanggal_pemeriksaan.date' => 'Tanggal pemeriksaan harus berupa tanggal yang valid.',
             'tanggal_pemeriksaan.date_format' => 'Tanggal pemeriksaan harus dalam format YYYY-MM-DD.',
+            'tinggi_badan.integer' => 'Tinggi badan harus berupa angka.',
+            'berat_badan.integer' => 'Berat badan harus berupa angka.',
             'catatan.string' => 'Catatan harus berupa teks.',
             'catatan.max' => 'Catatan maksimal 255 karakter.',
         ];

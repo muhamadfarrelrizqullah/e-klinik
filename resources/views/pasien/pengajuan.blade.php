@@ -2,6 +2,10 @@
 
 @section('title', 'Data Pengajuan - E Klinik PAL')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -177,10 +181,25 @@
                         @csrf
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Nama</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="addNama"
+                                name="nama" readonly value="{{ $users->nama }}">
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Tanggal Lahir</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="addTanggalLahir" name="tanggal_lahir" readonly
+                                value="{{ Carbon::parse(auth()->user()->tanggal_lahir)->format('d/m/Y') }}">
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span class="required">Keluhan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid"
-                                placeholder="Masukkan keluhan" id="addKeluhan" name="keluhan">
+                            <input type="text" class="form-control form-control-solid" placeholder="Masukkan keluhan"
+                                id="addKeluhan" name="keluhan">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Poli</label>
@@ -191,6 +210,22 @@
                                     <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="addTinggiBadan" name="tinggi_badan" value="{{ $users->tinggi_badan }}">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="addBeratBadan" name="berat_badan" value="{{ $users->berat_badan }}">
+                            </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Pemeriksaan</label>
@@ -410,6 +445,22 @@
                     );
                 }
             });
+        });
+
+        // Regex input tinggi badan, berat badan
+        function restrictInputToNumbers(event) {
+            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+        }
+        const inputs = document.querySelectorAll(
+            'input[name="tinggi_badan"], input[name="berat_badan"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', restrictInputToNumbers);
+        });
+
+        // Handler input tanggal pemeriksaan
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('addTanggalPemeriksaan').setAttribute('min', today);
         });
     </script>
 @endpush
