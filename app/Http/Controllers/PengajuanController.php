@@ -70,7 +70,9 @@ class PengajuanController extends Controller
     public function indexPasien()
     {
         $polis = Poli::all();
-        return view('pasien.pengajuan', compact('polis'));
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('pasien.pengajuan', compact('polis', 'users'));
     }
 
     public function readPasien()
@@ -99,6 +101,11 @@ class PengajuanController extends Controller
         $pengajuan->status_qrcode = $statusQr;
         $pengajuan->catatan = $catatan;
         $pengajuan->save();
+
+        $user = User::find($pasienId);
+        $user->tinggi_badan = $request->tinggi_badan ?? 0;
+        $user->berat_badan = $request->berat_badan ?? 0;
+        $user->save();
 
         return redirect()->back()->with('success', 'Pengajuan berhasil ditambah.');
     }
