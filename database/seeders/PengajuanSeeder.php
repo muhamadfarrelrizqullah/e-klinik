@@ -18,6 +18,7 @@ class PengajuanSeeder extends Seeder
         [
             'id_pasien' => 3,
             'id_dokter' => 2,
+            'id_poli' => 1,
             'keluhan' => 'Pusing',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(3),
@@ -30,7 +31,8 @@ class PengajuanSeeder extends Seeder
         ],
         [
             'id_pasien' => 5,
-            'id_dokter' => 10,
+            'id_dokter' => 2,
+            'id_poli' => 2,
             'keluhan' => 'Mual',
             'status' => 'Diterima',
             'tanggal_pengajuan' => Carbon::now()->subDays(2),
@@ -43,7 +45,8 @@ class PengajuanSeeder extends Seeder
         ],
         [
             'id_pasien' => 7,
-            'id_dokter' => 11,
+            'id_dokter' => 9,
+            'id_poli' => 2,
             'keluhan' => 'Sakit perut',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(2),
@@ -55,7 +58,8 @@ class PengajuanSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ],[
             'id_pasien' => 6,
-            'id_dokter' => 12,
+            'id_dokter' => 10,
+            'id_poli' => 2,
             'keluhan' => 'Demam',
             'status' => 'Diterima',
             'tanggal_pengajuan' => Carbon::now()->subDays(2),
@@ -67,7 +71,8 @@ class PengajuanSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ],[
             'id_pasien' => 5,
-            'id_dokter' => 12,
+            'id_dokter' => 10,
+            'id_poli' => 2,
             'keluhan' => 'Liver',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(2),
@@ -78,10 +83,10 @@ class PengajuanSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],
-
         [
-            'id_pasien' => 3,
-            'id_dokter' => 2,
+            'id_pasien' => 5,
+            'id_dokter' => 9,
+            'id_poli' => 2,
             'keluhan' => 'Pusing',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(3),
@@ -92,10 +97,10 @@ class PengajuanSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],
-
         [
-            'id_pasien' => 3,
+            'id_pasien' => 6,
             'id_dokter' => 2,
+            'id_poli' => 1,
             'keluhan' => 'Pusing',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(3),
@@ -106,10 +111,10 @@ class PengajuanSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],
-
         [
-            'id_pasien' => 3,
+            'id_pasien' => 7,
             'id_dokter' => 2,
+            'id_poli' => 2,
             'keluhan' => 'Pusing',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(3),
@@ -120,52 +125,10 @@ class PengajuanSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],
-
         [
-            'id_pasien' => 3,
-            'id_dokter' => 2,
-            'keluhan' => 'Pusing',
-            'status' => 'Pending',
-            'tanggal_pengajuan' => Carbon::now()->subDays(3),
-            'tanggal_pemeriksaan' => Carbon::now()->addDays(2),
-            'qrcode' => 'null',
-            'status_qrcode' => 'null',
-            'catatan' => 'null',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ],
-
-        [
-            'id_pasien' => 3,
-            'id_dokter' => 2,
-            'keluhan' => 'Pusing',
-            'status' => 'Pending',
-            'tanggal_pengajuan' => Carbon::now()->subDays(3),
-            'tanggal_pemeriksaan' => Carbon::now()->addDays(2),
-            'qrcode' => 'null',
-            'status_qrcode' => 'null',
-            'catatan' => 'null',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ],
-
-        [
-            'id_pasien' => 3,
-            'id_dokter' => 2,
-            'keluhan' => 'Pusing',
-            'status' => 'Pending',
-            'tanggal_pengajuan' => Carbon::now()->subDays(3),
-            'tanggal_pemeriksaan' => Carbon::now()->addDays(2),
-            'qrcode' => 'null',
-            'status_qrcode' => 'null',
-            'catatan' => 'null',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ],
-
-        [
-            'id_pasien' => 3,
-            'id_dokter' => 2,
+            'id_pasien' => 8,
+            'id_dokter' => 9,
+            'id_poli' => 2,
             'keluhan' => 'Pusing',
             'status' => 'Pending',
             'tanggal_pengajuan' => Carbon::now()->subDays(3),
