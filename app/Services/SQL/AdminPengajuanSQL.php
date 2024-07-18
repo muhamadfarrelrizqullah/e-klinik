@@ -10,6 +10,7 @@ class AdminPengajuanSQL
     {
         return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
             ->join('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
+            ->join('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
                 'pengajuans.keluhan',
@@ -25,6 +26,8 @@ class AdminPengajuanSQL
                 'pengajuans.id_dokter',
                 'dokter.nama as nama_dokter',
                 'dokter.nip as nip_dokter',
+                'polis.id as id_poli',
+                'polis.nama as nama_poli',
             ])
             ->get();
     }
