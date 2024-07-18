@@ -59,16 +59,6 @@
                                         <span class="fw-bold fs-6 text-gray-800">{{ auth()->user()->berat_badan }}</span>
                                     </div>
                                 </div>
-                                <div class="row mb-10">
-                                    <label class="col-lg-4 fw-semibold text-muted">Status</label>
-                                    <div class="col-lg-8 fv-row">
-                                        @if (auth()->user()->status == 'Aktif')
-                                            <span class="badge badge-light-success">Aktif</span>
-                                        @else
-                                            <span class="badge badge-light-danger">Tidak Aktif</span>
-                                        @endif
-                                    </div>
-                                </div>
                                 <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
                                     <i class="ki-duotone ki-information fs-2tx text-warning me-4">
                                         <span class="path1"></span>

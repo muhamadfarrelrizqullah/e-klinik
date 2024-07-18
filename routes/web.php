@@ -71,6 +71,9 @@ Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokte
 Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
 Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
 
+Route::get('/dokter/profil-edit', [ProfilController::class, 'edit'])->name('dokter-profil-edit');
+Route::post('/dokter/profil-edit', [ProfilController::class, 'update'])->name('dokter-profil-update');
+
 //Pasien
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
 Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
