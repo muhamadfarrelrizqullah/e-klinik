@@ -102,4 +102,9 @@ class PengajuanController extends Controller
 
         return redirect()->back()->with('success', 'Pengajuan berhasil ditambah.');
     }
+
+    public function indexDokter()
+    {
+        return view('dokter.pengajuan');
+    }
 }

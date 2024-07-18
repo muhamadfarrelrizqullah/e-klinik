@@ -3,9 +3,12 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\QrController;
+use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +65,11 @@ Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('ad
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
+Route::get('/dokter/pengajuan', [PengajuanController::class, 'indexDokter'])->name('dokter-pengajuan');
+Route::get('/dokter/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('dokter-pemeriksaan');
+Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
+Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
+Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
 
 //Pasien
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
