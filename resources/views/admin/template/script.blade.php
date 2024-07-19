@@ -17,6 +17,8 @@
 <script src="assets/plugins/custom/datatables.responsive/dataTables.responsive.js"></script>
 <script src="assets/plugins/custom/apexcharts/apexcharts.min.js"></script>
 <script src="assets/plugins/custom/select2/select2.min.js"></script>
+<script src="assets/plugins/custom/jspdf/jspdf.umd.min.js"></script>
+<script src="assets/plugins/custom/jspdf-autotable/jspdf.plugin.autotable.min.js"></script>
 
 {{-- custom --}}
 <script src="assets/plugins/custom/apexcharts/apexcharts.js"></script>

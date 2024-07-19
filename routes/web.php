@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PoliController;
@@ -28,6 +29,8 @@ Route::get('/', [AutentikasiController::class, 'landing'])->name('landing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
+
+Route::get('/logo-base64', [PdfController::class, 'getLogoBase64']);
 
 //Admin
 Route::get('/admin/dashboard', [DashboardController::class, 'indexAdmin'])->name('admin-dashboard');
