@@ -115,7 +115,7 @@
                         success: function(response) {
                             Swal.fire(
                                 'Saved!',
-                                'User berhasil diupdate.',
+                                'Profil berhasil diupdate.',
                                 'success'
                             ).then((result) => {
                                 if (result.isConfirmed) {

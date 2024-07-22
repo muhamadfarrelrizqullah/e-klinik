@@ -19,7 +19,7 @@
                                 </div>
                                 <a href="{{ route('dokter-profil-edit') }}"
                                     class="btn btn-sm btn-primary align-self-center">Edit
-                                    Profile</a>
+                                    Profil</a>
                             </div>
                             <div class="card-body p-9">
                                 <div class="row mb-10">
@@ -71,7 +71,7 @@
                                             <div class="fs-6 text-gray-700">Harap pastikan informasi profil Anda selalu
                                                 update.
                                                 Jika Anda perlu melakukan perubahan apa pun, klik tombol
-                                                <a class="fw-bold" href="{{ route('dokter-profil-edit') }}">Edit Profile</a> di atas.
+                                                <a class="fw-bold" href="{{ route('dokter-profil-edit') }}">Edit Profil</a> di atas.
                                             </div>
                                         </div>
                                     </div>
