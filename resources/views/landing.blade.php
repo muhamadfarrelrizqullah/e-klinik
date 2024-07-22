@@ -34,7 +34,7 @@
 								</div>
 								<div class="d-lg-block" id="kt_header_nav_wrapper">
 									<div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="200px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
-										<div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-600 menu-state-title-primary nav nav-flush fs-5 fw-semibold" id="kt_landing_menu">
+										<div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-white menu-state-title-primary nav nav-flush fs-5 fw-semibold" id="kt_landing_menu">
 											<div class="menu-item">
 												<a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Home</a>
 											</div>
@@ -42,7 +42,7 @@
 												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Cara Kerja</a>
 											</div>
 											<div class="menu-item">
-												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Achievements</a>
+												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Data</a>
 											</div>
 											<div class="menu-item">
 												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#portfolio" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Website Kami</a>
@@ -64,7 +64,6 @@
 							<h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mb-15"> 
 							<br />
 							<span style="background: linear-gradient(to right, #ffffff 0%, #080a72 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
-								<span id="kt_landing_hero_text">The Best Theme Ever</span>
 							</span></h1>
 							<a href="index.html" class="btn bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded">Cek Pengajuan</a>
 						</div>
@@ -151,65 +150,54 @@
 				<div class="pb-15 pt-18 landing-dark-bg">
 					<div class="container">
 						<div class="text-center mt-15 mb-18" id="achievements" data-kt-scroll-offset="{default: 100, lg: 150}">
-							<h3 class="fs-2hx text-white fw-bold mb-5">We Make Things Better</h3>
-							<div class="fs-5 text-gray-700 fw-bold">Save thousands to millions of bucks by using single tool 
-							<br />for different amazing and great useful admin</div>
+							<h3 class="fs-2hx text-white fw-bold mb-5">Data E-Klinik</h3>
+							<div class="fs-5 text-gray-500 fw-bold">Hidup Sehat, Hidup Bahagia. kesehatan adalah kunci untuk hidup yang bahagia maka jagalah kesehatan.</div>
 						</div>
 						<div class="d-flex flex-center">
 							<div class="d-flex flex-wrap flex-center justify-content-lg-between mb-15 mx-auto w-xl-900px">
 								<div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain" style="background-image: url('assets/media/svg/misc/octagon.svg')">
-									<i class="ki-duotone ki-element-11 fs-2tx text-white mb-3">
+									<i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
 										<span class="path1"></span>
 										<span class="path2"></span>
 										<span class="path3"></span>
 										<span class="path4"></span>
 									</i>
-									<div class="mb-0">
-										<div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="700" data-kt-countup-suffix="+">0</div>
+									<div class="mb-0" style="margin-left: 50px;">
+										<div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center" >
+											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="700" data-kt-countup-suffix="+">{{ $totalDokter }}</div>
 										</div>
-										<span class="text-gray-600 fw-semibold fs-5 lh-0">Known Companies</span>
+										<span class="text-gray-600 fw-semibold fs-5 lh-0" style="margin-right: 48px;">Dokter</span>
 									</div>
 								</div>
 								<div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain" style="background-image: url('assets/media/svg/misc/octagon.svg')">
-									<i class="ki-duotone ki-chart-pie-4 fs-2tx text-white mb-3">
+									<i class="ki-duotone ki-file-up fs-2tx text-white mb-3">
 										<span class="path1"></span>
 										<span class="path2"></span>
 										<span class="path3"></span>
 									</i>
-									<div class="mb-0">
-										<div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="80" data-kt-countup-suffix="K+">0</div>
+									<div class="mb-0" style="margin-left: 5px;">
+										<div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center" style="margin-left: 35px;">
+											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="80" data-kt-countup-suffix="K+">{{ $totalPengajuan }}</div>
 										</div>
-										<span class="text-gray-600 fw-semibold fs-5 lh-0">Statistic Reports</span>
+										<span class="text-gray-600 fw-semibold fs-5 lh-0">Jumlah Pengajuan</span>
 									</div>
 								</div>
 								<div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain" style="background-image: url('assets/media/svg/misc/octagon.svg')">
-									<i class="ki-duotone ki-basket fs-2tx text-white mb-3">
+									<i class="ki-duotone ki-user fs-2tx text-white mb-3">
 										<span class="path1"></span>
 										<span class="path2"></span>
 										<span class="path3"></span>
 										<span class="path4"></span>
 									</i>
-									<div class="mb-0">
+									<div class="mb-0" style="margin-left: 54px;">
 										<div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="35" data-kt-countup-suffix="M+">0</div>
+											<div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="35" data-kt-countup-suffix="M+">{{ $totalPasien }}</div>
 										</div>
-										<span class="text-gray-600 fw-semibold fs-5 lh-0">Secure Payments</span>
+										<span class="text-gray-600 fw-semibold fs-5 lh-0" style="margin-right: 48px;">Pasien</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="fs-2 fw-semibold text-muted text-center mb-3">
-						<span class="fs-1 lh-1 text-gray-700">“</span>When you care about your topic, you’ll write about it in a 
-						<br />
-						<span class="text-gray-700 me-1">more powerful</span>, emotionally expressive way 
-						<span class="fs-1 lh-1 text-gray-700">“</span></div>
-						<div class="fs-2 fw-semibold text-muted text-center">
-							<a href="account/security.html" class="link-primary fs-4 fw-bold">Marcus Levy,</a>
-							<span class="fs-4 fw-bold text-gray-600">KeenThemes CEO</span>
-						</div>
-					</div>
 				</div>
 				<div class="landing-curve landing-dark-color">
 					<svg viewBox="15 12 1470 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -786,16 +774,8 @@
 				<div class="landing-dark-bg pt-20">
 					<div class="container">
 						<div class="row py-10 py-lg-20">
-							<div class="col-lg-5 pe-lg-16 mb-10 mb-lg-0 ml-auto">
-									{{-- <h2 class="text-white">Would you need a Custom License?</h2>
-									<span class="fw-normal fs-4 text-gray-700">Email us to 
-									<a href="https://keenthemes.com/support" class="text-white opacity-50 text-hover-primary">support@keenthemes.com</a></span> --}}
-									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20(Persero)!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid"  width="auto" height="auto" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-								{{-- <div class="rounded landing-dark-border p-9">
-									<h2 class="text-white">How About a Custom Project?</h2>
-									<span class="fw-normal fs-4 text-gray-700">Use Our Custom Development Service. 
-									<a href="pages/user-profile/overview.html" class="text-white opacity-50 text-hover-primary">Click to Get a Quote</a></span>
-								</div> --}}
+							<div class="col-lg-5 pe-lg-16 mb-10 mb-lg-0 ml-auto d-flex justify-content-center">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20(Persero)!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid"  width="450px" height="auto" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 							</div>
 							<div class="col-lg-6 ps-lg-16 ml-auto mr-auto">
 								<div class="d-flex justify-content-center">
@@ -842,19 +822,8 @@
 								<a href="{{ route('landing') }}">
 									<img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-15px h-md-20px" />
 								</a>
-								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com">&copy; 2023 Keenthemes Inc.</span>
+								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com">&copy; 2024 PT. PAL Indonesia</span>
 							</div>
-							<ul class="menu menu-gray-600 menu-hover-primary fw-semibold fs-6 fs-md-5 order-1 mb-5 mb-md-0">
-								<li class="menu-item">
-									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-								</li>
-								<li class="menu-item mx-5">
-									<a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
-								</li>
-								<li class="menu-item">
-									<a href="" target="_blank" class="menu-link px-2">Purchase</a>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>
