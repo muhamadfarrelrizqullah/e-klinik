@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PengajuanEditRequest;
 use App\Http\Requests\PengajuanTambahRequest;
+use App\Http\Requests\PengajuanUpdateStatusRequest;
 use App\Models\Pengajuan;
 use App\Models\Poli;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
 use App\Services\SQL\PasienPengajuanSQL;
+use App\Services\SQL\DokterPengajuanSQL;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +19,12 @@ class PengajuanController extends Controller
 {
     protected $DataPengajuan;
     protected $PasienPengajuan;
-    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL)
+    protected $DokterPengajuan;
+    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL, DokterPengajuanSQL $DokterPengajuanSQL)
     {
         $this->DataPengajuan = $AdminPengajuanSQL;
         $this->PasienPengajuan = $PasienPengajuanSQL;
+        $this->DokterPengajuan = $DokterPengajuanSQL;
     }
 
     public function index()
@@ -87,7 +91,7 @@ class PengajuanController extends Controller
     public function store(PengajuanTambahRequest $request)
     {
         $pasienId = Auth::id();
-        $statusAwal = "Pending"; 
+        $statusAwal = "Pending";
         $statusQr = "null";
         $catatan = "Tidak ada catatan";
 
@@ -112,6 +116,30 @@ class PengajuanController extends Controller
 
     public function indexDokter()
     {
-        return view('dokter.pengajuan');
+        $polis = Poli::all();
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('dokter.pengajuan', compact('polis', 'users'));
+    }
+
+    public function readDokter()
+    {
+        $data = $this->DokterPengajuan->getPengajuanData();
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function updateStatus(PengajuanUpdateStatusRequest $request)
+    {
+        try {
+            $pengajuan = Pengajuan::findOrFail($request->id);
+            $pengajuan->status = $request->status;
+            $pengajuan->save();
+            return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
     }
 }
