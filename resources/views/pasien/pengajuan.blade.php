@@ -43,6 +43,7 @@
                                             <tr class="fw-bold text-muted">
                                                 <th>No</th>
                                                 <th>Nama Pasien</th>
+                                                <th>Poli</th>
                                                 <th>Keluhan</th>
                                                 <th>Status</th>
                                                 <th>Tanggal Pengajuan</th>
@@ -267,7 +268,7 @@
                 serverSide: true,
                 ajax: "{{ route('pasien-datapengajuan') }}",
                 order: [
-                    [4, 'asc'],
+                    [5, 'asc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -281,6 +282,14 @@
                     {
                         data: 'nama_pasien',
                         name: 'nama_pasien',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama_poli',
+                        name: 'nama_poli',
                         orderable: true,
                         render: function(data, type, row, meta) {
                             return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
