@@ -56,6 +56,10 @@ Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name(
 Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
 Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
 
+Route::get('/admin/profil-edit', [ProfilController::class, 'edit'])->name('admin-profil-edit');
+Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('admin-profil-update');
+
+
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 
@@ -63,3 +67,9 @@ Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->na
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
 Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
 Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pasien-profil');
+
+Route::get('/pasien/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('pasien-datapengajuan');
+Route::post('/pasien/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('pasien-datapengajuan-tambah');
+
+Route::get('/pasien/profil-edit', [ProfilController::class, 'edit'])->name('pasien-profil-edit');
+Route::post('/pasien/profil-edit', [ProfilController::class, 'update'])->name('pasien-profil-update');

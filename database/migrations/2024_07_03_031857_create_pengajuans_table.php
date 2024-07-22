@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_dokter')->nullable();
+            $table->unsignedBigInteger('id_poli')->nullable();
             $table->string('keluhan');
             $table->enum('status', ['Pending', 'Ditolak', 'Diterima', 'Diproses', 'Selesai'])->default('Pending');
             $table->date('tanggal_pengajuan')->nullable();
@@ -28,6 +29,7 @@ return new class extends Migration
             // Foreign keys
             $table->foreign('id_pasien')->references('id')->on('users');
             $table->foreign('id_dokter')->references('id')->on('users');
+            $table->foreign('id_poli')->references('id')->on('polis');
         });
     }
 

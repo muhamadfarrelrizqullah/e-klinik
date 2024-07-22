@@ -105,13 +105,20 @@
                                     id="detailNamaDokter" readonly>
                             </div>
                         </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Keluhan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailKeluhan" readonly>
+                        </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Keluhan</span>
+                                    <span>Poli</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailKeluhan" readonly>
+                                    id="detailNamaPoli" readonly>
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -359,7 +366,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -417,7 +424,7 @@
 
         // Pengambilan data modal detail
         function modalDetail(nama_pasien, nip_pasien, nama_dokter, nip_dokter, keluhan, status, tanggal_pengajuan,
-            tanggal_pemeriksaan, catatan) {
+            tanggal_pemeriksaan, catatan, nama_poli) {
             $('#detailNamaPasien').val(nama_pasien);
             $('#detailNipPasien').val(nip_pasien);
             $('#detailNamaDokter').val(nama_dokter);
@@ -437,6 +444,7 @@
             let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
             $('#detailTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
             $('#detailCatatan').val(catatan);
+            $('#detailNamaPoli').val(nama_poli);
             $('#modalDetail').modal('show');
         }
 

@@ -26,7 +26,7 @@
                                         </span>
                                     </div>
                                     <div class="text-center">
-                                        <a href='{{ route('pasien-pengajuan') }}' class="btn btn-sm btn-primary fw-bold" data-bs-toggle="modal">Ajukan Pengajuan</a>
+                                        <a href='{{ route('pasien-pengajuan') }}' class="btn btn-sm btn-primary fw-bold">Ajukan Pengajuan</a>
                                     </div>
                                 </div>
                                 <img class="mx-auto h-150px h-lg-200px theme-light-show"

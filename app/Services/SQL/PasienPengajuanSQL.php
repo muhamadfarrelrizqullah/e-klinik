@@ -3,13 +3,16 @@
 namespace App\Services\SQL;
 
 use App\Models\Pengajuan;
+use Illuminate\Support\Facades\Auth;
 
-class AdminPengajuanSQL
+class PasienPengajuanSQL
 {
     public function getPengajuanData()
     {
+        $userId = Auth::id();
+
         return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
-            ->join('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
+            ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
             ->join('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
@@ -29,6 +32,7 @@ class AdminPengajuanSQL
                 'polis.id as id_poli',
                 'polis.nama as nama_poli',
             ])
+            ->where('pengajuans.id_pasien', $userId)
             ->get();
     }
 }
