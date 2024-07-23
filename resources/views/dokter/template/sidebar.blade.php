@@ -74,7 +74,7 @@
                     </div>
                     <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('dokter-scanqr') ? 'active' : '' }}"
-                            href="{{ route('dokter-scanqr') }}">
+                            href="{{ route('qr-scan') }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-fingerprint-scanning fs-2">
                                     <span class="path1"></span>
