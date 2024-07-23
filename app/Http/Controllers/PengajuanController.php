@@ -163,6 +163,10 @@ class PengajuanController extends Controller
     {
         try {
             $pengajuan = Pengajuan::findOrFail($id);
+            // handler jika qr code expired
+            if ($pengajuan->status_qrcode === 'expired') {
+                return response()->json(['error' => 'QR code sudah expired.'], 400);
+            }
             $pengajuan->status = 'Diproses';
             $pengajuan->status_qrcode = 'expired';
             $pengajuan->save();

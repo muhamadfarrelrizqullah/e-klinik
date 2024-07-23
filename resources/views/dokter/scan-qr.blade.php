@@ -44,6 +44,7 @@
 
     <script src="assets/plugins/custom/html5-qrcode/html5-qrcode.min.js" type="text/javascript"></script>
     <script>
+        // handler ketika scan sukses
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Code matched = ${decodedText}`, decodedResult);
             const pengajuanId = decodedText.split('/').pop();
@@ -78,6 +79,12 @@
                                     'Status pengajuan berhasi diupdate menjadi diproses.',
                                     'success'
                                 );
+                            } else if (data.error) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    data.error,
+                                    'error'
+                                );
                             } else {
                                 Swal.fire(
                                     'Gagal!',
@@ -98,10 +105,12 @@
             });
         }
 
+        // handler ketika scan error
         function onScanFailure(error) {
             console.warn(`Code scan error = ${error}`);
         }
 
+        // inisialisasi html5-qrcodescanner
         const html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
                 fps: 10,
