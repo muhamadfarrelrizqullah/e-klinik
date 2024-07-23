@@ -12,9 +12,9 @@ class AutentikasiController extends Controller
 {
     public function landing()
     {
-        $totalDokter = User::where('role', 'dokter')->count();
-        $totalPengajuan = Pengajuan::count();
-        $totalPasien = User::where('role', 'pasien')->count();
+        $totalDokter = User::where('role', 'Dokter')->count();
+        $totalPengajuan = Pengajuan::where('status', 'Selesai')->count();
+        $totalPasien = User::where('role', 'Pasien')->count();
         return view('landing', compact('totalDokter','totalPengajuan','totalPasien'));
     }
 
