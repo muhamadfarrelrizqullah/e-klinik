@@ -774,8 +774,19 @@
 				<div class="landing-dark-bg pt-20">
 					<div class="container">
 						<div class="row py-10 py-lg-20">
-							<div class="col-lg-5 pe-lg-16 mb-10 mb-lg-0 ml-auto d-flex justify-content-center">
-									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20(Persero)!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid"  width="450px" height="auto" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+							<div class="col-lg-5 pe-lg-16 mb-10 mb-lg-0 ml-auto">
+									{{-- <h2 class="text-white">Would you need a Custom License?</h2>
+									<span class="fw-normal fs-4 text-gray-700">Email us to 
+									<a href="https://keenthemes.com/support" class="text-white opacity-50 text-hover-primary">support@keenthemes.com</a></span> --}}
+									<div class="w-393px h-300px flex justify-center items-center">
+  									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20%28Persero%29!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid" width="100%" height="100%" min-width="300px" min-height="200px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+									</div>
+
+								{{-- <div class="rounded landing-dark-border p-9">
+									<h2 class="text-white">How About a Custom Project?</h2>
+									<span class="fw-normal fs-4 text-gray-700">Use Our Custom Development Service. 
+									<a href="pages/user-profile/overview.html" class="text-white opacity-50 text-hover-primary">Click to Get a Quote</a></span>
+								</div> --}}
 							</div>
 							<div class="col-lg-6 ps-lg-16 ml-auto mr-auto">
 								<div class="d-flex justify-content-center">
