@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
+use App\Models\Pengajuan;
 
 class AutentikasiController extends Controller
 {
     public function landing()
     {
-        return view('landing');
+        $totalDokter = User::where('role', 'Dokter')->count();
+        $totalPengajuan = Pengajuan::where('status', 'Selesai')->count();
+        $totalPasien = User::where('role', 'Pasien')->count();
+        return view('landing', compact('totalDokter','totalPengajuan','totalPasien'));
     }
 
     public function login()
