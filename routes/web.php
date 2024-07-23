@@ -78,6 +78,8 @@ Route::get('/dokter/data-pengajuan', [PengajuanController::class, 'readDokter'])
 Route::post('/dokter/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('dokter-datapengajuan-tambah');
 Route::post('/dokter/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
 
+Route::post('/qr-scan/{id}', [PengajuanController::class, 'scanQr'])->name('update-status-from-qr');
+
 Route::get('/dokter/profil-edit', [ProfilController::class, 'edit'])->name('dokter-profil-edit');
 Route::post('/dokter/profil-edit', [ProfilController::class, 'update'])->name('dokter-profil-update');
 

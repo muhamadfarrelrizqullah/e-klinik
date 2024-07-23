@@ -11,9 +11,11 @@ use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
 use App\Services\SQL\PasienPengajuanSQL;
 use App\Services\SQL\DokterPengajuanSQL;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuanController extends Controller
 {
@@ -136,6 +138,37 @@ class PengajuanController extends Controller
         try {
             $pengajuan = Pengajuan::findOrFail($request->id);
             $pengajuan->status = $request->status;
+            if ($request->status === 'Diterima') {
+                $statusQRAktif = "aktif";
+                // Generate QR Code URL
+                $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
+                // Generate QR Code image
+                $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
+                $qrCodePath = 'qr_codes/' . $pengajuan->id . '.png';
+                Storage::put($qrCodePath, $qrCodeImage);
+                $pengajuan->qrcode = Storage::url($qrCodePath);
+                $pengajuan->status_qrcode = $statusQRAktif;
+            } else {
+                $pengajuan->qrcode = "null";
+                $pengajuan->status_qrcode = "null";
+            }
+            $pengajuan->save();
+            return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
+    }
+
+    public function scanQr($id)
+    {
+        try {
+            $pengajuan = Pengajuan::findOrFail($id);
+            // handler jika qr code expired
+            if ($pengajuan->status_qrcode === 'expired') {
+                return response()->json(['error' => 'QR code sudah expired.'], 400);
+            }
+            $pengajuan->status = 'Diproses';
+            $pengajuan->status_qrcode = 'expired';
             $pengajuan->save();
             return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
         } catch (\Throwable $th) {
