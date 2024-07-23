@@ -4,39 +4,34 @@
 
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
-        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
-                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-                    <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
-                        Scan QR</h1>
-                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-                        <li class="breadcrumb-item text-muted">Home</li>
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
-                        </li>
-                        <li class="breadcrumb-item text-muted">Scan</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Pindai QR Code</h3>
-                        <div class="py-12 pt-[90px]">
-                            <div class="min-w-screen mx-auto sm:px-6 lg:px-8">
-                                <div class="overflow-hidden shadow-xl sm:rounded-lg">
-                                    <div class="p-6 lg:p-8 border-b border-gray-200">
-                                        <div id="reader" style="width: 600px" class="mb-4"></div>
-                                        <form method="POST" action="">
-                                            @csrf
-                                            <label for="">Kode QR: <br></label>
-                                            <input type="text" name="qr_code_result" id="result" class="w-1/2"
-                                                readonly>
-                                            <button type="submit"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Kirim</button>
-                                        </form>
+                <div class="row gy-5 g-xl-10">
+                    <div class="col-xl-8 mb-xl-10 h-100">
+                        <div class="card">
+                            <div class="card-header cursor-pointer">
+                                <div class="card-title m-0">
+                                    <h3 class="fw-bold m-0">Scan QR Code</h3>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <div id="reader" class="mb-4 h-screen"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 mb-xl-10 h-100">
+                        <div class="card h-md-100" dir="ltr">
+                            <div class="card-body d-flex flex-column flex-center">
+                                <div class="mb-2">
+                                    <h1 class="fw-semibold text-gray-800 text-center lh-lg">Update Status
+                                        <span class="fw-bolder">Pengajuan Pemeriksaan</span>
+                                        <br /> Dengan QR Code.
+                                    </h1>
+                                    <div class="py-10 text-center">
+                                        <img src="assets/media/svg/illustrations/easy/3.svg"
+                                            class="theme-light-show w-200px" alt="" />
+                                        <img src="assets/media/svg/illustrations/easy/3-dark.svg"
+                                            class="theme-dark-show w-200px" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -47,22 +42,67 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
+    <script src="assets/plugins/custom/html5-qrcode/html5-qrcode.min.js" type="text/javascript"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
-            // handle the scanned code as you like, for example:
-            // console.log(`Code matched = ${decodedText}`, decodedResult);
-            document.getElementById("result").value = decodedText;
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+            const pengajuanId = decodedText.split('/').pop();
+            console.log(`Pengajuan ID: ${pengajuanId}`);
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: "Apakah Anda yakin ingin memperbarui status pengajuan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, perbarui!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`{{ route('update-status-from-qr', ':id') }}`.replace(':id', pengajuanId), {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id: pengajuanId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Status pengajuan berhasi diupdate menjadi diproses.',
+                                    'success'
+                                );
+                            } else {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Error memperbarui status pengajuan.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Gagal!',
+                                'Error memperbarui status pengajuan: ' + error.message,
+                                'error'
+                            );
+                        });
+                }
+            });
         }
 
         function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning.
-            // for example:
             console.warn(`Code scan error = ${error}`);
         }
 
-        let html5QrcodeScanner = new Html5QrcodeScanner(
+        const html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
                 fps: 10,
                 qrbox: {
@@ -70,41 +110,8 @@
                     height: 250
                 }
             },
-            /* verbose= */
             false
         );
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>
-
 @endsection
-
-{{-- @push('scripts')
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
-    <script>
-        function onScanSuccess(decodedText, decodedResult) {
-            // handle the scanned code as you like, for example:
-            // console.log(`Code matched = ${decodedText}`, decodedResult);
-            document.getElementById("result").value = decodedText;
-        }
-
-        function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning.
-            // for example:
-            console.warn(`Code scan error = ${error}`);
-        }
-
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", {
-                fps: 10,
-                qrbox: {
-                    width: 250,
-                    height: 250
-                }
-            },
-            /* verbose= */
-            false
-        );
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-    </script>
-@endpush --}}

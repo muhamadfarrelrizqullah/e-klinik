@@ -70,7 +70,7 @@ Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('ad
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 Route::get('/dokter/pengajuan', [PengajuanController::class, 'indexDokter'])->name('dokter-pengajuan');
 Route::get('/dokter/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('dokter-pemeriksaan');
-Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('qr-scan');
+Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
 Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
 Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
 

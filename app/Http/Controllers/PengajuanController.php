@@ -141,7 +141,7 @@ class PengajuanController extends Controller
             if ($request->status === 'Diterima') {
                 $statusQRAktif = "aktif";
                 // Generate QR Code URL
-                $qrCodeUrl = route('qr-scan', ['id' => $pengajuan->id]);
+                $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
                 // Generate QR Code image
                 $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
                 $qrCodePath = 'qr_codes/' . $pengajuan->id . '.png';
@@ -149,10 +149,8 @@ class PengajuanController extends Controller
                 $pengajuan->qrcode = Storage::url($qrCodePath);
                 $pengajuan->status_qrcode = $statusQRAktif;
             } else {
-                $statusQRNull = "null";
-                $qRNull = "null";
-                $pengajuan->qrcode = $qRNull;
-                $pengajuan->status_qrcode = $statusQRNull;
+                $pengajuan->qrcode = "null";
+                $pengajuan->status_qrcode = "null";
             }
             $pengajuan->save();
             return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
@@ -166,6 +164,7 @@ class PengajuanController extends Controller
         try {
             $pengajuan = Pengajuan::findOrFail($id);
             $pengajuan->status = 'Diproses';
+            $pengajuan->status_qrcode = 'expired';
             $pengajuan->save();
             return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
         } catch (\Throwable $th) {
