@@ -306,7 +306,7 @@
                 serverSide: true,
                 ajax: "{{ route('pasien-datapengajuan') }}",
                 order: [
-                    [5, 'asc'],
+                    [5, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
