@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('rekaps', function (Blueprint $table) {
             $table->id();
             $table->string('no_rekap');
-            $table->unsignedBigInteger('id_pasien')->unique();
-            $table->unsignedBigInteger('id_dokter')->unique();
+            $table->unsignedBigInteger('id_pasien');
+            $table->unsignedBigInteger('id_dokter');
             $table->unsignedBigInteger('id_pengajuan');
             $table->string('qrcode')->nullable();
             $table->string('surat_izin')->nullable();

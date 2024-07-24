@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PemeriksaanUpdateStatusRequest;
 use App\Http\Requests\PengajuanEditRequest;
 use App\Http\Requests\PengajuanTambahRequest;
 use App\Http\Requests\PengajuanUpdateStatusRequest;
 use App\Models\Pengajuan;
 use App\Models\Poli;
+use App\Models\Rekap;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
 use App\Services\SQL\PasienPengajuanSQL;
 use App\Services\SQL\DokterPengajuanSQL;
+use App\Services\SQL\DokterPemeriksaanSQL;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,11 +25,14 @@ class PengajuanController extends Controller
     protected $DataPengajuan;
     protected $PasienPengajuan;
     protected $DokterPengajuan;
-    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL, DokterPengajuanSQL $DokterPengajuanSQL)
+    protected $DokterPemeriksaan;
+
+    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL, DokterPengajuanSQL $DokterPengajuanSQL, DokterPemeriksaanSQL $DokterPemeriksaanSQL)
     {
         $this->DataPengajuan = $AdminPengajuanSQL;
         $this->PasienPengajuan = $PasienPengajuanSQL;
         $this->DokterPengajuan = $DokterPengajuanSQL;
+        $this->DokterPemeriksaan = $DokterPemeriksaanSQL;
     }
 
     public function index()
@@ -176,5 +182,42 @@ class PengajuanController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
         }
+    }
+
+    public function readPemeriksaan()
+    {
+        $data = $this->DokterPemeriksaan->getPemeriksaanData();
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function storePemeriksaan(PemeriksaanUpdateStatusRequest $request)
+    {
+        $pengajuanId = $request->id_pengajuan;
+        $pengajuan = Pengajuan::find($pengajuanId);
+        $pengajuan->status = "Selesai";
+        $pengajuan->catatan = $request->catatan ?? "Tidak ada catatan";
+        $pengajuan->save();
+
+        if ($request->hasFile('surat_perizinan_file')) {
+            $path = $request->file('surat_perizinan_file')->store('public/pdf');
+        } else {
+            $path = null;
+        }
+        
+
+        $noRekap = 'RKP' . now()->format('dmY') . $pengajuanId;
+        $rekap = new Rekap();
+        $rekap->no_rekap = $noRekap;
+        $rekap->id_pasien = $request->id_pasien;
+        $rekap->id_dokter = $request->id_dokter;
+        $rekap->id_pengajuan = $request->id_pengajuan;
+        $rekap->qrcode = $request->qrcode;
+        $rekap->surat_izin = $path;
+        $rekap->save();
+
+        return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
     }
 }
