@@ -136,8 +136,10 @@ class PengajuanController extends Controller
     public function updateStatus(PengajuanUpdateStatusRequest $request)
     {
         try {
+            $dokterId = Auth::id();
             $pengajuan = Pengajuan::findOrFail($request->id);
             $pengajuan->status = $request->status;
+            $pengajuan->id_dokter = $dokterId;
             if ($request->status === 'Diterima') {
                 $statusQRAktif = "aktif";
                 // Generate QR Code URL
