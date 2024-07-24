@@ -336,19 +336,19 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="updateStatus(${row.id}, 'Diterima')" class="btn btn-icon btn-bg-light btn-active-color-success btn-xl me-1">
+                                <a onclick="updateStatus(${row.id}, 'Diterima')" class="btn btn-icon btn-info btn-xl me-2">
                                     <i class="ki-duotone ki-check fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="updateStatus(${row.id}, 'Ditolak')" class="btn btn-icon btn-bg-light btn-active-color-danger btn-xl">
+                                <a onclick="updateStatus(${row.id}, 'Ditolak')" class="btn btn-icon btn-danger btn-xl">
                                     <i class="ki-duotone ki-cross fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
