@@ -8,9 +8,9 @@ class AdminPengajuanSQL
 {
     public function getPengajuanData()
     {
-        return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
-            ->join('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
-            ->join('polis', 'pengajuans.id_poli', '=', 'polis.id')
+        return Pengajuan::leftJoin('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
+            ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
+            ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
                 'pengajuans.keluhan',
