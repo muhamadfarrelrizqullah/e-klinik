@@ -59,20 +59,6 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('dokter-pemeriksaan') ? 'active' : '' }}"
-                            href="{{ route('dokter-pemeriksaan') }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-notepad fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Data Pemeriksaan</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('dokter-scanqr') ? 'active' : '' }}"
                             href="{{ route('dokter-scanqr') }}">
                             <span class="menu-icon">
@@ -85,6 +71,20 @@
                                 </i>
                             </span>
                             <span class="menu-title">Scan QR</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-pemeriksaan') ? 'active' : '' }}"
+                            href="{{ route('dokter-pemeriksaan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-notepad fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Pemeriksaan</span>
                         </a>
                     </div>
                     <div class="menu-item">
