@@ -15,12 +15,14 @@ class DokterRekapSQL
             ->leftJoin('users as dokter', 'rekaps.id_dokter', '=', 'dokter.id')
             ->leftJoin('pengajuans', 'rekaps.id_pengajuan', '=', 'pengajuans.id')
             ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
+            ->leftJoin('divisis', 'pasien.divisi_id', '=', 'divisis.id')
             ->select([
                 'rekaps.id',
                 'rekaps.no_rekap',
                 'rekaps.id_pasien',
                 'pasien.nip as nip_pasien',
                 'pasien.nama as nama_pasien',
+                'divisis.nama as divisi_pasien',
                 'rekaps.id_dokter',
                 'dokter.nama as nama_dokter',
                 'rekaps.id_pengajuan',
