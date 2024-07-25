@@ -202,12 +202,13 @@ class PengajuanController extends Controller
         $pengajuan->save();
 
         if ($request->hasFile('surat_perizinan_file')) {
-            $path = $request->file('surat_perizinan_file')->store('public/pdf');
+            $file = $request->file('surat_perizinan_file');
+            $fileName = $file->getClientOriginalName(); 
+            $file->storeAs('public/pdf', $fileName); 
         } else {
-            $path = null;
+            $fileName = null;
         }
-        
-
+    
         $noRekap = 'RKP' . now()->format('dmY') . $pengajuanId;
         $rekap = new Rekap();
         $rekap->no_rekap = $noRekap;
@@ -215,7 +216,7 @@ class PengajuanController extends Controller
         $rekap->id_dokter = $request->id_dokter;
         $rekap->id_pengajuan = $request->id_pengajuan;
         $rekap->qrcode = $request->qrcode;
-        $rekap->surat_izin = $path;
+        $rekap->surat_izin = $fileName;
         $rekap->save();
 
         return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
