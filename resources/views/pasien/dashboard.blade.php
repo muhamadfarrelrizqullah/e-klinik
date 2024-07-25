@@ -98,14 +98,14 @@
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Tinggi Badan</span>
+                                    <span>Tinggi Badan</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
                                     id="addTinggiBadan" name="tinggi_badan" value="{{ $user->tinggi_badan }}">
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Berat Badan</span>
+                                    <span>Berat Badan</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
                                     id="addBeratBadan" name="berat_badan" value="{{ $user->berat_badan }}">

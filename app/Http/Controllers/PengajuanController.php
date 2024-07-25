@@ -152,7 +152,7 @@ class PengajuanController extends Controller
                 $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
                 // Generate QR Code image
                 $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
-                $qrCodePath = 'qr_codes/' . $pengajuan->id . '.png';
+                $qrCodePath = 'public/qr_codes/' . $pengajuan->id . '.png';
                 Storage::put($qrCodePath, $qrCodeImage);
                 $pengajuan->qrcode = Storage::url($qrCodePath);
                 $pengajuan->status_qrcode = $statusQRAktif;
