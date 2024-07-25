@@ -17,6 +17,11 @@
                         <li class="breadcrumb-item text-muted">Histori Pengajuan</li>
                     </ul>
                 </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
+                        Download PDF
+                    </button>
+                </div>
             </div>
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -35,8 +40,6 @@
                                                 <th>No Rekap</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
-                                                <th>Poli</th>
-                                                <th>Status</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Tanggal Pemeriksaan</th>
                                                 <th>Aksi</th>
@@ -224,32 +227,6 @@
                         }
                     },
                     {
-                        data: 'nama_poli',
-                        name: 'nama_poli',
-                        orderable: true,
-                        render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
-                        }
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        orderable: true,
-                        render: function(data, type, row) {
-                            if (data === 'Pending') {
-                                return `<span class="badge badge-light-secondary">${data}</span>`;
-                            } else if (data === 'Ditolak') {
-                                return `<span class="badge badge-light-danger">${data}</span>`;
-                            } else if (data === 'Diterima') {
-                                return `<span class="badge badge-light-info">${data}</span>`;
-                            } else if (data === 'Diproses') {
-                                return `<span class="badge badge-light-primary">${data}</span>`;
-                            } else {
-                                return `<span class="badge badge-light-success">${data}</span>`;
-                            }
-                        }
-                    },
-                    {
                         data: 'tanggal_pengajuan',
                         name: 'tanggal_pengajuan',
                         orderable: true,
@@ -334,6 +311,94 @@
             $(window).resize(function() {
                 tabel.columns.adjust().responsive.recalc();
             });
+        });
+
+        // Handle download pdf
+        document.addEventListener("DOMContentLoaded", function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            document.getElementById('bt-download').addEventListener('click', function() {
+                $.ajax({
+                    url: "{{ route('dokter-datarekap') }}",
+                    type: "GET",
+                    success: function(response) {
+                        $.ajax({
+                            url: "/logo-base64",
+                            type: "GET",
+                            success: function(logoResponse) {
+                                // Urutkan data berdasarkan nama
+                                var sortedData = response.data.sort((a, b) => {
+                                    return a.no_rekap.localeCompare(b.no_rekap);
+                                });
+                                var doc = new jsPDF();
+                                // Menambahkan kop perusahaan
+                                var companyLogo = logoResponse.base64;
+                                var companyAddress =
+                                    'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
+                                var companyContact =
+                                    'Telp (62-31) 329 2275 Fax (62-31) 329 2530';
+                                var pageWidth = doc.internal.pageSize.getWidth();
+                                var logoWidth = 50;
+                                var centerX = pageWidth / 2;
+                                doc.addImage(companyLogo, 'PNG', centerX -
+                                    logoWidth / 2, 10, logoWidth, 10);
+                                doc.setFontSize(10);
+                                doc.setFont("helvetica", "normal");
+                                doc.text(companyAddress, centerX, 30, {
+                                    align: "center"
+                                });
+                                doc.text(companyContact, centerX, 35, {
+                                    align: "center"
+                                });
+                                doc.setFontSize(10);
+                                doc.text('Data Poli Pt. PAL Indonesia', 14, 55);
+                                // Menambahkan tabel
+                                var columns = ["No", "No Rekap", "NIP Pasien",
+                                    "Nama Pasien", "Divisi Pasien",
+                                    "Nama Dokter", "Poli Pengajuan", "Keluhan",
+                                    "Tanggal Pengajuan", "Tanggal Pemeriksaan"
+                                ];
+                                var data = sortedData.map((row, index) => [
+                                    index + 1,
+                                    row.no_rekap,
+                                    row.nip_pasien,
+                                    row.nama_pasien,
+                                    row.divisi_pasien.replace(/&amp;/g,
+                                    '&'),
+                                    row.nama_dokter,
+                                    row.nama_poli.replace(/&amp;/g, '&'),
+                                    row.keluhan.replace(/&amp;/g, '&'),
+                                    formatDate(row.tanggal_pengajuan),
+                                    formatDate(row.tanggal_pemeriksaan)
+                                ]);
+                                doc.autoTable({
+                                    head: [columns],
+                                    body: data,
+                                    startY: 60,
+                                    styles: {
+                                        halign: 'center',
+                                        fontSize: 8
+                                    },
+                                    headStyles: {
+                                        halign: 'center',
+                                        fontSize: 8
+                                    }
+                                });
+                                doc.save('Data_Rekap_Report.pdf');
+                            }
+                        });
+                    }
+                });
+            });
+            // Fungsi untuk format tanggal
+            function formatDate(dateStr) {
+                var tanggal = new Date(dateStr);
+                var day = tanggal.getDate().toString().padStart(2, '0');
+                var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                var year = tanggal.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
         });
 
         // Pengambilan data modal detail
