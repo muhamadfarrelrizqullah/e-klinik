@@ -239,7 +239,7 @@
                                 placeholder="Tambahkan catatan pemeriksaan" id="addCatatan" name="catatan">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="required fs-6 fw-semibold mb-2">Surat Perizinan</label>
+                            <label class="fs-6 fw-semibold mb-2">Surat Perizinan</label>
                             <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
                                 id="actionSelect" name="surat_perizinan">
                                 <option value="" selected disabled>Buat surat perizinan</option>
@@ -248,7 +248,7 @@
                             </select>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="required fs-6 fw-semibold mb-2">Upload Surat Perizinan (PDF)</label>
+                            <label class="fs-6 fw-semibold mb-2">Upload Surat Perizinan (PDF)</label>
                             <input type="file" class="form-control form-control-solid" id="suratPerizinan"
                                 name="surat_perizinan_file" accept=".pdf">
                         </div>
@@ -273,17 +273,30 @@
         // Handler select disable ketika tidak dimasukkan hari
         document.addEventListener('DOMContentLoaded', function() {
             const istirahatHariInput = document.getElementById('addIstirahatHari');
+            const suratPerizinan = document.getElementById('suratPerizinan');
             const actionSelect = document.getElementById('actionSelect');
 
             function toggleSelect() {
                 if (istirahatHariInput.value.trim() === '') {
                     actionSelect.disabled = true;
+                    suratPerizinan.disabled = true;
                 } else {
                     actionSelect.disabled = false;
+                    suratPerizinan.disabled = false;
                 }
             }
             toggleSelect();
             istirahatHariInput.addEventListener('input', toggleSelect);
+        });
+        
+         // Handler file disable ketika value select tidak buat 
+        document.getElementById('actionSelect').addEventListener('change', function() {
+            var suratPerizinan = document.getElementById('suratPerizinan');
+            if (this.value === 'tidak') {
+                suratPerizinan.disabled = true;
+            } else {
+                suratPerizinan.disabled = false;
+            }
         });
 
         // Inisialisasi datatable
