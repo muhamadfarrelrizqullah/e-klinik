@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
@@ -25,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Authentication
-Route::get('/', [AutentikasiController::class, 'landing'])->name('landing');
+Route::get('/', [LandingController::class, 'landing'])->name('landing');
+Route::get('/antrian-pemeriksaan', [LandingController::class, 'antrian'])->name('antrian');
+Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'])->name('antrian-data');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
