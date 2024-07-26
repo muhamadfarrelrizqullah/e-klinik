@@ -47,4 +47,18 @@ class ProfilController extends Controller
     {
         return view('dokter.profil');
     }
+    
+    public function editDokter()
+    { 
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('dokter.profil-edit', compact('users'));
+    }
+
+    public function editPasien()
+    { 
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('pasien.profil-edit', compact('users'));
+    }
 }

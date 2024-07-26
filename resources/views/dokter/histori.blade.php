@@ -352,7 +352,7 @@
                                     align: "center"
                                 });
                                 doc.setFontSize(10);
-                                doc.text('Data Poli Pt. PAL Indonesia', 14, 55);
+                                doc.text('Data Rekap Pemeriksaan', 14, 55);
                                 // Menambahkan tabel
                                 var columns = ["No", "No Rekap", "NIP Pasien",
                                     "Nama Pasien", "Divisi Pasien",
