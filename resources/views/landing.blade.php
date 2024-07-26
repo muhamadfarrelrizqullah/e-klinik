@@ -105,7 +105,7 @@
                         <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">Selamat Datang di e-Klinik
                             <br />Solusi Kesehatan Digital Anda!
                         </h1>
-                        <a href="" class="btn btn-primary">Cek Antrian</a>
+                        <a href="{{ route('antrian') }}" class="btn btn-primary">Cek Antrian</a>
                     </div>
                 </div>
             </div>
