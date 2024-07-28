@@ -344,7 +344,11 @@
                         name: 'nama_dokter',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            if (data === null || data === undefined) {
+                                return '<span class="text-gray-900 fw-bold fs-6">Belum ada dokter</span>';
+                            } else {
+                                return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            }
                         }
                     },
                     {
