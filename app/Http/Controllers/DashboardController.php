@@ -38,7 +38,8 @@ class DashboardController extends Controller
     {
         $pengajuan = Pengajuan::where('id_pasien', auth()->user()->id)->get();
         $user = auth()->user();
-        return view('pasien.dashboard', compact('pengajuan', 'user'));
+        $polis = Poli::all();
+        return view('pasien.dashboard', compact('pengajuan', 'user', 'polis'));
     }
 
     public function dasboardPasien(Request $request)

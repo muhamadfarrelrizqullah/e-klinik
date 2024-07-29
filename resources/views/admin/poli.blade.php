@@ -19,7 +19,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
-                        Download Excel
+                        Download PDF
                     </button>
                     <button type="button" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
                         data-bs-target="#modalAdd">
@@ -263,6 +263,72 @@
             // Fix tampilan tabel berubah setelah dilakukan responsif
             $(window).resize(function() {
                 tabel.columns.adjust().responsive.recalc();
+            });
+        });
+
+        // Handle download pdf
+        document.addEventListener("DOMContentLoaded", function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            document.getElementById('bt-download').addEventListener('click', function() {
+                $.ajax({
+                    url: "{{ route('admin-datapoli') }}",
+                    type: "GET",
+                    success: function(response) {
+                        $.ajax({
+                            url: "/logo-base64",
+                            type: "GET",
+                            success: function(logoResponse) {
+                                // Urutkan data berdasarkan nama
+                                var sortedData = response.data.sort((a, b) => {
+                                    return a.nama.localeCompare(b.nama);
+                                });
+                                var doc = new jsPDF();
+                                // Menambahkan kop perusahaan
+                                var companyLogo = logoResponse.base64;
+                                var companyAddress =
+                                    'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
+                                var companyContact =
+                                    'Telp (62-31) 329 2275 Fax (62-31) 329 2530';
+                                var pageWidth = doc.internal.pageSize.getWidth();
+                                var logoWidth = 50;
+                                var centerX = pageWidth / 2;
+                                doc.addImage(companyLogo, 'PNG', centerX -
+                                    logoWidth / 2, 10, logoWidth, 10);
+                                doc.setFontSize(10);
+                                doc.setFont("helvetica", "normal");
+                                doc.text(companyAddress, centerX, 30, {
+                                    align: "center"
+                                });
+                                doc.text(companyContact, centerX, 35, {
+                                    align: "center"
+                                });
+                                doc.setFontSize(10);
+                                doc.text('Data Poli Pt. PAL Indonesia', 14, 55);
+                                // Menambahkan tabel
+                                var columns = ["No", "Nama", "Jumlah User"];
+                                var data = sortedData.map((row, index) => [
+                                    index + 1,
+                                    row.nama.replace(/&amp;/g, '&'),
+                                    row.user_count
+                                ]);
+                                doc.autoTable({
+                                    head: [columns],
+                                    body: data,
+                                    startY: 60,
+                                    styles: {
+                                        halign: 'center'
+                                    },
+                                    headStyles: {
+                                        halign: 'center'
+                                    }
+                                });
+                                doc.save('Data_Poli_Report.pdf');
+                            }
+                        });
+                    }
+                });
             });
         });
 

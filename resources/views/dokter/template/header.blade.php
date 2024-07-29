@@ -119,7 +119,7 @@
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5 my-1">
-                            <a href="" class="menu-link px-5">Edit Akun</a>
+                            <a href="{{ route('dokter-profil') }}" class="menu-link px-5">Edit Akun</a>
                         </div>
                         <div class="menu-item px-5">
                             <form action="{{ route('logout') }}" method="POST">

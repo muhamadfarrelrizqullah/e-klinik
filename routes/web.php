@@ -3,9 +3,13 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\QrController;
+use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +29,8 @@ Route::get('/', [AutentikasiController::class, 'landing'])->name('landing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
+
+Route::get('/logo-base64', [PdfController::class, 'getLogoBase64']);
 
 //Admin
 Route::get('/admin/dashboard', [DashboardController::class, 'indexAdmin'])->name('admin-dashboard');
@@ -62,6 +68,18 @@ Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('ad
 
 //Dokter
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
+Route::get('/dokter/pengajuan', [PengajuanController::class, 'indexDokter'])->name('dokter-pengajuan');
+Route::get('/dokter/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('dokter-pemeriksaan');
+Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
+Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
+Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
+
+Route::get('/dokter/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('dokter-datapengajuan');
+Route::post('/dokter/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('dokter-datapengajuan-tambah');
+Route::post('/dokter/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
+
+Route::get('/dokter/profil-edit', [ProfilController::class, 'edit'])->name('dokter-profil-edit');
+Route::post('/dokter/profil-edit', [ProfilController::class, 'update'])->name('dokter-profil-update');
 
 //Pasien
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');

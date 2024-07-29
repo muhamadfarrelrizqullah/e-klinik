@@ -42,4 +42,9 @@ class ProfilController extends Controller
             return response()->json(['message' => $th->getMessage()], 500);
         }
     }
+
+    public function indexDokter()
+    {
+        return view('dokter.profil');
+    }
 }

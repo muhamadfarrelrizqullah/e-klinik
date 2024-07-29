@@ -1,4 +1,4 @@
-@extends('pasien.template.main')
+@extends('dokter.template.main')
 
 @section('title', 'Edit Profil - E Klinik PAL')
 
@@ -17,7 +17,7 @@
                                 <div class="card-title m-0">
                                     <h3 class="fw-bold m-0">Detail Profil</h3>
                                 </div>
-                                <a href="{{ route('pasien-profil-edit') }}"
+                                <a href="{{ route('dokter-profil-edit') }}"
                                     class="btn btn-sm btn-primary align-self-center">Edit
                                     Profil</a>
                             </div>
@@ -71,7 +71,7 @@
                                             <div class="fs-6 text-gray-700">Harap pastikan informasi profil Anda selalu
                                                 update.
                                                 Jika Anda perlu melakukan perubahan apa pun, klik tombol
-                                                <a class="fw-bold" href="{{ route('pasien-profil-edit') }}">Edit Profil</a> di atas.
+                                                <a class="fw-bold" href="{{ route('dokter-profil-edit') }}">Edit Profil</a> di atas.
                                             </div>
                                         </div>
                                     </div>

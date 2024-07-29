@@ -2,10 +2,14 @@
     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
     data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
     <div class="app-sidebar-logo px-5" id="kt_app_sidebar_logo">
-        <img alt="Logo" src="assets/media/logos/pal.png" class="h-30px app-sidebar-logo-default theme-light-show px-11" />
-        <img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-30px app-sidebar-logo-default theme-dark-show px-11" />
-        <img alt="Logo" src="assets/media/logos/favicon.png" class="h-40px app-sidebar-logo-minimize theme-light-show" />
-        <img alt="Logo" src="assets/media/logos/favicon-dark.png" class="h-40px app-sidebar-logo-minimize theme-dark-show" />
+        <img alt="Logo" src="assets/media/logos/pal.png"
+            class="h-30px app-sidebar-logo-default theme-light-show px-11" />
+        <img alt="Logo" src="assets/media/logos/pal-dark.png"
+            class="h-30px app-sidebar-logo-default theme-dark-show px-11" />
+        <img alt="Logo" src="assets/media/logos/favicon.png"
+            class="h-40px app-sidebar-logo-minimize theme-light-show" />
+        <img alt="Logo" src="assets/media/logos/favicon-dark.png"
+            class="h-40px app-sidebar-logo-minimize theme-dark-show" />
         <div id="kt_app_sidebar_toggle"
             class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
             data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
@@ -35,6 +39,83 @@
                                 </i>
                             </span>
                             <span class="menu-title">Dashboard</span>
+                        </a>
+                    </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Master Data</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-pengajuan') ? 'active' : '' }}"
+                            href="{{ route('dokter-pengajuan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-file-right fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Pengajuan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-pemeriksaan') ? 'active' : '' }}"
+                            href="{{ route('dokter-pemeriksaan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-notepad fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Pemeriksaan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-scanqr') ? 'active' : '' }}"
+                            href="{{ route('dokter-scanqr') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-fingerprint-scanning fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Scan QR</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-historipengajuan') ? 'active' : '' }}"
+                            href="{{ route('dokter-historipengajuan') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-update-file fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Histori Pengajuan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-profil') ? 'active' : '' }}"
+                            href="{{ route('dokter-profil') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-setting-4 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Edit Akun</span>
                         </a>
                     </div>
                 </div>

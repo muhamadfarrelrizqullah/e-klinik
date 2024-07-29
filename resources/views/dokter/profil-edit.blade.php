@@ -1,4 +1,4 @@
-@extends('admin.template.main')
+@extends('dokter.template.main')
 
 @section('title', 'Edit Profil - E-Klinik PAL')
 
@@ -16,7 +16,7 @@
                     </div>
                     <div id="kt_account_settings_profile_details" class="collapse show">
                         <form id="kt_account_profile_details_form" class="form"
-                            action="{{ route('admin-profil-update') }}" method="POST">
+                            action="{{ route('dokter-profil-update') }}" method="POST">
                             @csrf
                             <div class="card-body border-top p-9">
                                 <div class="row mb-6">
@@ -80,7 +80,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
                                 <button type="reset" class="btn btn-light btn-active-light-primary me-2"><a
-                                        href="{{ route('admin-profil') }}">Batal</a></button>
+                                        href="{{ route('dokter-profil') }}">Batal</a></button>
                                 <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan
                                     Perubahan</button>
                             </div>
@@ -120,7 +120,7 @@
                             ).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.href =
-                                        "{{ route('admin-profil') }}";
+                                        "{{ route('dokter-profil') }}";
                                 }
                             });
                         },
