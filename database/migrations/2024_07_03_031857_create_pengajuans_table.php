@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_dokter')->nullable();
             $table->unsignedBigInteger('id_poli')->nullable();
             $table->string('keluhan');
-            $table->enum('status', ['Pending', 'Ditolak', 'Diterima', 'Diproses', 'Selesai'])->default('Pending');
+            $table->enum('status', ['Ditolak', 'Diterima', 'Diproses', 'Selesai'])->default('Diterima');
             $table->date('tanggal_pengajuan')->nullable();
             $table->date('tanggal_pemeriksaan')->nullable();
             $table->string('qrcode')->nullable();
