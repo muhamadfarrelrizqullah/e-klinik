@@ -161,6 +161,44 @@
         </div>
     </div>
 
+    <div id="modalDetailQR" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailQRLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail QR Code</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>QR Code</span>
+                            </label>
+                            <img src="" alt="QR Code" class="img-fluid" id="detailQR"
+                                style="max-width: 200px;">
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Status QR Code</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailStatusQR" readonly>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
@@ -306,7 +344,11 @@
                         name: 'nama_dokter',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            if (data === null || data === undefined) {
+                                return '<span class="text-gray-900 fw-bold fs-6">Belum ada dokter</span>';
+                            } else {
+                                return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            }
                         }
                     },
                     {
@@ -365,11 +407,24 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            return `<div class="d-flex justify-content-center flex-shrink-0">
+                            if (row.status === 'Diterima' || row.status === 'Diproses' || row.status === 'Selesai') {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                        <span class="path6"></span>
+                                        <span class="path7"></span>
+                                        <span class="path8"></span>
                                     </i>
                                 </a>
                                 {{-- <a onclick="modalEdit('${row.id}', '${row.id_pasien}', '${row.id_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
@@ -387,7 +442,17 @@
                                         <span class="path5"></span>
                                     </i>
                                 </a> --}}
-                            </div>`;
+                            </div>`
+                            } else {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-bg-light btn-active-color-info btn-xl me-1" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                </div>`
+                            };
                         }
                     }
                 ],
@@ -446,6 +511,15 @@
             $('#detailCatatan').val(catatan);
             $('#detailNamaPoli').val(nama_poli);
             $('#modalDetail').modal('show');
+        }
+
+        // Pengambilan data modal detail QR
+        function modalDetailQR(id, status_qrcode) {
+            var qrcodeUrl = '{{ asset('storage/qr_codes/') }}' + '/' + id + '.png';
+            // Mengatur URL gambar QR Code
+            $('#detailQR').attr('src', qrcodeUrl);
+            $('#detailStatusQR').val(status_qrcode);
+            $('#modalDetailQR').modal('show');
         }
 
         // Menangani penanganan fungsi delete data
