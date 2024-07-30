@@ -306,6 +306,7 @@
                 serverSide: true,
                 ajax: "{{ route('pasien-datapengajuan') }}",
                 order: [
+                    [8, 'asc'],
                     [5, 'desc'],
                 ],
                 columns: [{
@@ -450,6 +451,13 @@
                                 </div>`
                             };
                         }
+                    },
+                    {
+                        data: 'status_order',
+                        name: 'status_order',
+                        visible: false,
+                        searchable: false,
+                        orderable: true
                     }
                 ],
                 aLengthMenu: [

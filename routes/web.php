@@ -66,6 +66,7 @@ Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name(
 Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
 Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
 Route::post('/admin/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
+Route::post('/admin/tolak-pengajuan-hari-ini', [PengajuanController::class, 'tolakPengajuanHariIni'])->name('admin-tolakpengajuanhariini');
 
 Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr');
 

@@ -22,6 +22,9 @@
                     <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
                         Download PDF
                     </button>
+                    <button type="button" class="btn btn-sm fw-bold btn-danger" id="bt-tolak-semua">
+                        Tolak Semua Pengajuan
+                    </button>
                 </div>
             </div>
         </div>
@@ -320,6 +323,7 @@
                 serverSide: true,
                 ajax: "{{ route('admin-datapengajuan') }}",
                 order: [
+                    [8, 'asc'],
                     [5, 'desc'],
                 ],
                 columns: [{
@@ -364,12 +368,10 @@
                         name: 'status',
                         orderable: true,
                         render: function(data, type, row) {
-                            if (data === 'Pending') {
-                                return `<span class="badge badge-light-secondary">${data}</span>`;
-                            } else if (data === 'Ditolak') {
+                            if (data === 'Ditolak') {
                                 return `<span class="badge badge-light-danger">${data}</span>`;
                             } else if (data === 'Diterima') {
-                                return `<span class="badge badge-light-info">${data}</span>`;
+                                return `<span class="badge badge-light-secondary">${data}</span>`;
                             } else if (data === 'Diproses') {
                                 return `<span class="badge badge-light-primary">${data}</span>`;
                             } else {
@@ -487,6 +489,13 @@
                                 </div>`
                             };
                         }
+                    },
+                    {
+                        data: 'status_order',
+                        name: 'status_order',
+                        visible: false,
+                        searchable: false,
+                        orderable: true
                     }
                 ],
                 aLengthMenu: [
@@ -844,12 +853,71 @@
                 }
             });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('bt-tolak-semua').addEventListener('click', function() {
+                const swalMixinSuccess = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                });
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Semua pengajuan pada hari ini akan ditolak!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, tolak semua!',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/admin/tolak-pengajuan-hari-ini', {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute('content'),
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    return response.json().then(errorData => {
+                                        throw new Error(errorData.message);
+                                    });
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                tabel.ajax.reload();
+                                swalMixinSuccess.fire(
+                                    'Berhasil!',
+                                    'Semua pengajuan hari ini berhasil ditolak.',
+                                    'success'
+                                );
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                Swal.fire(
+                                    'Error!',
+                                    'Error menolak semua pengajuan: ' + error.message,
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
     </script>
 @endpush
 
 @push('style')
     <style>
         #bt-download,
+        #bt-tolak-semua,
         #TabelPengajuan td,
         #TabelPengajuan th {
             text-align: center;
@@ -868,6 +936,11 @@
 
         @media only screen and (max-width: 768px) {
             #TabelPengajuan td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+            #bt-tolak-semua, #bt-download {
                 white-space: normal;
                 word-wrap: break-word;
             }

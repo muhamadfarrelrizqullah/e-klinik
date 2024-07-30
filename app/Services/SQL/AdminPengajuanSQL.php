@@ -29,6 +29,26 @@ class AdminPengajuanSQL
                 'polis.id as id_poli',
                 'polis.nama as nama_poli',
             ])
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                switch ($item->status) {
+                    case 'Diterima':
+                        $item->status_order = 1;
+                        break;
+                    case 'Diproses':
+                        $item->status_order = 2;
+                        break;
+                    case 'Ditolak':
+                        $item->status_order = 3;
+                        break;
+                    case 'Selesai':
+                        $item->status_order = 4;
+                        break;
+                    default:
+                        $item->status_order = 5;
+                        break;
+                }
+                return $item;
+            });
     }
 }

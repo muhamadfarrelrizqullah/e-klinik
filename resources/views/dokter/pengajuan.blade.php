@@ -252,6 +252,7 @@
                 serverSide: true,
                 ajax: "{{ route('dokter-datapengajuan') }}",
                 order: [
+                    [8, 'asc'],
                     [5, 'asc'],
                 ],
                 columns: [{
@@ -356,6 +357,13 @@
                                 </a> --}}
                             </div>`;
                         }
+                    },
+                    {
+                        data: 'status_order',
+                        name: 'status_order',
+                        visible: false,
+                        searchable: false,
+                        orderable: true
                     }
                 ],
                 aLengthMenu: [

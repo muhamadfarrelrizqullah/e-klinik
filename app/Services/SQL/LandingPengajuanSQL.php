@@ -31,7 +31,7 @@ class LandingPengajuanSQL
                 'polis.id as id_poli',
                 'polis.nama as nama_poli',
             ])
-            ->where('pengajuans.status', 'Diterima')
+            ->where('pengajuans.status', 'Diproses')
             ->whereDate('pengajuans.tanggal_pemeriksaan', $tanggalSekarang)
             ->get();
     }

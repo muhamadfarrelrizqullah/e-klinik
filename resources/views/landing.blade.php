@@ -43,7 +43,7 @@
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <div class="mb-10" id="home">
             <div class="bgi-no-repeat bgi-position-x-center bgi-position-y-bottom landing-dark-bg mb-10" id="background"
-                style="background-image: url(assets/media/svg/illustrations/pal-2.png); background-size: cover; height: 100vh;">
+                style="background-image: url(assets/media/svg/illustrations/pal-3.png); background-size: cover; height: 100vh;">
                 <div class="landing-header" data-kt-sticky="true" data-kt-sticky-name="landing-header"
                     data-kt-sticky-offset="{default: '200px', lg: '300px'}">
                     <div class="container">
@@ -253,9 +253,9 @@
                         <div class="row g-10">
                             <div class="col-lg-6">
                                 <a class="d-block card-rounded overlay h-lg-100" data-fslightbox="lightbox-projects"
-                                    href="assets/media/stock/600x600/img-23.jpg">
+                                    href="assets/media/stock/600x600/img-88.jpg">
                                     <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-lg-100 min-h-250px"
-                                        style="background-image:url('assets/media/stock/600x600/img-23.jpg')">
+                                        style="background-image:url('assets/media/stock/600x600/img-88.jpg')">
                                     </div>
                                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                                         <i class="ki-duotone ki-eye fs-3x text-white">
@@ -270,9 +270,9 @@
                                 <div class="row g-10 mb-10">
                                     <div class="col-lg-6">
                                         <a class="d-block card-rounded overlay" data-fslightbox="lightbox-projects"
-                                            href="assets/media/stock/600x600/img-22.jpg">
+                                            href="assets/media/stock/600x600/img-89.jpg">
                                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-250px"
-                                                style="background-image:url('assets/media/stock/600x600/img-22.jpg')">
+                                                style="background-image:url('assets/media/stock/600x600/img-89.jpg')">
                                             </div>
                                             <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                                                 <i class="ki-duotone ki-eye fs-3x text-white">
@@ -285,9 +285,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <a class="d-block card-rounded overlay" data-fslightbox="lightbox-projects"
-                                            href="assets/media/stock/600x600/img-21.jpg">
+                                            href="assets/media/stock/600x600/img-90.jpg">
                                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-250px"
-                                                style="background-image:url('assets/media/stock/600x600/img-21.jpg')">
+                                                style="background-image:url('assets/media/stock/600x600/img-90.jpg')">
                                             </div>
                                             <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                                                 <i class="ki-duotone ki-eye fs-3x text-white">
@@ -300,9 +300,9 @@
                                     </div>
                                 </div>
                                 <a class="d-block card-rounded overlay" data-fslightbox="lightbox-projects"
-                                    href="assets/media/stock/600x400/img-20.jpg">
+                                    href="assets/media/stock/600x400/img-81.jpg">
                                     <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded h-250px"
-                                        style="background-image:url('assets/media/stock/600x600/img-20.jpg')">
+                                        style="background-image:url('assets/media/stock/600x400/img-81.jpg')">
                                     </div>
                                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                                         <i class="ki-duotone ki-eye fs-3x text-white">

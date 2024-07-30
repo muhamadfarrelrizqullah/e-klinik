@@ -160,6 +160,26 @@ class PengajuanController extends Controller
         }
     }
 
+    public function tolakPengajuanHariIni(Request $request)
+    {
+        try {
+            $today = now()->toDateString();
+            $pengajuan = Pengajuan::whereDate('tanggal_pemeriksaan', $today)->get();
+
+            foreach ($pengajuan as $item) {
+                $item->status = 'Ditolak';
+                $item->qrcode = "null";
+                $item->status_qrcode = "null";
+                $item->catatan = "Melebihi batas jam operasional";
+                $item->save();
+            }
+
+            return response()->json(['success' => 'Semua pengajuan hari ini berhasil ditolak.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
+    }
+
     // public function updateStatus(PengajuanUpdateStatusRequest $request)
     // {
     //     try {

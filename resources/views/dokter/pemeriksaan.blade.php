@@ -226,10 +226,26 @@
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Istirahat Selama (hari)</span>
+                                <span class="required">Istirahat Selama (hari)</span>
                             </label>
                             <input type="text" class="form-control form-control-solid"
                                 placeholder="Perlu istirahat selama" id="addIstirahatHari" name="istirahat_hari">
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Cost Center</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                placeholder="Masukkan cost centre" id="addCostCentre" name="cost_centre">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Pangkat/Golongan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                placeholder="Masukkan pangkat/golongan" id="addPangkatGolongan" name="pangkat_golongan">
+                            </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -555,6 +571,8 @@
             const tanggalPemeriksaan = document.getElementById('detTanggalPemeriksaan').value;
             const catatan = document.getElementById('addCatatan').value;
             const istirahatHari = parseInt(document.getElementById('addIstirahatHari').value, 10);
+            const costCentre = document.getElementById('addCostCentre').value || '-';
+            const pangkatGolongan = document.getElementById('addPangkatGolongan').value || '-';
             const namaDokter = document.getElementById('detNamaDokter').value;
 
             // Get tanggal hari ini
@@ -647,10 +665,10 @@
             addText(`MENERANGKAN,`, ``);
             addText(`Nama`, `: ${namaPasien}`);
             addText(`Umur / Tgl Lahir`, `: ${umurPasien} / ${tanggalLahir}`);
-            addText(`Pangkat / Gol.`, `: ............`);
+            addText(`Pangkat / Gol.`, `: ${pangkatGolongan}`);
             addText(`NRP / NIP`, `: ${nipPasien}`);
             addText(`Jabatan / Bag.`, `: ${divisiPasien}`);
-            addText(`Cost Centre`, `: ............`);
+            addText(`Cost Centre`, `: ${costCentre}`);
             addText(`Perlu mendapat istirahat`, `: ${istirahatHari} hari terhitung dari`);
             addText(`Tanggal`, `: ${tanggalPemeriksaan} s/d ${tanggalSelesai} karena menderita sakit.`);
             addText(`Keterangan lain-lain`, `: ${catatan}`);
