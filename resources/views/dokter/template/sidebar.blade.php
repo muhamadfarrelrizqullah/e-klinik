@@ -58,7 +58,7 @@
                             <span class="menu-title">Data Pengajuan</span>
                         </a>
                     </div>
-                    <div class="menu-item">
+                    {{-- <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('dokter-scanqr') ? 'active' : '' }}"
                             href="{{ route('dokter-scanqr') }}">
                             <span class="menu-icon">
@@ -72,7 +72,7 @@
                             </span>
                             <span class="menu-title">Scan QR</span>
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('dokter-pemeriksaan') ? 'active' : '' }}"
                             href="{{ route('dokter-pemeriksaan') }}">

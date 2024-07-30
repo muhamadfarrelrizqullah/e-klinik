@@ -22,7 +22,7 @@ class PengajuanUpdateStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'nullable|in:Pending,Diterima,Ditolak,Diproses,Selesai',
+            'status' => 'required|in:Diproses,Ditolak',
         ];
     }
 

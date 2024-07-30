@@ -342,7 +342,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="updateStatus(${row.id}, 'Diterima')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                {{-- <a onclick="updateStatus(${row.id}, 'Diterima')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-check fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -353,7 +353,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                </a>
+                                </a> --}}
                             </div>`;
                         }
                     }
@@ -467,64 +467,64 @@
         });
 
         // Handler update status
-        function updateStatus(id, status) {
-            const swalMixinSuccess = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: true,
-            });
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: `Anda akan mengubah status menjadi ${status}.`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, ubah!',
-                cancelButtonText: 'Tidak'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(`/dokter/data-pengajuan-update-status/${id}`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                    'content'),
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                status: status
-                            })
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(errorData => {
-                                    throw new Error(errorData.message);
-                                });
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log('Updated:', data);
-                            tabel.ajax.reload();
-                            swalMixinSuccess.fire(
-                                'Berhasil!',
-                                `Pengajuan berhasil ${status === 'Diterima' ? 'diterima' : 'ditolak'}.`,
-                                'success'
-                            );
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire(
-                                'Error!',
-                                'Error memperbarui status pengajuan: ' + error.message,
-                                'error'
-                            );
-                        });
-                }
-            });
-        }
+        // function updateStatus(id, status) {
+        //     const swalMixinSuccess = Swal.mixin({
+        //         toast: true,
+        //         position: 'top-end',
+        //         showConfirmButton: false,
+        //         timer: 4000,
+        //         timerProgressBar: true,
+        //     });
+        //     Swal.fire({
+        //         title: 'Apakah Anda yakin?',
+        //         text: `Anda akan mengubah status menjadi ${status}.`,
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Ya, ubah!',
+        //         cancelButtonText: 'Tidak'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             fetch(`/dokter/data-pengajuan-update-status/${id}`, {
+        //                     method: 'POST',
+        //                     headers: {
+        //                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+        //                             'content'),
+        //                         'Content-Type': 'application/json'
+        //                     },
+        //                     body: JSON.stringify({
+        //                         status: status
+        //                     })
+        //                 })
+        //                 .then(response => {
+        //                     if (!response.ok) {
+        //                         return response.json().then(errorData => {
+        //                             throw new Error(errorData.message);
+        //                         });
+        //                     }
+        //                     return response.json();
+        //                 })
+        //                 .then(data => {
+        //                     console.log('Updated:', data);
+        //                     tabel.ajax.reload();
+        //                     swalMixinSuccess.fire(
+        //                         'Berhasil!',
+        //                         `Pengajuan berhasil ${status === 'Diterima' ? 'diterima' : 'ditolak'}.`,
+        //                         'success'
+        //                     );
+        //                 })
+        //                 .catch(error => {
+        //                     console.error('Error:', error);
+        //                     Swal.fire(
+        //                         'Error!',
+        //                         'Error memperbarui status pengajuan: ' + error.message,
+        //                         'error'
+        //                     );
+        //                 });
+        //         }
+        //     });
+        // }
     </script>
 @endpush
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PemeriksaanUpdateStatusRequest;
 use App\Http\Requests\PengajuanEditRequest;
 use App\Http\Requests\PengajuanTambahRequest;
 use App\Http\Requests\PengajuanUpdateStatusRequest;
@@ -13,7 +12,6 @@ use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
 use App\Services\SQL\PasienPengajuanSQL;
 use App\Services\SQL\DokterPengajuanSQL;
-use App\Services\SQL\DokterPemeriksaanSQL;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,14 +23,12 @@ class PengajuanController extends Controller
     protected $DataPengajuan;
     protected $PasienPengajuan;
     protected $DokterPengajuan;
-    protected $DokterPemeriksaan;
 
-    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL, DokterPengajuanSQL $DokterPengajuanSQL, DokterPemeriksaanSQL $DokterPemeriksaanSQL)
+    public function __construct(AdminPengajuanSQL $AdminPengajuanSQL, PasienPengajuanSQL $PasienPengajuanSQL, DokterPengajuanSQL $DokterPengajuanSQL)
     {
         $this->DataPengajuan = $AdminPengajuanSQL;
         $this->PasienPengajuan = $PasienPengajuanSQL;
         $this->DokterPengajuan = $DokterPengajuanSQL;
-        $this->DokterPemeriksaan = $DokterPemeriksaanSQL;
     }
 
     public function index()
@@ -99,19 +95,25 @@ class PengajuanController extends Controller
     public function store(PengajuanTambahRequest $request)
     {
         $pasienId = Auth::id();
-        $statusAwal = "Pending";
-        $statusQr = "null";
-        $catatan = "Tidak ada catatan";
 
         $pengajuan = new Pengajuan();
         $pengajuan->id_pasien = $pasienId;
         $pengajuan->keluhan = $request->keluhan;
         $pengajuan->id_poli = $request->poli;
-        $pengajuan->status = $statusAwal;
+        $pengajuan->status = "Diterima";
         $pengajuan->tanggal_pengajuan = Carbon::now();
         $pengajuan->tanggal_pemeriksaan = $request->tanggal_pemeriksaan;
-        $pengajuan->status_qrcode = $statusQr;
-        $pengajuan->catatan = $catatan;
+        $pengajuan->status_qrcode = "aktif";
+        $pengajuan->catatan = "Tidak ada catatan";
+        $pengajuan->save();
+
+        // Generate QR Code URL
+        $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
+        // Generate QR Code image
+        $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
+        $qrCodePath = 'public/qr_codes/' . $pengajuan->id . '.png';
+        Storage::put($qrCodePath, $qrCodeImage);
+        $pengajuan->qrcode = Storage::url($qrCodePath);
         $pengajuan->save();
 
         $user = User::find($pasienId);
@@ -142,23 +144,14 @@ class PengajuanController extends Controller
     public function updateStatus(PengajuanUpdateStatusRequest $request)
     {
         try {
-            $dokterId = Auth::id();
             $pengajuan = Pengajuan::findOrFail($request->id);
             $pengajuan->status = $request->status;
-            $pengajuan->id_dokter = $dokterId;
-            if ($request->status === 'Diterima') {
-                $statusQRAktif = "aktif";
-                // Generate QR Code URL
-                $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
-                // Generate QR Code image
-                $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
-                $qrCodePath = 'public/qr_codes/' . $pengajuan->id . '.png';
-                Storage::put($qrCodePath, $qrCodeImage);
-                $pengajuan->qrcode = Storage::url($qrCodePath);
-                $pengajuan->status_qrcode = $statusQRAktif;
-            } else {
+            if ($request->status === 'Ditolak') {
                 $pengajuan->qrcode = "null";
                 $pengajuan->status_qrcode = "null";
+                $pengajuan->catatan = $request->catatan;
+            } else {
+                $pengajuan->status_qrcode = "expired";
             }
             $pengajuan->save();
             return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
@@ -167,58 +160,48 @@ class PengajuanController extends Controller
         }
     }
 
-    public function scanQr($id)
-    {
-        try {
-            $pengajuan = Pengajuan::findOrFail($id);
-            // handler jika qr code expired
-            if ($pengajuan->status_qrcode === 'expired') {
-                return response()->json(['error' => 'QR code sudah expired.'], 400);
-            }
-            $pengajuan->status = 'Diproses';
-            $pengajuan->status_qrcode = 'expired';
-            $pengajuan->save();
-            return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => $th->getMessage()], 500);
-        }
-    }
+    // public function updateStatus(PengajuanUpdateStatusRequest $request)
+    // {
+    //     try {
+    //         $dokterId = Auth::id();
+    //         $pengajuan = Pengajuan::findOrFail($request->id);
+    //         $pengajuan->status = $request->status;
+    //         $pengajuan->id_dokter = $dokterId;
+    //         if ($request->status === 'Diterima') {
+    //             $statusQRAktif = "aktif";
+    //             // Generate QR Code URL
+    //             $qrCodeUrl = route('update-status-from-qr', ['id' => $pengajuan->id]);
+    //             // Generate QR Code image
+    //             $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeUrl);
+    //             $qrCodePath = 'qr_codes/' . $pengajuan->id . '.png';
+    //             Storage::put($qrCodePath, $qrCodeImage);
+    //             $pengajuan->qrcode = Storage::url($qrCodePath);
+    //             $pengajuan->status_qrcode = $statusQRAktif;
+    //         } else {
+    //             $pengajuan->qrcode = "null";
+    //             $pengajuan->status_qrcode = "null";
+    //         }
+    //         $pengajuan->save();
+    //         return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['message' => $th->getMessage()], 500);
+    //     }
+    // }
 
-    public function readPemeriksaan()
-    {
-        $data = $this->DokterPemeriksaan->getPemeriksaanData();
-
-        return datatables()->of($data)
-            ->addIndexColumn()
-            ->make(true);
-    }
-
-    public function storePemeriksaan(PemeriksaanUpdateStatusRequest $request)
-    {
-        $pengajuanId = $request->id_pengajuan;
-        $pengajuan = Pengajuan::find($pengajuanId);
-        $pengajuan->status = "Selesai";
-        $pengajuan->catatan = $request->catatan ?? "Tidak ada catatan";
-        $pengajuan->save();
-
-        if ($request->hasFile('surat_perizinan_file')) {
-            $file = $request->file('surat_perizinan_file');
-            $fileName = $file->getClientOriginalName(); 
-            $file->storeAs('public/pdf', $fileName); 
-        } else {
-            $fileName = null;
-        }
-    
-        $noRekap = 'RKP' . now()->format('dmY') . $pengajuanId;
-        $rekap = new Rekap();
-        $rekap->no_rekap = $noRekap;
-        $rekap->id_pasien = $request->id_pasien;
-        $rekap->id_dokter = $request->id_dokter;
-        $rekap->id_pengajuan = $request->id_pengajuan;
-        $rekap->qrcode = $request->qrcode;
-        $rekap->surat_izin = $fileName;
-        $rekap->save();
-
-        return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
-    }
+    // public function scanQr($id)
+    // {
+    //     try {
+    //         $pengajuan = Pengajuan::findOrFail($id);
+    //         // handler jika qr code expired
+    //         if ($pengajuan->status_qrcode === 'expired') {
+    //             return response()->json(['error' => 'QR code sudah expired.'], 400);
+    //         }
+    //         $pengajuan->status = 'Diproses';
+    //         $pengajuan->status_qrcode = 'expired';
+    //         $pengajuan->save();
+    //         return response()->json(['success' => 'Status pengajuan berhasil diperbarui.']);
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['message' => $th->getMessage()], 500);
+    //     }
+    // }
 }

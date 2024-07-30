@@ -42,6 +42,7 @@ Route::get('/admin/divisi', [DivisiController::class, 'index'])->name('admin-div
 Route::get('/admin/poli', [PoliController::class, 'index'])->name('admin-poli');
 Route::get('/admin/pengajuan', [PengajuanController::class, 'index'])->name('admin-pengajuan');
 Route::get('/admin/profil', [ProfilController::class, 'index'])->name('admin-profil');
+Route::get('/admin/scan-qr', [QrController::class, 'indexAdmin'])->name('admin-scanqr');
 
 Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->name('admin-datauser-pasien');
 Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
@@ -64,6 +65,9 @@ Route::delete('/admin/data-poli-delete/{id}', [PoliController::class, 'destroy']
 Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name('admin-datapengajuan');
 Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
 Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
+Route::post('/admin/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
+
+Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr');
 
 Route::get('/admin/profil-edit', [ProfilController::class, 'edit'])->name('admin-profil-edit');
 Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('admin-profil-update');
@@ -72,18 +76,18 @@ Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('ad
 Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
 Route::get('/dokter/pengajuan', [PengajuanController::class, 'indexDokter'])->name('dokter-pengajuan');
 Route::get('/dokter/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('dokter-pemeriksaan');
-Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
+// Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
 Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
 Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
 
 Route::get('/dokter/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('dokter-datapengajuan');
 Route::post('/dokter/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('dokter-datapengajuan-tambah');
-Route::post('/dokter/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
+// Route::post('/dokter/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('dokter-datapengajuanstatus-update');
 
-Route::post('/qr-scan/{id}', [PengajuanController::class, 'scanQr'])->name('update-status-from-qr');
+// Route::post('/qr-scan/{id}', [PengajuanController::class, 'scanQr'])->name('update-status-from-qr');
 
-Route::get('/dokter/data-pemeriksaan', [PengajuanController::class, 'readPemeriksaan'])->name('dokter-datapemeriksaan');
-Route::post('/dokter/data-pemeriksaan-tambah', [PengajuanController::class, 'storePemeriksaan'])->name('dokter-datapemeriksaan-tambah');
+Route::get('/dokter/data-pemeriksaan', [PemeriksaanController::class, 'readPemeriksaan'])->name('dokter-datapemeriksaan');
+Route::post('/dokter/data-pemeriksaan-tambah', [PemeriksaanController::class, 'storePemeriksaan'])->name('dokter-datapemeriksaan-tambah');
 
 Route::get('/dokter/data-rekap', [RekapController::class, 'read'])->name('dokter-datarekap');
 

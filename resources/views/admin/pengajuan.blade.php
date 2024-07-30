@@ -407,7 +407,7 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            if (row.status === 'Diterima' || row.status === 'Diproses' || row.status === 'Selesai') {
+                            if (row.status === 'Diproses' || row.status === 'Selesai') {
                                 return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
@@ -442,6 +442,39 @@
                                         <span class="path5"></span>
                                     </i>
                                 </a> --}}
+                            </div>`
+                            } else if (row.status === 'Diterima') {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                        <span class="path6"></span>
+                                        <span class="path7"></span>
+                                        <span class="path8"></span>
+                                    </i>
+                                </a>
+                               <a onclick="updateStatus(${row.id}, 'Diproses')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                    <i class="ki-duotone ki-check fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="updateStatus(${row.id}, 'Ditolak')" class="btn btn-icon btn-light-danger btn-xl">
+                                    <i class="ki-duotone ki-cross fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
                             </div>`
                             } else {
                                 return `<div class="d-flex justify-content-center flex-shrink-0">
@@ -736,6 +769,80 @@
             $('#updateTanggalPemeriksaan').val(tanggal_pemeriksaan);
             $('#updateCatatan').val(catatan);
             $('#modalEdit').modal('show');
+        }
+
+        // Handler update status
+        function updateStatus(id, status) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+
+            const swalConfig = {
+                title: 'Apakah Anda yakin?',
+                text: `Anda akan mengubah status menjadi ${status}.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, ubah!',
+                cancelButtonText: 'Tidak'
+            };
+
+            if (status === 'Ditolak') {
+                swalConfig.input = 'textarea';
+                swalConfig.inputPlaceholder = 'Masukkan alasan penolakan...';
+                swalConfig.inputAttributes = {
+                    'aria-label': 'Masukkan alasan penolakan'
+                };
+                swalConfig.showCancelButton = true;
+            }
+
+            Swal.fire(swalConfig).then((result) => {
+                if (result.isConfirmed) {
+                    const catatan = status === 'Ditolak' ? result.value : '';
+                    fetch(`/admin/data-pengajuan-update-status/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                status: status,
+                                catatan: catatan
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.message);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Updated:', data);
+                            tabel.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Berhasil!',
+                                `Pengajuan berhasil ${status === 'Diproses' ? 'diproses' : 'ditolak'}.`,
+                                'success'
+                            );
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Error memperbarui status pengajuan: ' + error.message,
+                                'error'
+                            );
+                        });
+                }
+            });
         }
     </script>
 @endpush

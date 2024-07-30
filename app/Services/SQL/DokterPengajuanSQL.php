@@ -13,13 +13,7 @@ class DokterPengajuanSQL
 
         return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
             ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
-            ->join('polis', 'pengajuans.id_poli', '=', 'polis.id')
-            ->join('pivot_polis_users', function ($join) use ($userId) {
-                $join->on('pengajuans.id_poli', '=', 'pivot_polis_users.id_poli')
-                    ->where(function ($query) use ($userId) {
-                        $query->Where('pivot_polis_users.id_dokter', '=', $userId);
-                    });
-            })
+            ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
                 'pengajuans.keluhan',
@@ -38,7 +32,7 @@ class DokterPengajuanSQL
                 'polis.id as id_poli',
                 'polis.nama as nama_poli',
             ])
-            ->where('pengajuans.status', 'Pending')
+            ->where('pengajuans.id_dokter', $userId)
             ->get();
     }
 }

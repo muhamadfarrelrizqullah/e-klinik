@@ -158,7 +158,7 @@
                         @csrf
                         <input type="hidden" id="detId" name="id_pengajuan">
                         <input type="hidden" id="detQRCode" name="qrcode">
-                        <input type="hidden" id="detIdDokter" name="id_dokter">
+                        <input type="hidden" id="detIdDokter" value="{{ $users->id }}" name="id_dokter">
                         <input type="hidden" id="detIdPasien" name="id_pasien">
                         <input type="hidden" id="detDivisiPasien" name="divisi_pasien">
                         <input type="hidden" id="detTanggalLahir" name="tanggal_lahir">
@@ -184,14 +184,14 @@
                                     <span>NIP Dokter</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detNipDokter" readonly>
+                                    id="detNipDokter" value="{{ $users->nip }}" readonly>
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span>Nama Dokter</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detNamaDokter" readonly>
+                                    id="detNamaDokter" value="{{ $users->nama }}" readonly>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
@@ -396,7 +396,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
+                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
                                     <i class="ki-duotone ki-add-files fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -463,8 +463,7 @@
         }
 
         function modalAddPemeriksaan(id, tanggal_lahir, qrcode, id_pasien, nama_pasien, divisi_pasien, nip_pasien,
-            id_dokter, nama_dokter,
-            nip_dokter, keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
+            keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
             $('#detId').val(id);
             let datelahir = new Date(tanggal_lahir);
             let daylahir = String(datelahir.getDate()).padStart(2, '0');
@@ -477,9 +476,6 @@
             $('#detNamaPasien').val(nama_pasien);
             $('#detNipPasien').val(nip_pasien);
             $('#detDivisiPasien').val(divisi_pasien);
-            $('#detIdDokter').val(id_dokter);
-            $('#detNamaDokter').val(nama_dokter);
-            $('#detNipDokter').val(nip_dokter);
             $('#detKeluhan').val(keluhan);
             let datePengajuan = new Date(tanggal_pengajuan);
             let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
