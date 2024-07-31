@@ -540,7 +540,7 @@
                     console.log(xhr.responseJSON.message);
                     Swal.fire(
                         'Error!',
-                        'Error menambahkan pengajuan: ' + xhr.responseJSON.message,
+                        'Error memperbarui pengajuan: ' + xhr.responseJSON.message,
                         'error'
                     );
                 }

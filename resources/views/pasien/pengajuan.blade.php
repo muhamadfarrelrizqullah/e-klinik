@@ -295,6 +295,102 @@
             </div>
         </div>
     </div>
+
+    <div id="modalAddRating" class="modal fade" tabindex="-1" aria-hidden="true"
+        aria-labelledby="modalAddRatingLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tambah Rating Pengajuan</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('pasien-ratingpengajuan-tambah') }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="detId" name="id_pengajuan">
+                        <input type="hidden" id="detIdPasien" name="id_pasien">
+                        <input type="hidden" id="detIdDokter" name="id_dokter">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNamaPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama Dokter</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNamaDokter" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Poli</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detNamaPoli" readonly>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Keluhan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detKeluhan"
+                                readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pengajuan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detTanggalPengajuan" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pemeriksaan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detTanggalPemeriksaan" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span class="required">Rating</span>
+                            </label>
+                            <input type="number" class="form-control form-control-solid"
+                                placeholder="Tambahkan rating pengajuan" id="addRating" name="rating" min="1"
+                                max="10">
+                            <small class="text-muted">Masukkan berupa Angka 1-10.</small>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Komentar</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid"
+                                placeholder="Tambahkan komentar pengajuan" id="addKomentar" name="komentar">
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan</span>
+                                <span class="indicator-progress">Tunggu....
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script')
@@ -411,7 +507,7 @@
                                     </i>
                                 </a>
                             </div>`
-                            } else if (row.status === 'Selesai' && row.surat_izin) {
+                            } else if (row.status === 'Selesai' && row.surat_izin && !row.id_rating) {
                                 return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
@@ -431,12 +527,99 @@
                                         <span class="path8"></span>
                                     </i>
                                 </a>
-                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl">
+                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                         <span class="path3"></span>
                                         <span class="path4"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
+                                    <i class="ki-duotone ki-like fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </a>
+                            </div>`
+                            } else if (row.status === 'Selesai' && !row.surat_izin && !row.id_rating) {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                        <span class="path6"></span>
+                                        <span class="path7"></span>
+                                        <span class="path8"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
+                                    <i class="ki-duotone ki-like fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </a>
+                            </div>`
+                            } else if (row.status === 'Selesai' && row.surat_izin && row.id_rating) {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                        <span class="path6"></span>
+                                        <span class="path7"></span>
+                                        <span class="path8"></span>
+                                    </i>
+                                </a>
+                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                    <i class="ki-duotone ki-file-down fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </a>
+                            </div>`
+                            } else if (row.status === 'Selesai' && !row.surat_izin && row.id_rating) {
+                                return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                        <span class="path6"></span>
+                                        <span class="path7"></span>
+                                        <span class="path8"></span>
                                     </i>
                                 </a>
                             </div>`
@@ -488,6 +671,9 @@
 
         // Clear form modal add
         $('#modalAdd').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+        $('#modalAddRating').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
         });
 
@@ -592,6 +778,69 @@
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('addTanggalPemeriksaan').setAttribute('min', today);
+        });
+
+        // Pengambilan data modal add rating
+        function modalAddRating(id, id_pasien, nama_pasien, id_dokter, nama_dokter, keluhan,
+            tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
+            $('#detId').val(id);
+            $('#detIdPasien').val(id_pasien);
+            $('#detNamaPasien').val(nama_pasien);
+            $('#detIdDokter').val(id_dokter);
+            $('#detNamaDokter').val(nama_dokter);
+            $('#detKeluhan').val(keluhan);
+            let datePengajuan = new Date(tanggal_pengajuan);
+            let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
+            let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
+            let yearPengajuan = String(datePengajuan.getFullYear());
+            let formattedBirthdatePengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
+            $('#detTanggalPengajuan').val(formattedBirthdatePengajuan);
+            let datePemeriksaan = new Date(tanggal_pemeriksaan);
+            let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
+            let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
+            let yearPemeriksaan = String(datePemeriksaan.getFullYear());
+            let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
+            $('#detTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
+            $('#detNamaPoli').val(nama_poli);
+            $('#modalAddRating').modal('show');
+        }
+
+        // Menangani penanganan form modal add rating
+        $('#modalAddRating form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            e.preventDefault();
+            let form = $(this)[0];
+            let data = new FormData(form);
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#modalAddRating').modal('hide');
+                    tabel.ajax.reload();
+                    swalMixinSuccess.fire(
+                        'Success!',
+                        'Rating berhasil ditambah.',
+                        'success'
+                    );
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseJSON.message);
+                    Swal.fire(
+                        'Error!',
+                        'Error menambahkan rating: ' + xhr.responseJSON.message,
+                        'error'
+                    );
+                }
+            });
         });
     </script>
 @endpush

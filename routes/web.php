@@ -102,6 +102,7 @@ Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pa
 
 Route::get('/pasien/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('pasien-datapengajuan');
 Route::post('/pasien/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('pasien-datapengajuan-tambah');
+Route::post('/pasien/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('pasien-ratingpengajuan-tambah');
 
 Route::get('/pasien/profil-edit', [ProfilController::class, 'editPasien'])->name('pasien-profil-edit');
 Route::post('/pasien/profil-edit', [ProfilController::class, 'update'])->name('pasien-profil-update');

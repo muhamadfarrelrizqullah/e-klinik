@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PengajuanAddRatingRequest;
 use App\Http\Requests\PengajuanEditRequest;
 use App\Http\Requests\PengajuanTambahRequest;
 use App\Http\Requests\PengajuanUpdateStatusRequest;
 use App\Models\Pengajuan;
 use App\Models\Poli;
+use App\Models\Rating;
 use App\Models\Rekap;
 use App\Models\User;
 use App\Services\SQL\AdminPengajuanSQL;
@@ -178,6 +180,19 @@ class PengajuanController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
         }
+    }
+
+    public function addRating(PengajuanAddRatingRequest $request)
+    {
+        $rating = new Rating();
+        $rating->id_pasien = $request->id_pasien;
+        $rating->id_dokter = $request->id_dokter;
+        $rating->id_pengajuan = $request->id_pengajuan;
+        $rating->rating = $request->rating;
+        $rating->komentar = $request->komentar ?? "Tidak ada komentar";
+        $rating->save();
+
+        return redirect()->back()->with('success', 'Rating berhasil ditambah.');
     }
 
     // public function updateStatus(PengajuanUpdateStatusRequest $request)
