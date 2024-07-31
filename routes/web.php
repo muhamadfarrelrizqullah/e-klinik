@@ -10,6 +10,7 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\QrController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -99,10 +100,13 @@ Route::post('/dokter/profil-edit', [ProfilController::class, 'update'])->name('d
 Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
 Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
 Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pasien-profil');
+Route::get('/pasien/rating', [RatingController::class, 'index'])->name('pasien-rating');
 
 Route::get('/pasien/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('pasien-datapengajuan');
 Route::post('/pasien/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('pasien-datapengajuan-tambah');
 Route::post('/pasien/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('pasien-ratingpengajuan-tambah');
+
+Route::get('/pasien/data-rating', [RatingController::class, 'read'])->name('pasien-datarating');
 
 Route::get('/pasien/profil-edit', [ProfilController::class, 'editPasien'])->name('pasien-profil-edit');
 Route::post('/pasien/profil-edit', [ProfilController::class, 'update'])->name('pasien-profil-update');

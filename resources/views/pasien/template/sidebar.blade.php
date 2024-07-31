@@ -54,6 +54,18 @@
                             <span class="menu-title">Data Pengajuan</span>
                         </a>
                     </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('pasien-rating') ? 'active' : '' }}"
+                            href="{{ route('pasien-rating') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-like-shapes fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Rating</span>
+                        </a>
+                    </div>
                     <div class="menu-item pt-5">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>
