@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Rekap;
 use App\Models\Poli;
+use App\Models\Rating;
 
 class Pengajuan extends Model
 {
@@ -36,5 +37,10 @@ class Pengajuan extends Model
     public function rekaps()
     {
         return $this->hasMany(Rekap::class, 'id_pengajuan');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'id_pengajuan');
     }
 }

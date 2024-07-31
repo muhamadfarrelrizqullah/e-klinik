@@ -11,6 +11,7 @@ use App\Models\Divisi;
 use App\Models\Pengajuan;
 use App\Models\Rekap;
 use App\Models\PivotPolisUser;
+use App\Models\Rating;
 
 
 
@@ -59,5 +60,15 @@ class User extends Authenticatable
     public function pivotPolisUsers()
     {
         return $this->hasMany(PivotPoliUser::class, 'id_dokter');
+    }
+
+    public function ratingsAsPasien()
+    {
+        return $this->hasMany(Rating::class, 'id_pasien');
+    }
+
+    public function ratingsAsDokter()
+    {
+        return $this->hasMany(Rating::class, 'id_dokter');
     }
 }
