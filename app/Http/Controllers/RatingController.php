@@ -62,7 +62,7 @@ class RatingController extends Controller
         try {
             $rating = Rating::findOrFail($request->id);
             $rating->rating = $request->rating;
-            $rating->komentar = $request->komentar ?? "Tidak ada komentar";
+            $rating->komentar = $request->komentar?? "Tidak ada komentar";
             $rating->save();
             return response()->json(['success' => 'Rating berhasil diupdate.']);
         } catch (\Throwable $th) {

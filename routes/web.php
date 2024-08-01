@@ -13,7 +13,6 @@ use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
-use App\Models\Rating;
 use Illuminate\Support\Facades\Route;
 
 /*
