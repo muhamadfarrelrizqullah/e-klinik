@@ -13,6 +13,7 @@ use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,7 @@ Route::get('/admin/poli', [PoliController::class, 'index'])->name('admin-poli');
 Route::get('/admin/pengajuan', [PengajuanController::class, 'index'])->name('admin-pengajuan');
 Route::get('/admin/profil', [ProfilController::class, 'index'])->name('admin-profil');
 Route::get('/admin/scan-qr', [QrController::class, 'indexAdmin'])->name('admin-scanqr');
+Route::get('/admin/rating', [RatingController::class, 'indexAdmin'])->name('admin-rating');
 
 Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->name('admin-datauser-pasien');
 Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
@@ -68,6 +70,10 @@ Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])
 Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
 Route::post('/admin/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
 Route::post('/admin/tolak-pengajuan-hari-ini', [PengajuanController::class, 'tolakPengajuanHariIni'])->name('admin-tolakpengajuanhariini');
+
+Route::get('/admin/data-rating', [RatingController::class, 'readAdmin'])->name('admin-datarating');
+Route::put('/admin/data-rating-edit', [RatingController::class, 'update'])->name('admin-datarating-edit');
+Route::delete('/admin/data-rating-delete/{id}', [RatingController::class, 'destroy'])->name('admin-datarating-delete');
 
 Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr');
 

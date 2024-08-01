@@ -91,6 +91,18 @@
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-rating') ? 'active' : '' }}"
+                            href="{{ route('admin-rating') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-like-shapes fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Rating</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('admin-scanqr') ? 'active' : '' }}"
                             href="{{ route('admin-scanqr') }}">
                             <span class="menu-icon">
