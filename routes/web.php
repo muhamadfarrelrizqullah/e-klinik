@@ -35,83 +35,85 @@ Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->n
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
 
 Route::get('/logo-base64', [PdfController::class, 'getLogoBase64']);
-
-//Admin
-Route::get('/admin/dashboard', [DashboardController::class, 'indexAdmin'])->name('admin-dashboard');
-Route::get('/admin/user', [UserController::class, 'index'])->name('admin-user');
-Route::get('/admin/divisi', [DivisiController::class, 'index'])->name('admin-divisi');
-Route::get('/admin/poli', [PoliController::class, 'index'])->name('admin-poli');
-Route::get('/admin/pengajuan', [PengajuanController::class, 'index'])->name('admin-pengajuan');
-Route::get('/admin/profil', [ProfilController::class, 'index'])->name('admin-profil');
-Route::get('/admin/scan-qr', [QrController::class, 'indexAdmin'])->name('admin-scanqr');
-Route::get('/admin/rating', [RatingController::class, 'indexAdmin'])->name('admin-rating');
-
-Route::get('/admin/data-user-pasien', [UserController::class, 'readPasien'])->name('admin-datauser-pasien');
-Route::get('/admin/data-user-dokter', [UserController::class, 'readDokter'])->name('admin-datauser-dokter');
-Route::get('/admin/data-user-admin', [UserController::class, 'readAdmin'])->name('admin-datauser-admin');
-Route::post('/admin/data-user-tambah', [UserController::class, 'store'])->name('admin-datauser-tambah');
-Route::put('/admin/data-user-edit', [UserController::class, 'update'])->name('admin-datauser-edit');
-Route::delete('/admin/data-user-delete/{id}', [UserController::class, 'destroy'])->name('admin-datauser-delete');
-Route::post('/admin/data-user-reset-password', [UserController::class, 'resetPassword'])->name('admin-datauser-resetpassword');
-
-Route::get('/admin/data-divisi', [DivisiController::class, 'read'])->name('admin-datadivisi');
-Route::post('/admin/data-divisi-tambah', [DivisiController::class, 'store'])->name('admin-datadivisi-tambah');
-Route::put('/admin/data-divisi-edit', [DivisiController::class, 'update'])->name('admin-datadivisi-edit');
-Route::delete('/admin/data-divisi-delete/{id}', [DivisiController::class, 'destroy'])->name('admin-datadivisi-delete');
-
-Route::get('/admin/data-poli', [PoliController::class, 'read'])->name('admin-datapoli');
-Route::post('/admin/data-poli-tambah', [PoliController::class, 'store'])->name('admin-datapoli-tambah');
-Route::put('/admin/data-poli-edit', [PoliController::class, 'update'])->name('admin-datapoli-edit');
-Route::delete('/admin/data-poli-delete/{id}', [PoliController::class, 'destroy'])->name('admin-datapoli-delete');
-
-Route::get('/admin/data-pengajuan', [PengajuanController::class, 'read'])->name('admin-datapengajuan');
-Route::put('/admin/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('admin-datapengajuan-edit');
-Route::delete('/admin/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('admin-datapengajuan-delete');
-Route::post('/admin/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('admin-datapengajuanstatus-update');
-Route::post('/admin/tolak-pengajuan-hari-ini', [PengajuanController::class, 'tolakPengajuanHariIni'])->name('admin-tolakpengajuanhariini');
-
-Route::get('/admin/data-rating', [RatingController::class, 'readAdmin'])->name('admin-datarating');
-Route::put('/admin/data-rating-edit', [RatingController::class, 'update'])->name('admin-datarating-edit');
-Route::delete('/admin/data-rating-delete/{id}', [RatingController::class, 'destroy'])->name('admin-datarating-delete');
-
 Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr');
 
-Route::get('/admin/profil-edit', [ProfilController::class, 'edit'])->name('admin-profil-edit');
-Route::post('/admin/profil-edit', [ProfilController::class, 'update'])->name('admin-profil-update');
+// Admin Routes
+Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'indexAdmin'])->name('dashboard');
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/divisi', [DivisiController::class, 'index'])->name('divisi');
+    Route::get('/poli', [PoliController::class, 'index'])->name('poli');
+    Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+    Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
+    Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
 
-//Dokter
-Route::get('/dokter/dashboard', [DashboardController::class, 'indexDokter'])->name('dokter-dashboard');
-Route::get('/dokter/pengajuan', [PengajuanController::class, 'indexDokter'])->name('dokter-pengajuan');
-Route::get('/dokter/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('dokter-pemeriksaan');
-// Route::get('/dokter/scan-qr', [QrController::class, 'indexDokter'])->name('dokter-scanqr');
-Route::get('/dokter/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('dokter-historipengajuan');
-Route::get('/dokter/profil', [ProfilController::class, 'indexDokter'])->name('dokter-profil');
+    Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
+    Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
+    Route::get('/data-user-admin', [UserController::class, 'readAdmin'])->name('datauser-admin');
+    Route::post('/data-user-tambah', [UserController::class, 'store'])->name('datauser-tambah');
+    Route::put('/data-user-edit', [UserController::class, 'update'])->name('datauser-edit');
+    Route::delete('/data-user-delete/{id}', [UserController::class, 'destroy'])->name('datauser-delete');
+    Route::post('/data-user-reset-password', [UserController::class, 'resetPassword'])->name('datauser-resetpassword');
 
-Route::get('/dokter/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('dokter-datapengajuan');
-Route::post('/dokter/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('dokter-datapengajuan-tambah');
-// Route::post('/dokter/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('dokter-datapengajuanstatus-update');
+    Route::get('/data-divisi', [DivisiController::class, 'read'])->name('datadivisi');
+    Route::post('/data-divisi-tambah', [DivisiController::class, 'store'])->name('datadivisi-tambah');
+    Route::put('/data-divisi-edit', [DivisiController::class, 'update'])->name('datadivisi-edit');
+    Route::delete('/data-divisi-delete/{id}', [DivisiController::class, 'destroy'])->name('datadivisi-delete');
 
-// Route::post('/qr-scan/{id}', [PengajuanController::class, 'scanQr'])->name('update-status-from-qr');
+    Route::get('/data-poli', [PoliController::class, 'read'])->name('datapoli');
+    Route::post('/data-poli-tambah', [PoliController::class, 'store'])->name('datapoli-tambah');
+    Route::put('/data-poli-edit', [PoliController::class, 'update'])->name('datapoli-edit');
+    Route::delete('/data-poli-delete/{id}', [PoliController::class, 'destroy'])->name('datapoli-delete');
 
-Route::get('/dokter/data-pemeriksaan', [PemeriksaanController::class, 'readPemeriksaan'])->name('dokter-datapemeriksaan');
-Route::post('/dokter/data-pemeriksaan-tambah', [PemeriksaanController::class, 'storePemeriksaan'])->name('dokter-datapemeriksaan-tambah');
+    Route::get('/data-pengajuan', [PengajuanController::class, 'read'])->name('datapengajuan');
+    Route::put('/data-pengajuan-edit', [PengajuanController::class, 'update'])->name('datapengajuan-edit');
+    Route::delete('/data-pengajuan-delete/{id}', [PengajuanController::class, 'destroy'])->name('datapengajuan-delete');
+    Route::post('/data-pengajuan-update-status/{id}', [PengajuanController::class, 'updateStatus'])->name('datapengajuanstatus-update');
+    Route::post('/tolak-pengajuan-hari-ini', [PengajuanController::class, 'tolakPengajuanHariIni'])->name('tolakpengajuanhariini');
 
-Route::get('/dokter/data-rekap', [RekapController::class, 'read'])->name('dokter-datarekap');
+    Route::get('/data-rating', [RatingController::class, 'readAdmin'])->name('datarating');
+    Route::put('/data-rating-edit', [RatingController::class, 'update'])->name('datarating-edit');
+    Route::delete('/data-rating-delete/{id}', [RatingController::class, 'destroy'])->name('datarating-delete');
 
-Route::get('/dokter/profil-edit', [ProfilController::class, 'editDokter'])->name('dokter-profil-edit');
-Route::post('/dokter/profil-edit', [ProfilController::class, 'update'])->name('dokter-profil-update');
+    Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
+    Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
+});
 
-//Pasien
-Route::get('/pasien/dashboard', [DashboardController::class, 'indexPasien'])->name('pasien-dashboard');
-Route::get('/pasien/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pasien-pengajuan');
-Route::get('/pasien/profil', [ProfilController::class, 'indexPasien'])->name('pasien-profil');
-Route::get('/pasien/rating', [RatingController::class, 'index'])->name('pasien-rating');
+// Dokter Routes
+Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'indexDokter'])->name('dashboard');
+    Route::get('/pengajuan', [PengajuanController::class, 'indexDokter'])->name('pengajuan');
+    Route::get('/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('pemeriksaan');
+    Route::get('/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('historipengajuan');
+    Route::get('/profil', [ProfilController::class, 'indexDokter'])->name('profil');
 
-Route::get('/pasien/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('pasien-datapengajuan');
-Route::post('/pasien/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('pasien-datapengajuan-tambah');
-Route::post('/pasien/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('pasien-ratingpengajuan-tambah');
+    Route::get('/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('datapengajuan');
+    Route::post('/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('datapengajuan-tambah');
 
-Route::get('/pasien/data-rating', [RatingController::class, 'read'])->name('pasien-datarating');
+    Route::get('/data-pemeriksaan', [PemeriksaanController::class, 'readPemeriksaan'])->name('datapemeriksaan');
+    Route::post('/data-pemeriksaan-tambah', [PemeriksaanController::class, 'storePemeriksaan'])->name('datapemeriksaan-tambah');
 
-Route::get('/pasien/profil-edit', [ProfilController::class, 'editPasien'])->name('pasien-profil-edit');
-Route::post('/pasien/profil-edit', [ProfilController::class, 'update'])->name('pasien-profil-update');
+    Route::get('/data-rekap', [RekapController::class, 'read'])->name('datarekap');
+
+    Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
+    Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
+});
+
+// Pasien Routes
+Route::prefix('pasien')->name('pasien-')->middleware('role:Pasien')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'indexPasien'])->name('dashboard');
+    Route::get('/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pengajuan');
+    Route::get('/profil', [ProfilController::class, 'indexPasien'])->name('profil');
+    Route::get('/rating', [RatingController::class, 'index'])->name('rating');
+
+    Route::get('/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('datapengajuan');
+    Route::post('/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('datapengajuan-tambah');
+    Route::post('/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('ratingpengajuan-tambah');
+
+    Route::get('/data-rating', [RatingController::class, 'read'])->name('datarating');
+
+    Route::get('/profil-edit', [ProfilController::class, 'editPasien'])->name('profil-edit');
+    Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
+});
+

@@ -13,6 +13,7 @@
 </head>
 
 <body id="kt_body" class="app-blank">
+    <script src="assets/plugins/custom/fontawesome/feather.min.js"></script>
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -48,9 +49,13 @@
                                     class="form-control bg-transparent" pattern="\d{8}"
                                     title="NIP harus berupa 8 digit angka" />
                             </div>
-                            <div class="fv-row mb-8">
+                            <div class="fv-row mb-8 position-relative">
                                 <input type="password" placeholder="Masukkan password anda" name="password"
-                                    class="form-control bg-transparent" />
+                                    id="passwordInput" class="form-control bg-transparent" />
+                                <button type="button" id="togglePassword"
+                                    class="btn btn-sm position-absolute top-50 end-0 translate-middle-y">
+                                    <i id="toggleIcon" class="fas fa-eye"></i>
+                                </button>
                             </div>
                             <div class="d-grid mb-10">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
@@ -102,6 +107,7 @@
     <script src="assets/js/scripts.bundle.js"></script>
     <script src="assets/js/custom/authentication/sign-in/general.js"></script>
     <script>
+        // Alert login sukses
         $(document).ready(function() {
             const swalMixinSuccess = Swal.mixin({
                 toast: true,
@@ -158,8 +164,35 @@
             });
         });
 
+        // Regex nip
         document.querySelector('input[name="nip"]').addEventListener('input', function(e) {
             this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Alert middleware
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Akses Ditolak',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            });
+        @endif
+
+        // Handler show password
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
         });
     </script>
 </body>
