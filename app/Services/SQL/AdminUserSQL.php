@@ -43,6 +43,7 @@ class AdminUserSQL
                 'users.berat_badan',
             ])
             ->selectRaw("string_agg(polis.nama, ', ') as poli_nama")
+            ->selectRaw("string_agg(polis.id::text, ', ') as poli_id")
             ->where('users.role', '=', 'Dokter')
             ->groupBy(
                 'users.id',

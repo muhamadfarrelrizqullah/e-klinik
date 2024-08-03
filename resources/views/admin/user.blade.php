@@ -509,13 +509,8 @@
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
                                 <label class="required fs-6 fw-semibold mb-2">Role</label>
-                                <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
-                                    id="updateRole" name="role">
-                                    <option value="" selected disabled>Pilih role user</option>
-                                    <option value="Pasien">Pasien</option>
-                                    <option value="Dokter">Dokter</option>
-                                    <option value="Admin">Admin</option>
-                                </select>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="updateRole" name="role" readonly>
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="required fs-6 fw-semibold mb-2">Divisi</label>
@@ -536,7 +531,7 @@
                                     <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="text-muted">Input Poli hanya aktif jika Role adalah Dokter.</small>
+                            <small class="text-muted">Edit Poli hanya aktif jika Role adalah Dokter.</small>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold mb-2 required">Tanggal Lahir</label>
@@ -718,7 +713,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalEdit('${row.id}', '${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_id}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <a onclick="modalEdit('${row.id}', '${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_id}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}', '${row.poli_id}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -1381,7 +1376,7 @@
         });
 
         // Pengambilan data old modal edit
-        function modalEdit(id, nip, nama, status, role, divisi_id, tanggal_lahir, tinggi_badan, berat_badan) {
+        function modalEdit(id, nip, nama, status, role, divisi_id, tanggal_lahir, tinggi_badan, berat_badan, poli_id) {
             $('#id').val(id);
             $('#updateNip').val(nip);
             $('#updateNama').val(nama);
@@ -1391,6 +1386,19 @@
             $('#updateTanggalLahir').val(tanggal_lahir);
             $('#updateTinggiBadan').val(tinggi_badan);
             $('#updateBeratBadan').val(berat_badan);
+            $('#updatePoli').val(null).trigger('change');
+            // Menampilkan selected value
+            if (poli_id && poli_id.length > 0) {
+                let selectedPolis = poli_id.split(",").map(id => id.trim()); 
+                $('#updatePoli').val(selectedPolis).trigger('change');
+            }
+            // Menampilkan saat role dokter saja
+            if (role === 'Dokter') {
+                $('#updatePoli').prop('disabled', false);
+            } else {
+                $('#updatePoli').prop('disabled', true);
+            }
+
             $('#modalEdit').modal('show');
         }
 
