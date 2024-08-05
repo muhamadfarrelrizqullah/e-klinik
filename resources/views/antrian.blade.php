@@ -82,9 +82,9 @@
         }
     </script>
     <div class="d-flex flex-column flex-root" id="kt_app_root">
-        <div class="landing-header">
-            <button onclick="goBack()" class="btn btn-primary btn-back">
-                <i class="fas fa-arrow-left"></i> Back
+        <div class="landing-header container-xxl">
+            <button onclick="goBack()" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Kembali
             </button>
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -100,8 +100,8 @@
                             </div>
                             <div class="position-absolute text-white mb-8 ms-10 bottom-0">
                                 <h3 class="text-white fs-2qx fw-bold mb-3 m">Klinik Pratama PT PAL Indonesia</h3>
-                                <div class="fs-5 fw-semibold">Jadwal pemeriksaan hari ini, tanggal
-                                    {{ $tanggalSekarang }}</div>
+                                <div class="fs-5 fw-semibold">Pilih jadwal pemeriksaan sesuai dengan tanggal pemeriksaan yang Anda input</div>
+                                <select id="selectTanggal" class="form-select form-select-solid mt-4"> </select>
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-lg-row mb-17">
@@ -129,12 +129,6 @@
             </div>
         </div>
     </div>
-    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-        <i class="ki-duotone ki-arrow-up">
-            <span class="path1"></span>
-            <span class="path2"></span>
-        </i>
-    </div>
     <script>
         var hostUrl = "assets/";
     </script>
@@ -151,10 +145,31 @@
     <script>
         // Inisialisasi datatable
         $(document).ready(function() {
+            // Mengisi select option dengan 7 hari ke depan
+            const selectTanggal = $('#selectTanggal');
+            const today = new Date();
+            for (let i = 0; i < 7; i++) {
+                const date = new Date();
+                date.setDate(today.getDate() + i);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                const formattedDate = `${year}-${month}-${day}`;
+                selectTanggal.append(new Option(formattedDate, formattedDate));
+            }
+
+            // Set default value to today
+            selectTanggal.val(today.toISOString().split('T')[0]);
+
             tabel = $('#TabelPengajuan').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('antrian-data') }}",
+                ajax: {
+                    url: "{{ route('antrian-data') }}",
+                    data: function(d) {
+                        d.tanggal = $('#selectTanggal').val();
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -239,6 +254,11 @@
                     infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
+            });
+
+            // Reload tabel ketika tanggal berubah
+            $('#selectTanggal').change(function() {
+                tabel.ajax.reload();
             });
 
             // Fix tampilan tabel berubah setelah dilakukan responsif

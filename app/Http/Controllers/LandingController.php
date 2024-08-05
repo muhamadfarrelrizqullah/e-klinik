@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Models\User;
 use App\Services\SQL\LandingPengajuanSQL;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -29,9 +30,10 @@ class LandingController extends Controller
         $this->DataPengajuan = $LandingPengajuanSQL;
     }
 
-    public function antrianData()
+    public function antrianData(Request $request)
     {
-        $data = $this->DataPengajuan->getPengajuanData();
+        $tanggal = $request->input('tanggal', Carbon::now()->toDateString());
+        $data = $this->DataPengajuan->getPengajuanData($tanggal);
 
         return datatables()->of($data)
             ->addIndexColumn()

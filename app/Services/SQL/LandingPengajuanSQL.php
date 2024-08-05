@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class LandingPengajuanSQL
 {
-    public function getPengajuanData()
+    public function getPengajuanData($tanggal)
     {
         $tanggalSekarang = Carbon::now()->toDateString();
         return Pengajuan::join('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
@@ -32,7 +32,7 @@ class LandingPengajuanSQL
                 'polis.nama as nama_poli',
             ])
             ->where('pengajuans.status', 'Diproses')
-            ->whereDate('pengajuans.tanggal_pemeriksaan', $tanggalSekarang)
+            ->whereDate('pengajuans.tanggal_pemeriksaan', $tanggal)
             ->get();
     }
 }
