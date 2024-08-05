@@ -24,6 +24,7 @@ class PemeriksaanUpdateStatusRequest extends FormRequest
         return [
             'catatan' => 'nullable|string|max:255',
             'surat_perizinan_file' => 'nullable|file|mimes:pdf|max:5120',
+            'istirahat_hari' => 'required|integer',
         ];
     }
 
@@ -35,6 +36,8 @@ class PemeriksaanUpdateStatusRequest extends FormRequest
             'surat_perizinan_file.file' => 'File harus berupa dokumen.',
             'surat_perizinan_file.mimes' => 'File harus berekstensi PDF.',
             'surat_perizinan_file.max' => 'Ukuran file maksimum 5 MB.',
+            'istirahat_hari.required' => 'Jumlah istirahat hari harus diisi.',
+            'istirahat_hari.integer' => 'Jumlah Istirahat hari harus berupa angka bulat.',
         ];
     }
 }

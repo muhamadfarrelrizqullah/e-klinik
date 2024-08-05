@@ -695,9 +695,12 @@
                     {
                         data: 'poli_nama',
                         name: 'poli_nama',
-                        orderable: true,
+                        orderable: false,
                         render: function(data, type, row, meta) {
-                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                            const badges = data.split(',').map(poli =>
+                                `<span class="badge badge-light-secondary">${poli.trim()}</span>`
+                                ).join(' ');
+                            return badges;
                         }
                     },
                     {
@@ -1122,7 +1125,8 @@
                                 doc.text('Data Dokter Pt. PAL Indonesia', 14, 55);
                                 // Menambahkan tabel
                                 var columns = ["No", "NIP", "Nama", "Status",
-                                    "Role", "Divisi", "Tanggal Lahir", "Tinggi Badan", "Berat Badan"
+                                    "Role", "Poli", "Divisi", "Tanggal Lahir",
+                                    "Tinggi Badan", "Berat Badan"
                                 ];
                                 var data = sortedData.map((row, index) => [
                                     index + 1,
@@ -1130,6 +1134,7 @@
                                     row.nama,
                                     row.status,
                                     row.role,
+                                    row.poli_nama.replace(/&amp;/g, '&'),
                                     row.divisi_nama.replace(/&amp;/g, '&'),
                                     formatDate(row.tanggal_lahir),
                                     row.tinggi_badan,
