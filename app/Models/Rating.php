@@ -4,24 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rating extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_pasien', 'id_dokter', 'id_pengajuan', 'rating', 'komentar'
+        'rating', 'komentar'
     ];
-
-    public function pasien()
-    {
-        return $this->belongsTo(User::class, 'id_pasien');
-    }
-
-    public function dokter()
-    {
-        return $this->belongsTo(User::class, 'id_dokter');
-    }
 
     public function pengajuan()
     {

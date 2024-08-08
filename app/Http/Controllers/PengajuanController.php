@@ -185,12 +185,15 @@ class PengajuanController extends Controller
     public function addRating(PengajuanAddRatingRequest $request)
     {
         $rating = new Rating();
-        $rating->id_pasien = $request->id_pasien;
-        $rating->id_dokter = $request->id_dokter;
-        $rating->id_pengajuan = $request->id_pengajuan;
         $rating->rating = $request->rating;
         $rating->komentar = $request->komentar ?? "Tidak ada komentar";
         $rating->save();
+        $pengajuan = Pengajuan::find($request->id_pengajuan);
+        if ($pengajuan) {
+            $pengajuan->id_rating = $rating->id;
+            $pengajuan->save();
+        }
+
 
         return redirect()->back()->with('success', 'Rating berhasil ditambah.');
     }

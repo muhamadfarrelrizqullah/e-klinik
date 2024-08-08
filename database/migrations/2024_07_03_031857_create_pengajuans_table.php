@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('qrcode')->nullable();
             $table->enum('status_qrcode', ['null', 'aktif', 'expired'])->default('null');
             $table->string('catatan')->nullable();
+            $table->unsignedBigInteger('id_rating')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->foreign('id_pasien')->references('id')->on('users');
             $table->foreign('id_dokter')->references('id')->on('users');
             $table->foreign('id_poli')->references('id')->on('polis');
+            $table->foreign('id_rating')->references('id')->on('ratings');
         });
     }
 

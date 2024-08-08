@@ -15,7 +15,7 @@ class PasienPengajuanSQL
             ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
             ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->leftJoin('rekaps', 'pengajuans.id', '=', 'rekaps.id_pengajuan')
-            ->leftJoin('ratings', 'pengajuans.id', '=', 'ratings.id_pengajuan')
+            ->leftJoin('ratings', 'pengajuans.id_rating', '=', 'ratings.id')
             ->select([
                 'pengajuans.id',
                 'pengajuans.keluhan',

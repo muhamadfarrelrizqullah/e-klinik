@@ -34,6 +34,11 @@ class Pengajuan extends Model
         return $this->belongsTo(Poli::class, 'id_poli');
     }
 
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class, 'id_rating');
+    }
+
     public function rekaps()
     {
         return $this->hasMany(Rekap::class, 'id_pengajuan');

@@ -313,54 +313,6 @@
                     <form class="form" action="{{ route('pasien-ratingpengajuan-tambah') }}" method="POST">
                         @csrf
                         <input type="hidden" id="detId" name="id_pengajuan">
-                        <input type="hidden" id="detIdPasien" name="id_pasien">
-                        <input type="hidden" id="detIdDokter" name="id_dokter">
-                        <div class="row g-9 mb-8">
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Nama Pasien</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detNamaPasien" readonly>
-                            </div>
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Nama Dokter</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detNamaDokter" readonly>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Poli</span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" placeholder=""
-                                id="detNamaPoli" readonly>
-                        </div>
-                        <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Keluhan</span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detKeluhan"
-                                readonly>
-                        </div>
-                        <div class="row g-9 mb-8">
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Tanggal Pengajuan</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detTanggalPengajuan" readonly>
-                            </div>
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Tanggal Pemeriksaan</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detTanggalPemeriksaan" readonly>
-                            </div>
-                        </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span class="required">Rating</span>
@@ -486,155 +438,212 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            if (row.status === 'Diterima' || row.status === 'Diproses') {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Selesai' && row.surat_izin && !row.id_rating) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
-                                    <i class="ki-duotone ki-file-down fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
-                                    <i class="ki-duotone ki-like fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Selesai' && !row.surat_izin && !row.id_rating) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
-                                    <i class="ki-duotone ki-like fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Selesai' && row.surat_izin && row.id_rating) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
-                                    <i class="ki-duotone ki-file-down fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Selesai' && !row.surat_izin && row.id_rating) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                </div>`
-                            };
+                            let buttons = '';
+                            // Tombol detail selalu muncul
+                            buttons += `
+                        <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                            <i class="ki-duotone ki-scroll fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </a>`;
+                            // Tombol QR selalu muncul
+                            buttons += `
+                        <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                            <i class="ki-duotone ki-scan-barcode fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                                <span class="path6"></span>
+                                <span class="path7"></span>
+                                <span class="path8"></span>
+                            </i>
+                        </a>`;
+                            // Tombol download surat izin muncul jika surat_izin ada
+                            if (row.surat_izin) {
+                                buttons += `
+                            <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                <i class="ki-duotone ki-file-down fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </a>`;
+                            }
+                            // Tombol rating muncul jika rating belum diberikan
+                            if (!row.id_rating) {
+                                buttons += `
+                            <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
+                                <i class="ki-duotone ki-like fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </a>`;
+                            }
+                            buttons += '</div>';
+                            return buttons;
                         }
                     },
+                    // {
+                    //     data: null,
+                    //     name: 'aksi',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     render: function(data, type, row, meta) {
+                    //         if (row.status === 'Diterima' || row.status === 'Diproses') {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                //                 <i class="ki-duotone ki-scan-barcode fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                     <span class="path5"></span>
+                //                     <span class="path6"></span>
+                //                     <span class="path7"></span>
+                //                     <span class="path8"></span>
+                //                 </i>
+                //             </a>
+                //         </div>`
+                    //         } else if (row.status === 'Selesai' && row.surat_izin && !row.id_rating) {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                //                 <i class="ki-duotone ki-scan-barcode fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                     <span class="path5"></span>
+                //                     <span class="path6"></span>
+                //                     <span class="path7"></span>
+                //                     <span class="path8"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                //                 <i class="ki-duotone ki-file-down fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalAddRating('${row.id}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
+                //                 <i class="ki-duotone ki-like fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                 </i>
+                //             </a>
+                //         </div>`
+                    //         } else if (row.status === 'Selesai' && !row.surat_izin && !row.id_rating) {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                //                 <i class="ki-duotone ki-scan-barcode fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                     <span class="path5"></span>
+                //                     <span class="path6"></span>
+                //                     <span class="path7"></span>
+                //                     <span class="path8"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalAddRating('${row.id}', '${row.id_pasien}', '${row.nama_pasien}', '${row.id_dokter}', '${row.nama_dokter}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddRating">
+                //                 <i class="ki-duotone ki-like fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                 </i>
+                //             </a>
+                //         </div>`
+                    //         } else if (row.status === 'Selesai' && row.surat_izin && row.id_rating) {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                //                 <i class="ki-duotone ki-scan-barcode fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                     <span class="path5"></span>
+                //                     <span class="path6"></span>
+                //                     <span class="path7"></span>
+                //                     <span class="path8"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                //                 <i class="ki-duotone ki-file-down fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                 </i>
+                //             </a>
+                //         </div>`
+                    //         } else if (row.status === 'Selesai' && !row.surat_izin && row.id_rating) {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                //                 <i class="ki-duotone ki-scan-barcode fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                     <span class="path3"></span>
+                //                     <span class="path4"></span>
+                //                     <span class="path5"></span>
+                //                     <span class="path6"></span>
+                //                     <span class="path7"></span>
+                //                     <span class="path8"></span>
+                //                 </i>
+                //             </a>
+                //         </div>`
+                    //         } else {
+                    //             return `<div class="d-flex justify-content-center flex-shrink-0">
+                //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                //                 <i class="ki-duotone ki-scroll fs-2">
+                //                     <span class="path1"></span>
+                //                     <span class="path2"></span>
+                //                 </i>
+                //             </a>
+                //             </div>`
+                    //         };
+                    //     }
+                    // },
                     {
                         data: 'status_order',
                         name: 'status_order',
@@ -703,8 +712,8 @@
             $('#modalDetail').modal('show');
         }
 
-         // Pengambilan data modal detail QR
-         function modalDetailQR(id, status_qrcode) {
+        // Pengambilan data modal detail QR
+        function modalDetailQR(id, status_qrcode) {
             var qrcodeUrl = '{{ asset('storage/qr_codes/') }}' + '/' + id + '.png';
             // Mengatur URL gambar QR Code
             $('#detailQR').attr('src', qrcodeUrl);
@@ -781,27 +790,8 @@
         });
 
         // Pengambilan data modal add rating
-        function modalAddRating(id, id_pasien, nama_pasien, id_dokter, nama_dokter, keluhan,
-            tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
+        function modalAddRating(id) {
             $('#detId').val(id);
-            $('#detIdPasien').val(id_pasien);
-            $('#detNamaPasien').val(nama_pasien);
-            $('#detIdDokter').val(id_dokter);
-            $('#detNamaDokter').val(nama_dokter);
-            $('#detKeluhan').val(keluhan);
-            let datePengajuan = new Date(tanggal_pengajuan);
-            let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
-            let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
-            let yearPengajuan = String(datePengajuan.getFullYear());
-            let formattedBirthdatePengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
-            $('#detTanggalPengajuan').val(formattedBirthdatePengajuan);
-            let datePemeriksaan = new Date(tanggal_pemeriksaan);
-            let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
-            let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
-            let yearPemeriksaan = String(datePemeriksaan.getFullYear());
-            let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
-            $('#detTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
-            $('#detNamaPoli').val(nama_poli);
             $('#modalAddRating').modal('show');
         }
 

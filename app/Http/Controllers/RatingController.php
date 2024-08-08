@@ -47,26 +47,26 @@ class RatingController extends Controller
             ->make(true);
     }
 
-    public function destroy($id)
-    {
-        $rating = Rating::find($id);
-        if (!$rating) {
-            return response()->json(['message' => 'Rating tidak ada.'], 404);
-        }
-        $rating->delete();
-        return response()->json(['message' => 'Rating berhasil dihapus.']);
-    }
+    // public function destroy($id)
+    // {
+    //     $rating = Rating::find($id);
+    //     if (!$rating) {
+    //         return response()->json(['message' => 'Rating tidak ada.'], 404);
+    //     }
+    //     $rating->delete();
+    //     return response()->json(['message' => 'Rating berhasil dihapus.']);
+    // }
 
-    public function update(RatingEditRequest $request)
-    {
-        try {
-            $rating = Rating::findOrFail($request->id);
-            $rating->rating = $request->rating;
-            $rating->komentar = $request->komentar?? "Tidak ada komentar";
-            $rating->save();
-            return response()->json(['success' => 'Rating berhasil diupdate.']);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => $th->getMessage()], 500);
-        }
-    }
+    // public function update(RatingEditRequest $request)
+    // {
+    //     try {
+    //         $rating = Rating::findOrFail($request->id);
+    //         $rating->rating = $request->rating;
+    //         $rating->komentar = $request->komentar?? "Tidak ada komentar";
+    //         $rating->save();
+    //         return response()->json(['success' => 'Rating berhasil diupdate.']);
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['message' => $th->getMessage()], 500);
+    //     }
+    // }
 }
