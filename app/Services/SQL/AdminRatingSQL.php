@@ -17,13 +17,11 @@ class AdminRatingSQL
             ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->select([
                 'pengajuans.id',
-                'pengajuans.keluhan',
                 'pengajuans.status',
                 'pengajuans.tanggal_pengajuan',
                 'pengajuans.tanggal_pemeriksaan',
                 'pengajuans.catatan',
                 'pengajuans.id_pasien',
-                'pasien.nama as nama_pasien',
                 'pasien.nip as nip_pasien',
                 'pengajuans.id_dokter',
                 'dokter.nama as nama_dokter',
