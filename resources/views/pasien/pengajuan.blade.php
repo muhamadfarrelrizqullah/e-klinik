@@ -712,8 +712,8 @@
             $('#modalDetail').modal('show');
         }
 
-        // Pengambilan data modal detail QR
-        function modalDetailQR(id, status_qrcode) {
+         // Pengambilan data modal detail QR
+         function modalDetailQR(id, status_qrcode) {
             var qrcodeUrl = '{{ asset('storage/qr_codes/') }}' + '/' + id + '.png';
             // Mengatur URL gambar QR Code
             $('#detailQR').attr('src', qrcodeUrl);
