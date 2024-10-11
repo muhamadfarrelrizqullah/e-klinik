@@ -664,7 +664,7 @@
 
             addText(`MENERANGKAN,`, ``);
             addText(`Nama`, `: ${namaPasien}`);
-            addText(`Umur / Tgl Lahir`, `: ${umurPasien} / ${tanggalLahir}`);
+            addText(`Umur / Tgl Lahir`, `: ${umurPasien} tahun / ${tanggalLahir}`);
             addText(`Pangkat / Gol.`, `: ${pangkatGolongan}`);
             addText(`NRP / NIP`, `: ${nipPasien}`);
             addText(`Jabatan / Bag.`, `: ${divisiPasien}`);
@@ -676,9 +676,13 @@
             doc.text(`Dokter yang memeriksa`, 140, 200);
             doc.text(`${namaDokter}`, 150, 230);
 
-            // Unduh PDF
-            const fileName = `Surat_Perizinan_${noRekap}.pdf`;
-            doc.save(fileName);
+            // Buat file dan simpan ke input
+            const pdfBlob = doc.output('blob');
+            const file = new File([pdfBlob], `Surat_Perizinan_${noRekap}.pdf`, { type: 'application/pdf' });
+            const inputSuratPerizinan = document.getElementById('suratPerizinan');
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            inputSuratPerizinan.files = dataTransfer.files;
         }
 
         // Event listener untuk select option

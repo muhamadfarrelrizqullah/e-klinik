@@ -216,7 +216,7 @@
                 }],
                 chart: {
                     height: 350,
-                    width: 700,
+                    width: 600,
                     type: 'line',
                     zoom: {
                         enabled: false
@@ -253,10 +253,10 @@
                     }
                 },
                 yaxis: {
-                    type: 'numeric', // Mengatur tipe data sumbu Y menjadi numerik
+                    type: 'numeric', 
                     labels: {
                         formatter: function(value) {
-                            return parseInt(value); // Mengubah nilai menjadi integer
+                            return parseInt(value);
                         }
                     },
                     min: 0,
