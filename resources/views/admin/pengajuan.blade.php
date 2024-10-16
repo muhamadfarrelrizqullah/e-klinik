@@ -18,7 +18,46 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <input type="date" id="bt-date" name="date" class="form-control form-control-sm me-2">
+                    <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Range Filter by Data Tanggal</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Data tanggal:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterDataTanggal">
+                                        <option value="" selected disabled>Pilih data tanggal</option>
+                                        <option value="tanggal_pengajuan">Tanggal Pengajuan</option>
+                                        <option value="tanggal_pemeriksaan">Tanggal Pemeriksaan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal setelah:</label>
+                                    <input type="date" id="filterTanggalSetelah" name="date-before"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal sebelum:</label>
+                                    <input type="date" id="filterTanggalSebelum" name="date-after"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
                         Download PDF
                     </button>
@@ -42,7 +81,7 @@
                                             <tr class="fw-bold text-muted">
                                                 <th>No</th>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Dokter</th>
+                                                {{-- <th>Nama Dokter</th> --}}
                                                 <th>Keluhan</th>
                                                 <th>Status</th>
                                                 <th>Tanggal Pengajuan</th>
@@ -321,10 +360,17 @@
             tabel = $('#TabelPengajuan').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin-datapengajuan') }}",
+                ajax: {
+                    url: "{{ route('admin-datapengajuan') }}",
+                    data: function(d) {
+                        d.data_tanggal = $('#filterDataTanggal').val();
+                        d.tanggal_setelah = $('#filterTanggalSetelah').val();
+                        d.tanggal_sebelum = $('#filterTanggalSebelum').val();
+                    }
+                },
                 order: [
-                    [8, 'asc'],
-                    [5, 'desc'],
+                    [7, 'asc'],
+                    [4, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -343,18 +389,18 @@
                             return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
                         }
                     },
-                    {
-                        data: 'nama_dokter',
-                        name: 'nama_dokter',
-                        orderable: true,
-                        render: function(data, type, row, meta) {
-                            if (data === null || data === undefined) {
-                                return '<span class="text-gray-900 fw-bold fs-6">Belum ada dokter</span>';
-                            } else {
-                                return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
-                            }
-                        }
-                    },
+                    // {
+                    //     data: 'nama_pasien',
+                    //     name: 'nama_pasien',
+                    //     orderable: true,
+                    //     render: function(data, type, row, meta) {
+                    //         if (data === null || data === undefined) {
+                    //             return '<span class="text-gray-900 fw-bold fs-6">Belum ada dokter</span>';
+                    //         } else {
+                    //             return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                    //         }
+                    //     }
+                    // },
                     {
                         data: 'keluhan',
                         name: 'keluhan',
@@ -409,7 +455,8 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            if (row.status === 'Diproses' || row.status === 'Selesai' && !row.surat_izin) {
+                            if (row.status === 'Diproses' || row.status === 'Selesai' && !row
+                                .surat_izin) {
                                 return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
@@ -430,7 +477,8 @@
                                     </i>
                                 </a>
                             </div>`
-                            } else if (row.status === 'Diproses' || row.status === 'Selesai' && row.surat_izin) {
+                            } else if (row.status === 'Diproses' || row.status === 'Selesai' && row
+                                .surat_izin) {
                                 return `<div class="d-flex justify-content-center flex-shrink-0">
                                 <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
@@ -479,7 +527,7 @@
                                         <span class="path8"></span>
                                     </i>
                                 </a>
-                               <a onclick="updateStatus(${row.id}, 'Diproses')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                <a onclick="updateStatus(${row.id}, 'Diproses')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-check fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -532,6 +580,29 @@
                 },
             });
 
+            // Event listener untuk filter tanggal
+            $('#filterDataTanggal').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal setelah
+            $('#filterTanggalSetelah').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal sebelum
+            $('#filterTanggalSebelum').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterDataTanggal').value = '';
+                document.getElementById('filterTanggalSetelah').value = '';
+                document.getElementById('filterTanggalSebelum').value = '';
+                $('#TabelPengajuan').DataTable().ajax.reload();
+            });
+
             // Fix tampilan tabel berubah setelah dilakukan responsif
             $(window).resize(function() {
                 tabel.columns.adjust().responsive.recalc();
@@ -559,31 +630,25 @@
                 jsPDF
             } = window.jspdf;
             document.getElementById('bt-download').addEventListener('click', function() {
-                var selectedDate = document.getElementById('bt-date').value;
+                var filterDataTanggal = document.getElementById('filterDataTanggal').value;
+                var filterTanggalSetelah = document.getElementById('filterTanggalSetelah').value;
+                var filterTanggalSebelum = document.getElementById('filterTanggalSebelum').value;
                 $.ajax({
                     url: "{{ route('admin-datapengajuan') }}",
                     type: "GET",
+                    data: {
+                        data_tanggal: filterDataTanggal,
+                        tanggal_setelah: filterTanggalSetelah,
+                        tanggal_sebelum: filterTanggalSebelum
+                    },
                     success: function(response) {
                         $.ajax({
                             url: "/logo-base64",
                             type: "GET",
                             success: function(logoResponse) {
-                                // Urutkan data berdasarkan nama
-                                var sortedData = response.data.sort((a, b) => {
-                                    return a.nama_pasien.localeCompare(b
-                                        .nama_pasien);
-                                });
-                                // Filter data berdasarkan tanggal pengajuan jika ada
-                                if (selectedDate) {
-                                    sortedData = sortedData.filter(row => {
-                                        var rowDate = new Date(row
-                                                .tanggal_pengajuan)
-                                            .toISOString().split('T')[0];
-                                        return rowDate === selectedDate;
-                                    });
-                                }
+                                var sortedData = response.data.sort((a, b) => a
+                                    .nama_pasien.localeCompare(b.nama_pasien));
                                 var doc = new jsPDF();
-                                // Menambahkan kop perusahaan
                                 var companyLogo = logoResponse.base64;
                                 var companyAddress =
                                     'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
@@ -605,16 +670,15 @@
                                 doc.setFontSize(10);
                                 doc.text('Data Pengajuan Pt. PAL Indonesia', 14,
                                     55);
-                                // Menambahkan tabel
                                 var columns = ["No", "Nama Pasien", "Nama Dokter",
-                                    "Poli",
-                                    "Keluhan", "Status", "Tanggal Pengajuan",
-                                    "Tanggal Pemeriksaan"
+                                    "Poli", "Keluhan", "Status",
+                                    "Tanggal Pengajuan", "Tanggal Pemeriksaan"
                                 ];
                                 var data = sortedData.map((row, index) => [
                                     index + 1,
                                     row.nama_pasien,
-                                    row.nama_dokter,
+                                    row.nama_dokter ? row.nama_dokter :
+                                    'Belum ada dokter',
                                     row.nama_poli,
                                     row.keluhan.replace(/&amp;/g, '&'),
                                     row.status,
@@ -638,7 +702,6 @@
                     }
                 });
             });
-            // Fungsi untuk format tanggal
             function formatDate(dateStr) {
                 var tanggal = new Date(dateStr);
                 var day = tanggal.getDate().toString().padStart(2, '0');
@@ -969,7 +1032,8 @@
                 word-wrap: break-word;
             }
 
-            #bt-tolak-semua, #bt-download {
+            #bt-tolak-semua,
+            #bt-download {
                 white-space: normal;
                 word-wrap: break-word;
             }

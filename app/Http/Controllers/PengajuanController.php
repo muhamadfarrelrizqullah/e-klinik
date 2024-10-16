@@ -40,9 +40,13 @@ class PengajuanController extends Controller
         return view('admin.pengajuan', compact('dokters', 'pasiens'));
     }
 
-    public function read()
+    public function read(Request $request)
     {
-        $data = $this->DataPengajuan->getPengajuanData();
+        $data_tanggal = $request->input('data_tanggal');
+        $tanggal_setelah = $request->input('tanggal_setelah');
+        $tanggal_sebelum = $request->input('tanggal_sebelum');
+
+        $data = $this->DataPengajuan->getPengajuanData($data_tanggal, $tanggal_setelah, $tanggal_sebelum);
 
         return datatables()->of($data)
             ->addIndexColumn()
