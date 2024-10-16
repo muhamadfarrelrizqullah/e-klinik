@@ -47,7 +47,7 @@
                                                 <th>Keluhan</th>
                                                 <th>Status</th>
                                                 <th>Tanggal Pengajuan</th>
-                                                <th>Tanggal Pemeriksaan</th>
+                                                {{-- <th>Tanggal Pemeriksaan</th> --}}
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -354,7 +354,7 @@
                 serverSide: true,
                 ajax: "{{ route('pasien-datapengajuan') }}",
                 order: [
-                    [8, 'asc'],
+                    [7, 'asc'],
                     [5, 'desc'],
                 ],
                 columns: [{
@@ -420,18 +420,18 @@
                             return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
                         }
                     },
-                    {
-                        data: 'tanggal_pemeriksaan',
-                        name: 'tanggal_pemeriksaan',
-                        orderable: true,
-                        render: function(data, type, row, meta) {
-                            var tanggal = new Date(data);
-                            var day = tanggal.getDate().toString().padStart(2, '0');
-                            var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
-                            var year = tanggal.getFullYear();
-                            return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
-                        }
-                    },
+                    // {
+                    //     data: 'tanggal_pemeriksaan',
+                    //     name: 'tanggal_pemeriksaan',
+                    //     orderable: true,
+                    //     render: function(data, type, row, meta) {
+                    //         var tanggal = new Date(data);
+                    //         var day = tanggal.getDate().toString().padStart(2, '0');
+                    //         var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                    //         var year = tanggal.getFullYear();
+                    //         return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
+                    //     }
+                    // },
                     {
                         data: null,
                         name: 'aksi',

@@ -38,7 +38,7 @@
                                                 <th>Rating</th>
                                                 <th>Komentar</th>
                                                 <th>Tanggal Rating</th>
-                                                <th>Aksi</th>
+                                                {{-- <th>Aksi</th> --}}
                                             </tr>
                                         </thead>
                                     </table>
@@ -226,22 +226,22 @@
                             return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
                         }
                     },
-                    {
-                        data: null,
-                        name: 'aksi',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row, meta) {
-                            return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                            </div>`;
-                        }
-                    }
+                    // {
+                    //     data: null,
+                    //     name: 'aksi',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     render: function(data, type, row, meta) {
+                    //         return `<div class="d-flex justify-content-center flex-shrink-0">
+                    //             <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                    //                 <i class="ki-duotone ki-scroll fs-2">
+                    //                     <span class="path1"></span>
+                    //                     <span class="path2"></span>
+                    //                 </i>
+                    //             </a>
+                    //         </div>`;
+                    //     }
+                    // }
                 ],
                 aLengthMenu: [
                     [10, 30, 50, -1],
