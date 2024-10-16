@@ -18,12 +18,29 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
-                        Download PDF Pasien
-                    </button>
-                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download-dokter">
-                        Download PDF Dokter
-                    </button>
+                    <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Download</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Opsi Download</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5 d-flex justify-content-center">
+                                <button type="button" class="btn btn-sm fw-bold btn-secondary me-2" id="bt-download">
+                                    Download PDF Pasien
+                                </button>
+                                <button type="button" class="btn btn-sm fw-bold btn-secondaryF" id="bt-download-dokter">
+                                    Download PDF Dokter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
                         data-bs-target="#modalAdd">
                         Tambah User
@@ -699,7 +716,7 @@
                         render: function(data, type, row, meta) {
                             const badges = data.split(',').map(poli =>
                                 `<span class="badge badge-light-secondary">${poli.trim()}</span>`
-                                ).join(' ');
+                            ).join(' ');
                             return badges;
                         }
                     },
@@ -1043,7 +1060,8 @@
                                 doc.text('Data Pasien Pt. PAL Indonesia', 14, 55);
                                 // Menambahkan tabel
                                 var columns = ["No", "NIP", "Nama", "Status",
-                                    "Role", "Divisi", "Tanggal Lahir", "Tinggi Badan", "Berat Badan"
+                                    "Role", "Divisi", "Tanggal Lahir",
+                                    "Tinggi Badan", "Berat Badan"
                                 ];
                                 var data = sortedData.map((row, index) => [
                                     index + 1,
@@ -1394,7 +1412,7 @@
             $('#updatePoli').val(null).trigger('change');
             // Menampilkan selected value
             if (poli_id && poli_id.length > 0) {
-                let selectedPolis = poli_id.split(",").map(id => id.trim()); 
+                let selectedPolis = poli_id.split(",").map(id => id.trim());
                 $('#updatePoli').val(selectedPolis).trigger('change');
             }
             // Menampilkan saat role dokter saja
