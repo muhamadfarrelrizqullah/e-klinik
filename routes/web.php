@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
@@ -86,6 +87,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::get('/pengajuan', [PengajuanController::class, 'indexDokter'])->name('pengajuan');
     Route::get('/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('pemeriksaan');
     Route::get('/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('historipengajuan');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexDokter'])->name('jadwaldokter');
     Route::get('/profil', [ProfilController::class, 'indexDokter'])->name('profil');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('datapengajuan');
@@ -95,6 +97,8 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::post('/data-pemeriksaan-tambah', [PemeriksaanController::class, 'storePemeriksaan'])->name('datapemeriksaan-tambah');
 
     Route::get('/data-rekap', [RekapController::class, 'read'])->name('datarekap');
+
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'read'])->name('datajadwaldokter');
 
     Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
