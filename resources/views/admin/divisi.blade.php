@@ -18,13 +18,25 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
-                        Download PDF
-                    </button>
-                    <button type="button" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalAdd">
-                        Tambah Divisi
-                    </button>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal"
+                            data-bs-target="#modalAdd">
+                            <i class="ki-duotone ki-plus fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Tambah Divisi</a>
+                    </div>
                 </div>
             </div>
         </div>

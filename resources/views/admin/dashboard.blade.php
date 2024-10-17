@@ -142,7 +142,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="mb-2">
-                                        <h3 class="fs-2 fw-bold">Selamat datang {{ auth()->user()->nama }}</h3>
+                                        <h3 class="fs-4 fw-bold">Selamat datang {{ auth()->user()->nama }}</h3>
                                         <span class="fw-semibold fs-6 opacity-75">Di sini Anda dapat melihat statistik
                                             utama dan mengelola berbagai aspek e-klinik.</span>
                                     </div>

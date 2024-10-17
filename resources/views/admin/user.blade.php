@@ -19,9 +19,9 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <a href="#" class="btn btn-sm btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click"
+                        <a href="#" class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
-                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>Download</a>
@@ -35,16 +35,22 @@
                                 <button type="button" class="btn btn-sm fw-bold btn-secondary me-2" id="bt-download">
                                     Download PDF Pasien
                                 </button>
-                                <button type="button" class="btn btn-sm fw-bold btn-secondaryF" id="bt-download-dokter">
+                                <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download-dokter">
                                     Download PDF Dokter
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalAdd">
-                        Tambah User
-                    </button>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal"
+                            data-bs-target="#modalAdd">
+                            <i class="ki-duotone ki-plus fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Tambah User</a>
+                    </div>
                 </div>
             </div>
         </div>

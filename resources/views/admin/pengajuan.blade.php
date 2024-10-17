@@ -19,7 +19,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <a href="#" class="btn btn-sm btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click"
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
                             <i class="ki-duotone ki-filter fs-6 text-muted me-1">
                                 <span class="path1"></span>
@@ -58,12 +58,24 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
-                        Download PDF
-                    </button>
-                    <button type="button" class="btn btn-sm fw-bold btn-danger" id="bt-tolak-semua">
-                        Tolak Semua Pengajuan
-                    </button>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-danger fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-tolak-semua">
+                            <i class="ki-duotone ki-delete-files fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Tolak Semua Pengajuan</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -702,6 +714,7 @@
                     }
                 });
             });
+
             function formatDate(dateStr) {
                 var tanggal = new Date(dateStr);
                 var day = tanggal.getDate().toString().padStart(2, '0');
