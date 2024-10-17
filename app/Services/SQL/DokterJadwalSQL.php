@@ -21,6 +21,16 @@ class DokterJadwalSQL
                 'jadwal_dokters.jam_selesai',
             ])
             ->where('jadwal_dokters.id_dokter', '=', $userId)
+            ->orderByRaw("
+                CASE jadwal_dokters.hari
+                    WHEN 'Senin' THEN 1
+                    WHEN 'Selasa' THEN 2
+                    WHEN 'Rabu' THEN 3
+                    WHEN 'Kamis' THEN 4
+                    WHEN 'Jumat' THEN 5
+                    ELSE 6 
+                END
+            ")
             ->get();
     }
 }

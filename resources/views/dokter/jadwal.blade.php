@@ -27,6 +27,15 @@
                                 <span class="path3"></span>
                             </i>Download PDF</a>
                     </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                            <i class="ki-duotone ki-plus fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Tambah Jadwal</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,6 +124,122 @@
             </div>
         </div>
     </div>
+
+    <div id="modalAdd" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalAddLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tambah Jadwal Baru</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('dokter-datajadwaldokter-tambah') }}" method="POST">
+                        @csrf
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="required fs-6 fw-semibold mb-2">Hari</label>
+                            <select class="form-select form-select-solid" data-placeholder=""
+                                data-hide-search="true"id="addHari" name="hari">
+                                <option value="" selected disabled>Pilih hari</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                            </select>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Jam Mulai</span>
+                                </label>
+                                <input type="time" class="form-control form-control-solid" id="addJamMulai"
+                                    name="jam_mulai">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Jam Selesai</span>
+                                </label>
+                                <input type="time" class="form-control form-control-solid" id="addJamSelesai"
+                                    name="jam_selesai">
+                            </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan</span>
+                                <span class="indicator-progress">Tunggu....
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Jadwal</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('dokter-datajadwaldokter-edit') }}" method="PUT">
+                        @csrf
+                        <input type="hidden" id="id" name="id">
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="required fs-6 fw-semibold mb-2">Hari</label>
+                            <select class="form-select form-select-solid" data-placeholder=""
+                                data-hide-search="true"id="updateHari" name="hari">
+                                <option value="" selected disabled>Pilih hari</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                            </select>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Jam Mulai</span>
+                                </label>
+                                <input type="time" class="form-control form-control-solid" id="updateJamMulai"
+                                    name="jam_mulai">
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span class="required">Jam Selesai</span>
+                                </label>
+                                <input type="time" class="form-control form-control-solid" id="updateJamSelesai"
+                                    name="jam_selesai">
+                            </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan</span>
+                                <span class="indicator-progress">Tunggu....
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script')
@@ -155,7 +280,8 @@
                         name: 'jam_mulai',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            const jamMenitMulai = data.slice(0, 5);
+                            return `<span class="text-gray-900 fw-bold fs-6">${jamMenitMulai}</span>`;
                         }
                     },
                     {
@@ -163,7 +289,8 @@
                         name: 'jam_selesai',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            const jamMenitSelesai = data.slice(0, 5);
+                            return `<span class="text-gray-900 fw-bold fs-6">${jamMenitSelesai}</span>`;
                         }
                     },
                     {
@@ -179,13 +306,13 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalEdit()" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <a onclick="modalEdit('${row.id}', '${row.hari}', '${row.jam_mulai}', '${row.jam_selesai}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="deleteData()" class="btn btn-icon btn-light-danger btn-xl">
+                                <a onclick="deleteData(${row.id})" class="btn btn-icon btn-light-danger btn-xl">
                                     <i class="ki-duotone ki-trash fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -228,9 +355,171 @@
         function modalDetail(nama, hari, jam_mulai, jam_selesai) {
             $('#detailNama').val(nama);
             $('#detailHari').val(hari);
-            $('#detailJamMulai').val(jam_mulai);
-            $('#detailJamSelesai').val(jam_selesai);
+            const jamMenitMulai = jam_mulai.slice(0, 5);
+            $('#detailJamMulai').val(jamMenitMulai);
+            const jamMenitSelesai = jam_selesai.slice(0, 5);
+            $('#detailJamSelesai').val(jamMenitSelesai);
             $('#modalDetail').modal('show');
+        }
+
+        // Penangaan form modal edit
+        $('#modalEdit form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            e.preventDefault();
+            let data = $(this).serialize();
+            let form = $(this);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda ingin menyimpan perubahan ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: "PUT",
+                        data: data,
+                        success: function(response) {
+                            console.log(response);
+                            $('#modalEdit').modal('hide');
+                            tabel.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Saved!',
+                                'Jadwal berhasil diupdate.',
+                                'success'
+                            );
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseJSON.message);
+                            Swal.fire(
+                                'Error!',
+                                'Error mengupdate jadwal: ' + xhr.responseJSON.message,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+
+        // Pengambilan data old modal edit
+        function modalEdit(id, hari, jam_mulai, jam_selesai) {
+            $('#id').val(id);
+            $('#updateHari').val(hari);
+            const jamMenitMulai = jam_mulai.slice(0, 5);
+            $('#updateJamMulai').val(jamMenitMulai);
+            const jamMenitSelesai = jam_selesai.slice(0, 5);
+            $('#updateJamSelesai').val(jamMenitSelesai);
+            $('#modalEdit').modal('show');
+        }
+
+        // Clear form modal add
+        $('#modalAdd').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+        // Menangani penanganan form modal add
+        $('#modalAdd form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            e.preventDefault();
+            let data = $(this).serialize();
+            let form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                    $('#modalAdd').modal('hide');
+                    tabel.ajax.reload();
+                    swalMixinSuccess.fire(
+                        'Success!',
+                        'Jadwal berhasil ditambah.',
+                        'success'
+                    );
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseJSON.message);
+                    Swal.fire(
+                        'Error!',
+                        'Error menambahkan jadwal: ' + xhr.responseJSON.message,
+                        'error'
+                    );
+                }
+            });
+        });
+
+        // Menangani penanganan fungsi delete data
+        function deleteData(id) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/dokter/data-jadwal-dokter-delete/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.message);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Deleted:', data);
+                            tabel.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Deleted!',
+                                'Jadwal berhasil dihapus.',
+                                'success'
+                            );
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Error menghapus jadwal: ' + error.message,
+                                'error'
+                            );
+                        });
+                }
+            });
         }
     </script>
 @endpush

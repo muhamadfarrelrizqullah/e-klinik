@@ -99,6 +99,9 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::get('/data-rekap', [RekapController::class, 'read'])->name('datarekap');
 
     Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'read'])->name('datajadwaldokter');
+    Route::post('/data-jadwal-dokter-tambah', [JadwalDokterController::class, 'store'])->name('datajadwaldokter-tambah');
+    Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'update'])->name('datajadwaldokter-edit');
+    Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
     Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
@@ -120,4 +123,3 @@ Route::prefix('pasien')->name('pasien-')->middleware('role:Pasien')->group(funct
     Route::get('/profil-edit', [ProfilController::class, 'editPasien'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
-
