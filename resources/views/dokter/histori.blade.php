@@ -18,9 +18,15 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download">
-                        Download PDF
-                    </button>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
                 </div>
             </div>
         </div>

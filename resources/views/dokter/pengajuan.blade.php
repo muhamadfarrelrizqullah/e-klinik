@@ -22,10 +22,16 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <button type="button" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalAdd">
-                        Tambah Pengajuan sebagai Dokter
-                    </button>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal"
+                            data-bs-target="#modalAdd">
+                            <i class="ki-duotone ki-plus fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Tambah Pengajuan</a>
+                    </div>
                 </div>
             </div>
         </div>
