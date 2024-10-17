@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class, 'id_dokter');
     }
+
+    public function jadwalDokters()
+    {
+        return $this->hasMany(JadwalDokter::class, 'id_dokter');
+    }
 }
