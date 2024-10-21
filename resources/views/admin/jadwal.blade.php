@@ -1,4 +1,4 @@
-@extends('dokter.template.main')
+@extends('admin.template.main')
 
 @section('title', 'Data Jadwal Dokter - E Klinik PAL')
 
@@ -18,6 +18,58 @@
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Filter Jadwal</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Dokter:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNama" name="nama">
+                                        <option value="" selected disabled>Pilih nama dokter</option>
+                                        @foreach ($dokters as $dokter)
+                                            <option value="{{ $dokter->id }}">{{ $dokter->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Hari:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterHari" name="hari">
+                                        <option value="" selected disabled>Pilih hari jadwal</option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jumat">Jumat</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
                     <div class="m-0">
                         <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end" data-bs-toggle="modal" data-bs-target="#modalAdd">
@@ -129,8 +181,18 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <form class="form" action="{{ route('dokter-datajadwaldokter-tambah') }}" method="POST">
+                    <form class="form" action="{{ route('admin-datajadwaldokter-tambah') }}" method="POST">
                         @csrf
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="required fs-6 fw-semibold mb-2">Dokter</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="addDokter" name="id_dokter">
+                                <option value="" selected disabled>Pilih nama dokter</option>
+                                @foreach ($dokters as $dokter)
+                                    <option value="{{ $dokter->id }}">{{ $dokter->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="required fs-6 fw-semibold mb-2">Hari</label>
                             <select class="form-select form-select-solid" data-placeholder=""
@@ -187,9 +249,10 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <form class="form" action="{{ route('dokter-datajadwaldokter-edit') }}" method="PUT">
+                    <form class="form" action="{{ route('admin-datajadwaldokter-edit') }}" method="PUT">
                         @csrf
                         <input type="hidden" id="id" name="id">
+                        <input type="hidden" id="id_dokter" name="id_dokter">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="required fs-6 fw-semibold mb-2">Hari</label>
                             <select class="form-select form-select-solid" data-placeholder=""
@@ -240,7 +303,13 @@
             tabel = $('#TabelJadwal').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('dokter-datajadwaldokter') }}",
+                ajax: {
+                    url: "{{ route('admin-datajadwaldokter') }}",
+                    data: function(d) {
+                        d.id_dokter = $('#filterNama').val();
+                        d.data_hari = $('#filterHari').val();
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -307,7 +376,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalEdit('${row.id}', '${row.hari}', '${row.jam_mulai}', '${row.jam_selesai}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <a onclick="modalEdit('${row.id}', '${row.id_dokter}', '${row.hari}', '${row.jam_mulai}', '${row.jam_selesai}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -344,6 +413,23 @@
                     infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
+            });
+
+            // Event listener untuk filter nama pasien
+            $('#filterNama').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal
+            $('#filterHari').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterNama').value = '';
+                document.getElementById('filterHari').value = '';
+                $('#TabelJadwal').DataTable().ajax.reload();
             });
 
             // Fix tampilan tabel berubah setelah dilakukan responsif
@@ -414,8 +500,9 @@
         });
 
         // Pengambilan data old modal edit
-        function modalEdit(id, hari, jam_mulai, jam_selesai) {
+        function modalEdit(id, id_dokter, hari, jam_mulai, jam_selesai) {
             $('#id').val(id);
+            $('#id_dokter').val(id_dokter);
             $('#updateHari').val(hari);
             const jamMenitMulai = jam_mulai.slice(0, 5);
             $('#updateJamMulai').val(jamMenitMulai);
@@ -486,7 +573,7 @@
                 cancelButtonText: 'Tidak'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`/dokter/data-jadwal-dokter-delete/${id}`, {
+                    fetch(`/admin/data-jadwal-dokter-delete/${id}`, {
                             method: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(

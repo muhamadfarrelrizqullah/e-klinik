@@ -48,6 +48,7 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
     Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
     Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
 
     Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
     Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
@@ -76,6 +77,11 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/data-rating', [RatingController::class, 'readAdmin'])->name('datarating');
     Route::put('/data-rating-edit', [RatingController::class, 'update'])->name('datarating-edit');
     Route::delete('/data-rating-delete/{id}', [RatingController::class, 'destroy'])->name('datarating-delete');
+
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readAdmin'])->name('datajadwaldokter');
+    Route::post('/data-jadwal-dokter-tambah', [JadwalDokterController::class, 'storeAdmin'])->name('datajadwaldokter-tambah');
+    Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'updateAdmin'])->name('datajadwaldokter-edit');
+    Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
     Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');

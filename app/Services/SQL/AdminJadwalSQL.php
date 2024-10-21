@@ -5,7 +5,7 @@ namespace App\Services\SQL;
 use App\Models\JadwalDokter;
 use Illuminate\Support\Facades\Auth;
 
-class PasienJadwalSQL
+class AdminJadwalSQL
 {
     public function getJadwalData($id_dokter, $data_hari)
     {

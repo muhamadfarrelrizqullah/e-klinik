@@ -103,6 +103,20 @@
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-jadwaldokter') ? 'active' : '' }}"
+                            href="{{ route('admin-jadwaldokter') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-calendar-2 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Jadwal Dokter</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('admin-scanqr') ? 'active' : '' }}"
                             href="{{ route('admin-scanqr') }}">
                             <span class="menu-icon">
