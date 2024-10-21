@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +51,8 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
     Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
+    Route::get('/rekam-medis', [RekamMedisController::class, 'indexAdmin'])->name('rekammedis');
+    Route::get('/obat', [ObatController::class, 'indexAdmin'])->name('obat');
 
     Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
     Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
