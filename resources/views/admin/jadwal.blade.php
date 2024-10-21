@@ -609,6 +609,79 @@
                 }
             });
         }
+
+        // Handle download pdf
+        document.addEventListener("DOMContentLoaded", function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            document.getElementById('bt-download').addEventListener('click', function() {
+                var filterNama = $('#filterNama').val();
+                var filterHari = $('#filterHari').val();
+                $.ajax({
+                    url: "{{ route('admin-datajadwaldokter') }}",
+                    type: "GET",
+                    data: {
+                        id_dokter: filterNama,
+                        data_hari: filterHari
+                    },
+                    success: function(response) {
+                        $.ajax({
+                            url: "/logo-base64",
+                            type: "GET",
+                            success: function(logoResponse) {
+                                 // Menambahkan kop perusahaan
+                                var doc = new jsPDF();
+                                var companyLogo = logoResponse.base64;
+                                var companyAddress =
+                                    'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
+                                var companyContact =
+                                    'Telp (62-31) 329 2275 Fax (62-31) 329 2530';
+                                var pageWidth = doc.internal.pageSize.getWidth();
+                                var logoWidth = 50;
+                                var centerX = pageWidth / 2;
+                                doc.addImage(companyLogo, 'PNG', centerX -
+                                    logoWidth / 2, 10, logoWidth, 10);
+                                doc.setFontSize(10);
+                                doc.setFont("helvetica", "normal");
+                                doc.text(companyAddress, centerX, 30, {
+                                    align: "center"
+                                });
+                                doc.text(companyContact, centerX, 35, {
+                                    align: "center"
+                                });
+                                doc.setFontSize(10);
+                                doc.text('Data Jadwal Dokter Pt. PAL Indonesia', 14,
+                                    55);
+                                // Menambahkan tabel
+                                var columns = ["No", "Nama Dokter", "Hari",
+                                    "Jam Mulai", "Jam Selesai"
+                                ];
+                                var data = response.data.map((row, index) => [
+                                    index + 1,
+                                    row.nama,
+                                    row.hari,
+                                    row.jam_mulai.slice(0, 5),
+                                    row.jam_selesai.slice(0, 5)
+                                ]);
+                                doc.autoTable({
+                                    head: [columns],
+                                    body: data,
+                                    startY: 60,
+                                    styles: {
+                                        halign: 'center'
+                                    },
+                                    headStyles: {
+                                        halign: 'center'
+                                    }
+                                });
+                                doc.save('Data_Jadwal_Dokter_Report.pdf');
+                            }
+                        });
+                    }
+                });
+            });
+        });
     </script>
 @endpush
 
