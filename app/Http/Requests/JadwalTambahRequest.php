@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
+use App\Models\JadwalDokter;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalTambahRequest extends FormRequest
 {
@@ -40,5 +43,28 @@ class JadwalTambahRequest extends FormRequest
             'jam_selesai.date_format' => 'Jam selesai harus dalam format HH:MM.',
             'jam_selesai.after' => 'Jam selesai harus setelah jam mulai.',
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator) {
+            $userId = Auth::id();
+            $hari = $this->hari;
+
+            // Cek apakah dokter sudah memiliki jadwal di hari yang sama
+            $existingJadwal = JadwalDokter::where('id_dokter', $userId)
+                ->where('hari', $hari)
+                ->exists();
+
+            if ($existingJadwal) {
+                $validator->errors()->add('hari', 'Dokter sudah memiliki jadwal pada hari tersebut.');
+            }
+        });
     }
 }
