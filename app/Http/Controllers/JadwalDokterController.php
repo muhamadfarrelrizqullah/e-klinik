@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JadwalEditRequest;
 use App\Http\Requests\JadwalTambahRequest;
 use App\Models\JadwalDokter;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\SQL\DokterJadwalSQL;
+use App\Services\SQL\PasienJadwalSQL;
 use Illuminate\Support\Facades\Auth;
 
 class JadwalDokterController extends Controller
@@ -16,16 +18,36 @@ class JadwalDokterController extends Controller
         return view('dokter.jadwal');
     }
 
-    protected $DataJadwal;
-
-    public function __construct(DokterJadwalSQL $DokterJadwalSQL)
+    public function indexPasien()
     {
-        $this->DataJadwal = $DokterJadwalSQL;
+        $dokters = User::where('role', 'Dokter')->orderBy('nama', 'asc')->get();
+        return view('pasien.jadwal', compact('dokters'));
     }
 
-    public function read()
+    protected $DataJadwalDokter;
+    protected $DataJadwalPasien;
+
+    public function __construct(DokterJadwalSQL $DokterJadwalSQL, PasienJadwalSQL $PasienJadwalSQL)
     {
-        $data = $this->DataJadwal->getJadwalData();
+        $this->DataJadwalDokter = $DokterJadwalSQL;
+        $this->DataJadwalPasien = $PasienJadwalSQL;
+    }
+
+    public function readDokter()
+    {
+        $data = $this->DataJadwalDokter->getJadwalData();
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function readPasien(Request $request)
+    {
+        $id_dokter = $request->input('id_dokter');
+        $data_hari = $request->input('data_hari');
+
+        $data = $this->DataJadwalPasien->getJadwalData($id_dokter, $data_hari);
 
         return datatables()->of($data)
             ->addIndexColumn()

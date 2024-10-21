@@ -98,7 +98,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
 
     Route::get('/data-rekap', [RekapController::class, 'read'])->name('datarekap');
 
-    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'read'])->name('datajadwaldokter');
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readDokter'])->name('datajadwaldokter');
     Route::post('/data-jadwal-dokter-tambah', [JadwalDokterController::class, 'store'])->name('datajadwaldokter-tambah');
     Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'update'])->name('datajadwaldokter-edit');
     Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
@@ -113,12 +113,15 @@ Route::prefix('pasien')->name('pasien-')->middleware('role:Pasien')->group(funct
     Route::get('/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pengajuan');
     Route::get('/profil', [ProfilController::class, 'indexPasien'])->name('profil');
     Route::get('/rating', [RatingController::class, 'index'])->name('rating');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexPasien'])->name('jadwaldokter');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('datapengajuan');
     Route::post('/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('datapengajuan-tambah');
     Route::post('/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('ratingpengajuan-tambah');
 
     Route::get('/data-rating', [RatingController::class, 'read'])->name('datarating');
+
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readPasien'])->name('datajadwaldokter');
 
     Route::get('/profil-edit', [ProfilController::class, 'editPasien'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');

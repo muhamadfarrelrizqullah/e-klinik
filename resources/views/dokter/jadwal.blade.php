@@ -272,7 +272,17 @@
                         name: 'hari',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            if (data === 'Senin') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else if (data === 'Selasa') {
+                                return `<span class="badge badge-light-warning">${data}</span>`;
+                            } else if (data === 'Rabu') {
+                                return `<span class="badge badge-light-primary">${data}</span>`;
+                            } else if (data === 'Kamis') {
+                                return `<span class="badge badge-light-secondary">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            }
                         }
                     },
                     {
