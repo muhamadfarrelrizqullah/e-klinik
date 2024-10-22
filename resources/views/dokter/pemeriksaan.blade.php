@@ -214,6 +214,7 @@
                         <input type="hidden" id="detIdPasien" name="id_pasien">
                         <input type="hidden" id="detDivisiPasien" name="divisi_pasien">
                         <input type="hidden" id="detTanggalLahir" name="tanggal_lahir">
+                        <input type="hidden" id="detJabatan" name="jabatan">
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -473,7 +474,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
+                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}', '${row.jabatan}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
                                     <i class="ki-duotone ki-add-files fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -569,7 +570,7 @@
         }
 
         function modalAddPemeriksaan(id, tanggal_lahir, qrcode, id_pasien, nama_pasien, divisi_pasien, nip_pasien,
-            keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
+            keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli, jabatan) {
             $('#detId').val(id);
             let datelahir = new Date(tanggal_lahir);
             let daylahir = String(datelahir.getDate()).padStart(2, '0');
@@ -596,6 +597,7 @@
             let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
             $('#detTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
             $('#detNamaPoli').val(nama_poli);
+            $('#detJabatan').val(jabatan);
             $('#modalAddPemeriksaan').modal('show');
         }
 
@@ -657,7 +659,8 @@
             // Ambil nilai dari input
             const namaPasien = document.getElementById('detNamaPasien').value;
             const nipPasien = document.getElementById('detNipPasien').value;
-            const divisiPasien = document.getElementById('detDivisiPasien').value;
+            const jabatanElement = document.getElementById('detJabatan');
+            const jabatan = jabatanElement.value === 'null' || jabatanElement.value === '' ? '-' : jabatanElement.value;
             const tanggalPemeriksaan = document.getElementById('detTanggalPemeriksaan').value;
             const catatan = document.getElementById('addCatatan').value;
             const istirahatHari = parseInt(document.getElementById('addIstirahatHari').value, 10);
@@ -757,7 +760,7 @@
             addText(`Umur / Tgl Lahir`, `: ${umurPasien} tahun / ${tanggalLahir}`);
             addText(`Pangkat / Gol.`, `: ${pangkatGolongan}`);
             addText(`NRP / NIP`, `: ${nipPasien}`);
-            addText(`Jabatan / Bag.`, `: ${divisiPasien}`);
+            addText(`Jabatan / Bag.`, `: ${jabatan}`);
             addText(`Cost Centre`, `: ${costCentre}`);
             addText(`Perlu mendapat istirahat`, `: ${istirahatHari} hari terhitung dari`);
             addText(`Tanggal`, `: ${tanggalPemeriksaan} s/d ${tanggalSelesai} karena menderita sakit.`);

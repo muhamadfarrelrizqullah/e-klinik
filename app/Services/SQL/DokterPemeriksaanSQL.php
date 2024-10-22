@@ -34,6 +34,7 @@ class DokterPemeriksaanSQL
                 'pasien.nama as nama_pasien',
                 'pasien.nip as nip_pasien',
                 'pasien.tanggal_lahir',
+                'pasien.jabatan',
                 'divisis.nama as divisi_pasien',
                 'pengajuans.id_dokter',
                 'dokter.nama as nama_dokter',
