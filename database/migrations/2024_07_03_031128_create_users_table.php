@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->enum('role', ['Pasien', 'Dokter', 'Admin'])->default('Pasien');
             $table->unsignedBigInteger('divisi_id');
+            $table->string('jabatan')->nullable();
             $table->date('tanggal_lahir');
             $table->float('tinggi_badan')->nullable();
             $table->float('berat_badan')->nullable();

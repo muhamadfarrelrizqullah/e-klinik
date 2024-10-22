@@ -20,8 +20,16 @@ class User extends Authenticatable
     use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
-        'nip', 'nama', 'password', 'status', 'role', 'divisi_id', 
-        'tanggal_lahir', 'tinggi_badan', 'berat_badan'
+        'nip',
+        'nama',
+        'password',
+        'status',
+        'role',
+        'divisi_id',
+        'jabatan',
+        'tanggal_lahir',
+        'tinggi_badan',
+        'berat_badan'
     ];
 
     protected $hidden = [
