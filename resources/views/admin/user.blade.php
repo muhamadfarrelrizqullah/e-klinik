@@ -274,6 +274,99 @@
         </div>
     </div>
 
+    <div id="modalDetailPasien" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailPasienLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail User</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNipPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNamaPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Status</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailStatusPasien" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Role</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailRolePasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Divisi</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailDivisiNamaPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Jabatan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailJabatanPasien" readonly>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Tanggal Lahir</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailTanggalLahirPasien" readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tinggi Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailTinggiBadanPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Berat Badan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailBeratBadanPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modalDetailDokter" class="modal fade" tabindex="-1" aria-hidden="true"
         aria-labelledby="modalDetailDokterLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -858,7 +951,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetailPasien('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.jabatan}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailPasien">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -1066,7 +1159,7 @@
                                 doc.text('Data Pasien Pt. PAL Indonesia', 14, 55);
                                 // Menambahkan tabel
                                 var columns = ["No", "NIP", "Nama", "Status",
-                                    "Role", "Divisi", "Tanggal Lahir",
+                                    "Role", "Divisi", "Jabatan", "Tanggal Lahir",
                                     "Tinggi Badan", "Berat Badan"
                                 ];
                                 var data = sortedData.map((row, index) => [
@@ -1076,6 +1169,7 @@
                                     row.status,
                                     row.role,
                                     row.divisi_nama.replace(/&amp;/g, '&'),
+                                    row.jabatan.replace(/&amp;/g, '&'),
                                     formatDate(row.tanggal_lahir),
                                     row.tinggi_badan,
                                     row.berat_badan
@@ -1314,7 +1408,7 @@
             $('#updatePoli').val(null).trigger('change');
         });
 
-        // Pengambilan data modal detail
+        // Pengambilan data modal detail admin
         function modalDetail(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan) {
             $('#detailNip').val(nip);
             $('#detailNama').val(nama);
@@ -1330,6 +1424,25 @@
             $('#detailTinggiBadan').val(tinggi_badan);
             $('#detailBeratBadan').val(berat_badan);
             $('#modalDetail').modal('show');
+        }
+
+        // Pengambilan data modal detail pasien
+        function modalDetailPasien(nip, nama, status, role, divisi_nama, jabatan, tanggal_lahir, tinggi_badan, berat_badan) {
+            $('#detailNipPasien').val(nip);
+            $('#detailNamaPasien').val(nama);
+            $('#detailStatusPasien').val(status);
+            $('#detailRolePasien').val(role);
+            $('#detailDivisiNamaPasien').val(divisi_nama);
+            $('#detailJabatanPasien').val(jabatan);
+            let date = new Date(tanggal_lahir);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = String(date.getFullYear());
+            let formattedBirthdate = `${day}/${month}/${year}`;
+            $('#detailTanggalLahirPasien').val(formattedBirthdate);
+            $('#detailTinggiBadanPasien').val(tinggi_badan);
+            $('#detailBeratBadanPasien').val(berat_badan);
+            $('#modalDetailPasien').modal('show');
         }
 
         // Pengambilan data modal detail dokter
