@@ -13,6 +13,7 @@ use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,3 +118,14 @@ Route::prefix('pasien')->name('pasien-')->middleware('role:Pasien')->group(funct
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
 
+// Apoteker Routes
+Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'indexApoteker'])->name('dashboard');
+    Route::get('/obat', [ObatController::class, 'indexApoteker'])->name('obat');
+    Route::get('/profil', [ProfilController::class, 'indexApoteker'])->name('profil');
+
+    Route::get('/data-obat', [ObatController::class, 'read'])->name('dataobat');
+    Route::post('/data-obat-tambah', [ObatController::class, 'store'])->name('dataobat-tambah');
+    Route::put('/data-obat-edit', [ObatController::class, 'update'])->name('dataobat-edit');
+    Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
+});

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('password');
             $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
-            $table->enum('role', ['Pasien', 'Dokter', 'Admin'])->default('Pasien');
+            $table->enum('role', ['Pasien', 'Dokter', 'Admin', 'Apoteker'])->default('Pasien');
             $table->unsignedBigInteger('divisi_id');
             $table->date('tanggal_lahir');
             $table->float('tinggi_badan')->nullable();

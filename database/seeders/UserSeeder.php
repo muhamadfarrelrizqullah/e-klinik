@@ -146,6 +146,17 @@ class UserSeeder extends Seeder
                 'tinggi_badan' => 185,
                 'berat_badan' => 69,
             ],
+            [
+                'nip' => '55555555',
+                'nama' => 'Denis',
+                'password' => Hash::make('password123'),
+                'status' => 'Aktif',
+                'role' => 'Apoteker',
+                'divisi_id' => 2,
+                'tanggal_lahir' => '1225-02-15',
+                'tinggi_badan' => 185,
+                'berat_badan' => 69,
+            ],
         ]);
     }
 }
