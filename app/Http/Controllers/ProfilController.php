@@ -61,4 +61,16 @@ class ProfilController extends Controller
         $users = User::findOrFail($userId);
         return view('pasien.profil-edit', compact('users'));
     }
+
+    public function indexApoteker()
+    {
+        return view('apoteker.profil');
+    }
+
+    public function editApoteker()
+    { 
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('apoteker.profil-edit', compact('users'));
+    }
 }

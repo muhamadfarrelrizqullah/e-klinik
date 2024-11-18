@@ -41,6 +41,8 @@ class AutentikasiController extends Controller
                     return response()->json(['success' => true, 'redirect' => route('dokter-dashboard')]);
                 } elseif (Auth::user()->role == 'Pasien') {
                     return response()->json(['success' => true, 'redirect' => route('pasien-dashboard')]);
+                } elseif (Auth::user()->role == 'Apoteker') {
+                    return response()->json(['success' => true, 'redirect' => route('apoteker-dashboard')]);
                 } else {
                     return response()->json(['success' => false, 'message' => 'Error autentikasi']);
                 }

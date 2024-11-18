@@ -6,6 +6,7 @@ use App\Models\Divisi;
 use App\Models\Pengajuan;
 use App\Models\Poli;
 use App\Models\User;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\SQL\AdminPengajuanSQL;
@@ -32,6 +33,12 @@ class DashboardController extends Controller
     {
         $pengajuan = Pengajuan::all();
         return view('dokter.dashboard', compact('pengajuan'));
+    }
+
+    public function indexApoteker()
+    {
+        $obat = Obat::all();
+        return view('apoteker.dashboard', compact('obat'));
     }
 
     public function indexPasien()
