@@ -41,6 +41,12 @@
                                     </div>
                                 </div>
                                 <div class="row mb-10">
+                                    <label class="col-lg-4 fw-semibold text-muted">Jabatan</label>
+                                    <div class="col-lg-8">
+                                        <span class="fw-bold fs-6 text-gray-800">{{ auth()->user()->jabatan }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-10">
                                     <label class="col-lg-4 fw-semibold text-muted">Tanggal lahir</label>
                                     <div class="col-lg-8">
                                         <span class="fw-bold fs-6 text-gray-800">

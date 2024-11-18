@@ -3,7 +3,9 @@
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObatController;
@@ -48,6 +51,9 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
     Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
     Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
+    Route::get('/rekam-medis', [RekamMedisController::class, 'indexAdmin'])->name('rekammedis');
+    Route::get('/obat', [ObatController::class, 'indexAdmin'])->name('obat');
 
     Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
     Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
@@ -77,6 +83,11 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::put('/data-rating-edit', [RatingController::class, 'update'])->name('datarating-edit');
     Route::delete('/data-rating-delete/{id}', [RatingController::class, 'destroy'])->name('datarating-delete');
 
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readAdmin'])->name('datajadwaldokter');
+    Route::post('/data-jadwal-dokter-tambah', [JadwalDokterController::class, 'storeAdmin'])->name('datajadwaldokter-tambah');
+    Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'updateAdmin'])->name('datajadwaldokter-edit');
+    Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
+
     Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
@@ -87,6 +98,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::get('/pengajuan', [PengajuanController::class, 'indexDokter'])->name('pengajuan');
     Route::get('/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('pemeriksaan');
     Route::get('/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('historipengajuan');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexDokter'])->name('jadwaldokter');
     Route::get('/profil', [ProfilController::class, 'indexDokter'])->name('profil');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('datapengajuan');
@@ -96,6 +108,11 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::post('/data-pemeriksaan-tambah', [PemeriksaanController::class, 'storePemeriksaan'])->name('datapemeriksaan-tambah');
 
     Route::get('/data-rekap', [RekapController::class, 'read'])->name('datarekap');
+
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readDokter'])->name('datajadwaldokter');
+    Route::post('/data-jadwal-dokter-tambah', [JadwalDokterController::class, 'store'])->name('datajadwaldokter-tambah');
+    Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'update'])->name('datajadwaldokter-edit');
+    Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
     Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
@@ -107,12 +124,15 @@ Route::prefix('pasien')->name('pasien-')->middleware('role:Pasien')->group(funct
     Route::get('/pengajuan', [PengajuanController::class, 'indexPasien'])->name('pengajuan');
     Route::get('/profil', [ProfilController::class, 'indexPasien'])->name('profil');
     Route::get('/rating', [RatingController::class, 'index'])->name('rating');
+    Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexPasien'])->name('jadwaldokter');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readPasien'])->name('datapengajuan');
     Route::post('/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('datapengajuan-tambah');
     Route::post('/rating-pengajuan-tambah', [PengajuanController::class, 'addRating'])->name('ratingpengajuan-tambah');
 
     Route::get('/data-rating', [RatingController::class, 'read'])->name('datarating');
+
+    Route::get('/data-jadwal-dokter', [JadwalDokterController::class, 'readPasien'])->name('datajadwaldokter');
 
     Route::get('/profil-edit', [ProfilController::class, 'editPasien'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
@@ -129,3 +149,4 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::put('/data-obat-edit', [ObatController::class, 'update'])->name('dataobat-edit');
     Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
 });
+

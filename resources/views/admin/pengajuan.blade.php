@@ -28,10 +28,20 @@
                         <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
                             id="kt_menu_658cdae763501">
                             <div class="px-7 py-5">
-                                <div class="fs-5 text-gray-900 fw-bold">Range Filter by Data Tanggal</div>
+                                <div class="fs-5 text-gray-900 fw-bold">Range Filter</div>
                             </div>
                             <div class="separator border-gray-200"></div>
                             <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Pasien:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNama" name="nama">
+                                        <option value="" selected disabled>Pilih nama pasien</option>
+                                        @foreach ($pasiens as $pasien)
+                                            <option value="{{ $pasien->id }}">{{ $pasien->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="mb-10">
                                     <label class="form-label fw-semibold">Data tanggal:</label>
                                     <select class="form-select form-select-solid" data-placeholder=""
@@ -253,7 +263,7 @@
         </div>
     </div>
 
-    <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
+    {{-- <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -362,7 +372,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('script')
@@ -375,6 +385,7 @@
                 ajax: {
                     url: "{{ route('admin-datapengajuan') }}",
                     data: function(d) {
+                        d.id_pasien = $('#filterNama').val();
                         d.data_tanggal = $('#filterDataTanggal').val();
                         d.tanggal_setelah = $('#filterTanggalSetelah').val();
                         d.tanggal_sebelum = $('#filterTanggalSebelum').val();
@@ -592,6 +603,11 @@
                 },
             });
 
+            // Event listener untuk filter nama pasien
+            $('#filterNama').on('change', function() {
+                tabel.ajax.reload();
+            });
+
             // Event listener untuk filter tanggal
             $('#filterDataTanggal').on('change', function() {
                 tabel.ajax.reload();
@@ -609,6 +625,7 @@
 
             // Event listener untuk reset filter
             document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterNama').value = '';
                 document.getElementById('filterDataTanggal').value = '';
                 document.getElementById('filterTanggalSetelah').value = '';
                 document.getElementById('filterTanggalSebelum').value = '';

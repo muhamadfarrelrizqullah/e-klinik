@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PivotPoliUserSeeder::class);
         $this->call(PivotPoliUserSeeder::class);
         $this->call(ObatSeeder::class);
+        $this->call(JadwalDokterSeeder::class);
     }
 }

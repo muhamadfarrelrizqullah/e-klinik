@@ -36,6 +36,10 @@ class UserTambahRequest extends FormRequest
             $rules['polis'] = 'required|array';
             $rules['polis.*'] = 'required|exists:polis,id';
         }
+        // Jika role adalah Pasien, tambahkan validasi untuk jabatan
+        if ($this->role === 'Pasien') {
+            $rules['jabatan'] = 'required|string|max:255';
+        }
         return $rules;
     }
 
@@ -63,6 +67,9 @@ class UserTambahRequest extends FormRequest
             'polis.array' => 'Poli harus berupa array.',
             'polis.*.required' => 'Setiap poli harus valid.',
             'polis.*.exists' => 'Poli yang dipilih tidak valid.',
+            'jabatan.required' => 'Jabatan harus diisi.',
+            'jabatan.string' => 'Jabatan harus berupa teks.',
+            'jabatan.max' => 'Jabatan maksimal 255 karakter.',
         ];
     }
 }

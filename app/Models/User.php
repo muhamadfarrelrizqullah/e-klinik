@@ -20,8 +20,16 @@ class User extends Authenticatable
     use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
-        'nip', 'nama', 'password', 'status', 'role', 'divisi_id', 
-        'tanggal_lahir', 'tinggi_badan', 'berat_badan'
+        'nip',
+        'nama',
+        'password',
+        'status',
+        'role',
+        'divisi_id',
+        'jabatan',
+        'tanggal_lahir',
+        'tinggi_badan',
+        'berat_badan'
     ];
 
     protected $hidden = [
@@ -70,5 +78,10 @@ class User extends Authenticatable
     public function ratingsAsDokter()
     {
         return $this->hasMany(Rating::class, 'id_dokter');
+    }
+
+    public function jadwalDokters()
+    {
+        return $this->hasMany(JadwalDokter::class, 'id_dokter');
     }
 }

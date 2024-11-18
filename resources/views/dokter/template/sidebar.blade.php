@@ -101,6 +101,20 @@
                             <span class="menu-title">Histori Pengajuan</span>
                         </a>
                     </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('dokter-jadwaldokter') ? 'active' : '' }}"
+                            href="{{ route('dokter-jadwaldokter') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-calendar-2 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Jadwal Dokter</span>
+                        </a>
+                    </div>
                     <div class="menu-item pt-5">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>

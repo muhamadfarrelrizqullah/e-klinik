@@ -18,9 +18,15 @@ class ObatController extends Controller
     {
         $this->DataObat = $DataObat;
     }
+  
     public function indexApoteker()
     {
         return view('apoteker.obat');
+    }
+  
+   public function indexAdmin()
+    {
+        return view('admin.obat');
     }
 
     public function read(){
@@ -69,6 +75,4 @@ class ObatController extends Controller
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
-
-
 }

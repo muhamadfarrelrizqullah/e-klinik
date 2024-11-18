@@ -17,6 +17,58 @@
                         <li class="breadcrumb-item text-muted">Pemeriksaan</li>
                     </ul>
                 </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Range Filter</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Pasien:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNama" name="nama">
+                                        <option value="" selected disabled>Pilih nama pasien</option>
+                                        @foreach ($pasiens as $pasien)
+                                            <option value="{{ $pasien->id }}">{{ $pasien->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Data tanggal:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterDataTanggal">
+                                        <option value="" selected disabled>Pilih data tanggal</option>
+                                        <option value="tanggal_pengajuan">Tanggal Pengajuan</option>
+                                        <option value="tanggal_pemeriksaan">Tanggal Pemeriksaan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal setelah:</label>
+                                    <input type="date" id="filterTanggalSetelah" name="date-before"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal sebelum:</label>
+                                    <input type="date" id="filterTanggalSebelum" name="date-after"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -87,8 +139,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Keluhan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailKeluhan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailKeluhan" readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -126,8 +178,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Catatan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailCatatan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailCatatan" readonly>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -162,6 +214,7 @@
                         <input type="hidden" id="detIdPasien" name="id_pasien">
                         <input type="hidden" id="detDivisiPasien" name="divisi_pasien">
                         <input type="hidden" id="detTanggalLahir" name="tanggal_lahir">
+                        <input type="hidden" id="detJabatan" name="jabatan">
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -237,14 +290,15 @@
                                     <span>Cost Center</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                placeholder="Masukkan cost centre" id="addCostCentre" name="cost_centre">
+                                    placeholder="Masukkan cost centre" id="addCostCentre" name="cost_centre">
                             </div>
                             <div class="col-md-6 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                     <span>Pangkat/Golongan</span>
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
-                                placeholder="Masukkan pangkat/golongan" id="addPangkatGolongan" name="pangkat_golongan">
+                                    placeholder="Masukkan pangkat/golongan" id="addPangkatGolongan"
+                                    name="pangkat_golongan">
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
@@ -304,8 +358,8 @@
             toggleSelect();
             istirahatHariInput.addEventListener('input', toggleSelect);
         });
-        
-         // Handler file disable ketika value select tidak buat 
+
+        // Handler file disable ketika value select tidak buat 
         document.getElementById('actionSelect').addEventListener('change', function() {
             var suratPerizinan = document.getElementById('suratPerizinan');
             if (this.value === 'tidak') {
@@ -320,7 +374,15 @@
             tabel = $('#TabelPemeriksaan').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('dokter-datapemeriksaan') }}",
+                ajax: {
+                    url: "{{ route('dokter-datapemeriksaan') }}",
+                    data: function(d) {
+                        d.id_pasien = $('#filterNama').val();
+                        d.data_tanggal = $('#filterDataTanggal').val();
+                        d.tanggal_setelah = $('#filterTanggalSetelah').val();
+                        d.tanggal_sebelum = $('#filterTanggalSebelum').val();
+                    }
+                },
                 order: [
                     [5, 'asc'],
                 ],
@@ -412,7 +474,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
+                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}', '${row.jabatan}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
                                     <i class="ki-duotone ki-add-files fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -441,6 +503,35 @@
                     infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
+            });
+
+            // Event listener untuk filter nama pasien
+            $('#filterNama').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal
+            $('#filterDataTanggal').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal setelah
+            $('#filterTanggalSetelah').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal sebelum
+            $('#filterTanggalSebelum').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterNama').value = '';
+                document.getElementById('filterDataTanggal').value = '';
+                document.getElementById('filterTanggalSetelah').value = '';
+                document.getElementById('filterTanggalSebelum').value = '';
+                $('#TabelPemeriksaan').DataTable().ajax.reload();
             });
 
             // Fix tampilan tabel berubah setelah dilakukan responsif
@@ -479,7 +570,7 @@
         }
 
         function modalAddPemeriksaan(id, tanggal_lahir, qrcode, id_pasien, nama_pasien, divisi_pasien, nip_pasien,
-            keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli) {
+            keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli, jabatan) {
             $('#detId').val(id);
             let datelahir = new Date(tanggal_lahir);
             let daylahir = String(datelahir.getDate()).padStart(2, '0');
@@ -506,6 +597,7 @@
             let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
             $('#detTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
             $('#detNamaPoli').val(nama_poli);
+            $('#detJabatan').val(jabatan);
             $('#modalAddPemeriksaan').modal('show');
         }
 
@@ -567,7 +659,8 @@
             // Ambil nilai dari input
             const namaPasien = document.getElementById('detNamaPasien').value;
             const nipPasien = document.getElementById('detNipPasien').value;
-            const divisiPasien = document.getElementById('detDivisiPasien').value;
+            const jabatanElement = document.getElementById('detJabatan');
+            const jabatan = jabatanElement.value === 'null' || jabatanElement.value === '' ? '-' : jabatanElement.value;
             const tanggalPemeriksaan = document.getElementById('detTanggalPemeriksaan').value;
             const catatan = document.getElementById('addCatatan').value;
             const istirahatHari = parseInt(document.getElementById('addIstirahatHari').value, 10);
@@ -667,7 +760,7 @@
             addText(`Umur / Tgl Lahir`, `: ${umurPasien} tahun / ${tanggalLahir}`);
             addText(`Pangkat / Gol.`, `: ${pangkatGolongan}`);
             addText(`NRP / NIP`, `: ${nipPasien}`);
-            addText(`Jabatan / Bag.`, `: ${divisiPasien}`);
+            addText(`Jabatan / Bag.`, `: ${jabatan}`);
             addText(`Cost Centre`, `: ${costCentre}`);
             addText(`Perlu mendapat istirahat`, `: ${istirahatHari} hari terhitung dari`);
             addText(`Tanggal`, `: ${tanggalPemeriksaan} s/d ${tanggalSelesai} karena menderita sakit.`);
@@ -678,7 +771,9 @@
 
             // Buat file dan simpan ke input
             const pdfBlob = doc.output('blob');
-            const file = new File([pdfBlob], `Surat_Perizinan_${noRekap}.pdf`, { type: 'application/pdf' });
+            const file = new File([pdfBlob], `Surat_Perizinan_${noRekap}.pdf`, {
+                type: 'application/pdf'
+            });
             const inputSuratPerizinan = document.getElementById('suratPerizinan');
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);

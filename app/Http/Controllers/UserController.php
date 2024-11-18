@@ -73,6 +73,10 @@ class UserController extends Controller
         $tanggal_lahir = \Carbon\Carbon::parse($request->tanggal_lahir);
         $password = $tanggal_lahir->format('dmY');
         $user->password = Hash::make($password);
+
+        if ($request->role === 'Pasien') {
+            $user->jabatan = $request->jabatan;
+        }
         $user->save();
 
         if ($request->has('polis')) {
@@ -113,6 +117,9 @@ class UserController extends Controller
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->tinggi_badan = $request->tinggi_badan ?? 0;
             $user->berat_badan = $request->berat_badan ?? 0;
+            if ($request->role === 'Pasien') {
+                $user->jabatan = $request->jabatan;
+            }
             $user->save();
 
             DB::table('pivot_polis_users')->where('id_dokter', $user->id)->delete();

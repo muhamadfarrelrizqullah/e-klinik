@@ -6,7 +6,7 @@ use App\Models\Pengajuan;
 
 class AdminPengajuanSQL
 {
-    public function getPengajuanData($data_tanggal, $tanggal_setelah, $tanggal_sebelum)
+    public function getPengajuanData($id_pasien, $data_tanggal, $tanggal_setelah, $tanggal_sebelum)
     {
         $query = Pengajuan::leftJoin('users as pasien', 'pengajuans.id_pasien', '=', 'pasien.id')
             ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
@@ -31,6 +31,11 @@ class AdminPengajuanSQL
                 'polis.nama as nama_poli',
                 'rekaps.surat_izin',
             ]);
+        
+        // Filter berdasarkan id_pasien
+        if ($id_pasien) {
+            $query->where('pengajuans.id_pasien', $id_pasien);
+        }
 
         // Tambahkan filter berdasarkan input yang diterima
         if ($data_tanggal === 'tanggal_pengajuan') {

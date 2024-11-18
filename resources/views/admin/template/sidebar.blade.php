@@ -67,12 +67,57 @@
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-jadwaldokter') ? 'active' : '' }}"
+                            href="{{ route('admin-jadwaldokter') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-calendar-2 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Jadwal Dokter</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-rekammedis') ? 'active' : '' }}"
+                            href="{{ route('admin-rekammedis') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-wallet fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Rekam Medis</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('admin-obat') ? 'active' : '' }}"
+                            href="{{ route('admin-obat') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-capsule fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Obat</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('admin-divisi') ? 'active' : '' }}"
                             href="{{ route('admin-divisi') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-filter fs-2">
+                                <i class="ki-duotone ki-pointers fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
                                 </i>
                             </span>
                             <span class="menu-title">Data Divisi</span>
@@ -106,12 +151,16 @@
                         <a class="menu-link {{ Request::routeIs('admin-scanqr') ? 'active' : '' }}"
                             href="{{ route('admin-scanqr') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-fingerprint-scanning fs-2">
+                                <i class="ki-duotone ki-technology fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
                                     <span class="path4"></span>
                                     <span class="path5"></span>
+                                    <span class="path6"></span>
+                                    <span class="path7"></span>
+                                    <span class="path8"></span>
+                                    <span class="path9"></span>
                                 </i>
                             </span>
                             <span class="menu-title">Scan QR</span>

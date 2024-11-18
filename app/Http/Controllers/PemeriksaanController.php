@@ -23,12 +23,18 @@ class PemeriksaanController extends Controller
     {
         $userId = Auth::id();
         $users = User::findOrFail($userId);
-        return view('dokter.pemeriksaan', compact('users'));
+        $pasiens = User::where('role', 'Pasien')->orderBy('nama', 'asc')->get();
+        return view('dokter.pemeriksaan', compact('users', 'pasiens'));
     }
 
-    public function readPemeriksaan()
+    public function readPemeriksaan(Request $request)
     {
-        $data = $this->DokterPemeriksaan->getPemeriksaanData();
+        $id_pasien = $request->input('id_pasien');
+        $data_tanggal = $request->input('data_tanggal');
+        $tanggal_setelah = $request->input('tanggal_setelah');
+        $tanggal_sebelum = $request->input('tanggal_sebelum');
+
+        $data = $this->DokterPemeriksaan->getPemeriksaanData($id_pasien, $data_tanggal, $tanggal_setelah, $tanggal_sebelum);
 
         return datatables()->of($data)
             ->addIndexColumn()
