@@ -8,6 +8,13 @@ class ApotekerObatSQL
 {
     public function getObatData()
     {
-        return Obat::all();
+        return Obat::select([
+            'obats.id',
+            'obats.nama',
+            'obats.jenis_obat',
+            'obats.satuan',
+            'obats.qty',
+        ])
+            ->get();
     }
 }

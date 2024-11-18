@@ -1,10 +1,6 @@
 @extends('apoteker.template.main')
 
-@section('title', 'Data Pengajuan - E Klinik PAL')
-
-@php
-    use Carbon\Carbon;
-@endphp
+@section('title', 'Data Obat - E Klinik PAL')
 
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
@@ -24,8 +20,7 @@
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
                         <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal"
-                            data-bs-target="#modalAdd">
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal" data-bs-target="#modalAdd">
                             <i class="ki-duotone ki-plus fs-6 me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
@@ -80,21 +75,20 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                        <div class="row g-9 mb-8">
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Nama Obat</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailNama" readonly>
-                            </div>
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Kuantitas</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailQty" readonly>
-                            </div>
+                    <form class="form" action="#">
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Nama Obat</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailNama"
+                                readonly>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Kuantitas</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailQty"
+                                readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -111,6 +105,10 @@
                                 <input type="text" class="form-control form-control-solid" placeholder=""
                                     id="detailJenisObat" readonly>
                             </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
                         </div>
                     </form>
                 </div>
@@ -134,26 +132,31 @@
                     <form class="form" action="{{ route('apoteker-dataobat-tambah') }}" method="POST">
                         @csrf
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2">Nama Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="addNamaObat" name="nama" placeholder="Masukkan Nama Obat" required>
+                            <label class="fs-6 fw-semibold form-label mb-2 required">Nama Obat</label>
+                            <input type="text" class="form-control form-control-solid" id="addNamaObat"
+                                name="nama" placeholder="Masukkan Nama Obat" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="number" class="form-control form-control-solid" id="addQty" name="qty" placeholder="Masukkan jumlah" required>
+                            <input type="text" class="form-control form-control-solid" id="addQty" pattern="\d{8}" name="qty"
+                                placeholder="Masukkan jumlah" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="addSatuan" name="satuan" placeholder="Masukkan satuan (contoh: Tablet, Botol, Kapsul)" required>
+                            <input type="text" class="form-control form-control-solid" id="addSatuan" name="satuan"
+                                placeholder="Masukkan satuan (contoh: Tablet, Botol, Kapsul)" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="addJenisObat" name="jenis_obat" placeholder="Masukkan jenis obat (contoh: Generik, Paten)" required>
+                            <input type="text" class="form-control form-control-solid" id="addJenisObat"
+                                name="jenis_obat" placeholder="Masukkan jenis obat (contoh: Generik, Paten)" required>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
-                                <span class="indicator-progress">Tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="indicator-progress">Tunggu... <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
                     </form>
@@ -161,7 +164,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -181,26 +184,31 @@
                         @method('PUT')
                         <input type="hidden" id="editId" name="id">
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2">Nama Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editNamaObat" name="nama" required>
+                            <label class="fs-6 fw-semibold form-label mb-2 required">Nama Obat</label>
+                            <input type="text" class="form-control form-control-solid" id="editNamaObat"
+                                name="nama" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="number" class="form-control form-control-solid" id="editQty" name="qty" required>
+                            <input type="text" class="form-control form-control-solid" id="editQty" pattern="\d{8}" name="qty"
+                                required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="editSatuan" name="satuan" required>
+                            <input type="text" class="form-control form-control-solid" id="editSatuan" name="satuan"
+                                required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editJenisObat" name="jenis_obat" required>
+                            <input type="text" class="form-control form-control-solid" id="editJenisObat"
+                                name="jenis_obat" required>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
-                                <span class="indicator-progress">Tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="indicator-progress">Tunggu... <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
                     </form>
@@ -208,7 +216,6 @@
             </div>
         </div>
     </div>
-    
 @endsection
 
 @push('script')
@@ -217,14 +224,13 @@
             tabel = $('#TabelObat').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('apoteker-dataobat') }}", // Pastikan route ini mengembalikan data yang sesuai
+                ajax: "{{ route('apoteker-dataobat') }}",
                 order: [
-                    [0, 'asc'], // Urutkan berdasarkan kolom pertama (ID)
-                    [1, 'desc'], // Jika ingin urutkan nama misalnya
+                    [0, 'asc'],
+                    [1, 'asc'],
                 ],
-                columns: [
-                    {
-                        data: 'DT_RowIndex', // Data untuk nomor urut otomatis
+                columns: [{
+                        data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         searchable: false,
                         orderable: false,
@@ -233,7 +239,7 @@
                         }
                     },
                     {
-                        data: 'nama', // Kolom nama sesuai di tabel obats
+                        data: 'nama',
                         name: 'nama',
                         orderable: true,
                         render: function(data, type, row, meta) {
@@ -241,7 +247,7 @@
                         }
                     },
                     {
-                        data: 'qty', // Kolom qty
+                        data: 'qty',
                         name: 'qty',
                         orderable: true,
                         render: function(data, type, row, meta) {
@@ -249,7 +255,7 @@
                         }
                     },
                     {
-                        data: 'satuan', // Kolom satuan
+                        data: 'satuan',
                         name: 'satuan',
                         orderable: true,
                         render: function(data, type, row, meta) {
@@ -257,7 +263,7 @@
                         }
                     },
                     {
-                        data: 'jenis_obat', // Kolom jenis_obat
+                        data: 'jenis_obat',
                         name: 'jenis_obat',
                         orderable: true,
                         render: function(data, type, row, meta) {
@@ -265,7 +271,7 @@
                         }
                     },
                     {
-                        data: null, // Kolom aksi (edit, delete, dll.)
+                        data: null,
                         name: 'aksi',
                         orderable: false,
                         searchable: false,
@@ -317,17 +323,13 @@
             });
         });
 
-
-            // Fix tampilan tabel berubah setelah dilakukan responsif
-            $(window).resize(function() {
-                tabel.columns.adjust().responsive.recalc();
-            });
+        // Fix tampilan tabel berubah setelah dilakukan responsif
+        $(window).resize(function() {
+            tabel.columns.adjust().responsive.recalc();
+        });
 
         // Clear form modal add
         $('#modalAdd').on('hidden.bs.modal', function() {
-            $(this).find('form')[0].reset();
-        });
-        $('#modalAddRating').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
         });
 
@@ -337,8 +339,6 @@
             $('#detailJenisObat').val(jenis_obat);
             $('#detailSatuan').val(satuan);
             $('#detailQty').val(qty);
-            
-            // Menampilkan modal detail
             $('#modalDetail').modal('show');
         }
 
@@ -351,11 +351,9 @@
                 timer: 4000,
                 timerProgressBar: true,
             });
-            e.preventDefault(); // Mencegah submit form default
-
+            e.preventDefault();
             let data = $(this).serialize();
             let form = $(this);
-
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Anda ingin menyimpan perubahan ini?",
@@ -369,12 +367,12 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         url: form.attr('action'),
-                        type: "PUT", // Gunakan PUT sesuai metode pada route
+                        type: "PUT",
                         data: data,
                         success: function(response) {
                             console.log(response);
                             $('#modalEdit').modal('hide');
-                            tabel.ajax.reload(); // Reload tabel setelah update berhasil
+                            tabel.ajax.reload();
                             swalMixinSuccess.fire(
                                 'Saved!',
                                 'Obat berhasil diupdate.',
@@ -401,8 +399,6 @@
             $('#editQty').val(qty);
             $('#editSatuan').val(satuan);
             $('#editJenisObat').val(jenis_obat);
-
-            // Menampilkan modal edit
             $('#modalEdit').modal('show');
         }
 
@@ -499,6 +495,16 @@
                 }
             });
         }
+
+        // Regex input qty
+        function restrictInputToNumbers(event) {
+            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+        }
+        const inputs = document.querySelectorAll(
+            'input[name="qty"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', restrictInputToNumbers);
+        });
     </script>
 @endpush
 

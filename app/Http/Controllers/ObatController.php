@@ -12,30 +12,32 @@ use Illuminate\Http\Request;
 
 class ObatController extends Controller
 {
+    public function indexApoteker()
+    {
+        return view('apoteker.obat');
+    }
+
+    public function indexAdmin()
+    {
+        return view('admin.obat');
+    }
+
     protected $DataObat;
 
     public function __construct(ApotekerObatSQL $DataObat)
     {
         $this->DataObat = $DataObat;
     }
-  
-    public function indexApoteker()
-    {
-        return view('apoteker.obat');
-    }
-  
-   public function indexAdmin()
-    {
-        return view('admin.obat');
-    }
 
-    public function read(){
+    public function read()
+    {
         $data = $this->DataObat->getObatData();
 
         return datatables()->of($data)
             ->addIndexColumn()
             ->make(true);
     }
+
     public function store(ObatTambahRequest $request)
     {
         $obat = new Obat();
@@ -47,6 +49,7 @@ class ObatController extends Controller
 
         return redirect()->back()->with('success', 'Obat berhasil ditambah.');
     }
+
     public function destroy($id)
     {
         $obat = Obat::find($id);
@@ -56,23 +59,19 @@ class ObatController extends Controller
         $obat->delete();
         return response()->json(['message' => 'Obat berhasil dihapus.']);
     }
+
     public function update(ObatEditRequest $request)
     {
         try {
             $obat = Obat::findOrFail($request->id);
-            if (!$obat) {
-                return response()->json(['message' => 'Obat tidak ditemukan.'], 404);
-            }
-
             $obat->nama = $request->nama;
             $obat->qty = $request->qty;
             $obat->satuan = $request->satuan;
             $obat->jenis_obat = $request->jenis_obat;
             $obat->save();
-
             return response()->json(['success' => 'Obat berhasil diupdate.']);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
         }
     }
 }

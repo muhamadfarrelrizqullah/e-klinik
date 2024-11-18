@@ -50,7 +50,7 @@
                         <a class="menu-link {{ Request::routeIs('apoteker-obat') ? 'active' : '' }}"
                             href="{{ route('apoteker-obat') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-file-right fs-2">
+                                <i class="ki-duotone ki-capsule fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -58,57 +58,14 @@
                             <span class="menu-title">Data Obat</span>
                         </a>
                     </div>
-                    {{-- <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('dokter-scanqr') ? 'active' : '' }}"
-                            href="{{ route('dokter-scanqr') }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-fingerprint-scanning fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                    <span class="path5"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Scan QR</span>
-                        </a>
-                    </div> --}}
-                    <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('apoteker-') ? 'active' : '' }}"
-                            href="{{ route('dokter-pemeriksaan') }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-notepad fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Rekap Obat Keluar</span>
-                        </a>
-                    </div>
-                    {{-- <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('dokter-historipengajuan') ? 'active' : '' }}"
-                            href="{{ route('dokter-historipengajuan') }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-update-file fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Histori Pengajuan</span>
-                        </a>
-                    </div> --}}
                     <div class="menu-item pt-5">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>
                         </div>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('dokter-profil') ? 'active' : '' }}"
-                            href="{{ route('dokter-profil') }}">
+                        <a class="menu-link {{ Request::routeIs('apoteker-profil') ? 'active' : '' }}"
+                            href="{{ route('apoteker-profil') }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-setting-4 fs-2">
                                     <span class="path1"></span>

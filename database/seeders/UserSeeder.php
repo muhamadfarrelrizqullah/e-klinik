@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
                 'berat_badan' => 60,
             ],
             [
-                'nip' => '44444444',
+                'nip' => '55555555',
                 'nama' => 'Admin 2',
                 'password' => Hash::make('password123'),
                 'status' => 'Aktif',
@@ -159,12 +159,13 @@ class UserSeeder extends Seeder
                 'berat_badan' => 69,
             ],
             [
-                'nip' => '55555555',
+                'nip' => '44444444',
                 'nama' => 'Denis',
                 'password' => Hash::make('password123'),
                 'status' => 'Aktif',
                 'role' => 'Apoteker',
                 'divisi_id' => 2,
+                'jabatan' => null,
                 'tanggal_lahir' => '1225-02-15',
                 'tinggi_badan' => 185,
                 'berat_badan' => 69,

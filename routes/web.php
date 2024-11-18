@@ -16,7 +16,6 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -148,5 +147,8 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::post('/data-obat-tambah', [ObatController::class, 'store'])->name('dataobat-tambah');
     Route::put('/data-obat-edit', [ObatController::class, 'update'])->name('dataobat-edit');
     Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
+
+    Route::get('/profil-edit', [ProfilController::class, 'editApoteker'])->name('profil-edit');
+    Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
 

@@ -14,16 +14,23 @@ class ProfilController extends Controller
         return view('admin.profil');
     }
 
-    public function indexPasien()
-    {
-        return view('pasien.profil');
-    }
-
     public function edit()
     { 
         $userId = Auth::id();
         $users = User::findOrFail($userId);
         return view('admin.profil-edit', compact('users'));
+    }
+
+    public function indexPasien()
+    {
+        return view('pasien.profil');
+    }
+
+    public function editPasien()
+    { 
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        return view('pasien.profil-edit', compact('users'));
     }
 
     public function update(ProfilEditRequest $request)
@@ -53,13 +60,6 @@ class ProfilController extends Controller
         $userId = Auth::id();
         $users = User::findOrFail($userId);
         return view('dokter.profil-edit', compact('users'));
-    }
-
-    public function editPasien()
-    { 
-        $userId = Auth::id();
-        $users = User::findOrFail($userId);
-        return view('pasien.profil-edit', compact('users'));
     }
 
     public function indexApoteker()
