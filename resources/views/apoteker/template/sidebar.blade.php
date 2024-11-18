@@ -58,6 +58,30 @@
                             <span class="menu-title">Data Obat</span>
                         </a>
                     </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('apoteker-obatkeluar') ? 'active' : '' }}"
+                            href="{{ route('apoteker-obatkeluar') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-file-left fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Obat Keluar</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('apoteker-jenisobat') ? 'active' : '' }}"
+                            href="{{ route('apoteker-jenisobat') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-test-tubes fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Jenis Obat</span>
+                        </a>
+                    </div>
                     <div class="menu-item pt-5">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>

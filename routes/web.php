@@ -4,8 +4,10 @@ use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JadwalDokterController;
+use App\Http\Controllers\JenisObatController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\ObatKeluarController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\PengajuanController;
@@ -142,6 +144,8 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::get('/dashboard', [DashboardController::class, 'indexApoteker'])->name('dashboard');
     Route::get('/obat', [ObatController::class, 'indexApoteker'])->name('obat');
     Route::get('/profil', [ProfilController::class, 'indexApoteker'])->name('profil');
+    Route::get('/obat-keluar', [ObatKeluarController::class, 'indexApoteker'])->name('obatkeluar');
+    Route::get('/jenis-obat', [JenisObatController::class, 'indexApoteker'])->name('jenisobat');
 
     Route::get('/data-obat', [ObatController::class, 'read'])->name('dataobat');
     Route::post('/data-obat-tambah', [ObatController::class, 'store'])->name('dataobat-tambah');
