@@ -16,7 +16,6 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Route;
 
 /*

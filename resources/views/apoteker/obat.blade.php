@@ -23,9 +23,49 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Filter Obat</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Obat:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNamaObat" name="nama">
+                                        <option value="" selected disabled>Pilih nama obat</option>
+                                        @foreach ($obats as $obat)
+                                            <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Jenis Obat:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterJenisObat" name="jenis_obat">
+                                        <option value="" selected disabled>Pilih jenis obat</option>
+                                        @foreach ($obats as $obat)
+                                            <option value="{{ $obat->id }}">{{ $obat->jenis_obat }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0">
                         <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal"
-                            data-bs-target="#modalAdd">
+                            data-kt-menu-placement="bottom-end" data-bs-toggle="modal" data-bs-target="#modalAdd">
                             <i class="ki-duotone ki-plus fs-6 me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
@@ -80,38 +120,38 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                        <div class="row g-9 mb-8">
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Nama Obat</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailNama" readonly>
-                            </div>
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Kuantitas</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailQty" readonly>
-                            </div>
+                    <div class="row g-9 mb-8">
+                        <div class="col-md-6 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Nama Obat</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailNama"
+                                readonly>
                         </div>
-                        <div class="row g-9 mb-8">
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Satuan</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailSatuan" readonly>
-                            </div>
-                            <div class="col-md-6 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span>Jenis Obat</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    id="detailJenisObat" readonly>
-                            </div>
+                        <div class="col-md-6 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Kuantitas</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailQty"
+                                readonly>
                         </div>
+                    </div>
+                    <div class="row g-9 mb-8">
+                        <div class="col-md-6 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Satuan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailSatuan" readonly>
+                        </div>
+                        <div class="col-md-6 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Jenis Obat</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailJenisObat" readonly>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -135,25 +175,30 @@
                         @csrf
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2">Nama Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="addNamaObat" name="nama" placeholder="Masukkan Nama Obat" required>
+                            <input type="text" class="form-control form-control-solid" id="addNamaObat"
+                                name="nama" placeholder="Masukkan Nama Obat" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="number" class="form-control form-control-solid" id="addQty" name="qty" placeholder="Masukkan jumlah" required>
+                            <input type="number" class="form-control form-control-solid" id="addQty" name="qty"
+                                placeholder="Masukkan jumlah" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="addSatuan" name="satuan" placeholder="Masukkan satuan (contoh: Tablet, Botol, Kapsul)" required>
+                            <input type="text" class="form-control form-control-solid" id="addSatuan" name="satuan"
+                                placeholder="Masukkan satuan (contoh: Tablet, Botol, Kapsul)" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="addJenisObat" name="jenis_obat" placeholder="Masukkan jenis obat (contoh: Generik, Paten)" required>
+                            <input type="text" class="form-control form-control-solid" id="addJenisObat"
+                                name="jenis_obat" placeholder="Masukkan jenis obat (contoh: Generik, Paten)" required>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
-                                <span class="indicator-progress">Tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="indicator-progress">Tunggu... <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
                     </form>
@@ -161,7 +206,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -182,25 +227,30 @@
                         <input type="hidden" id="editId" name="id">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2">Nama Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editNamaObat" name="nama" required>
+                            <input type="text" class="form-control form-control-solid" id="editNamaObat"
+                                name="nama" required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="number" class="form-control form-control-solid" id="editQty" name="qty" required>
+                            <input type="number" class="form-control form-control-solid" id="editQty" name="qty"
+                                required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="editSatuan" name="satuan" required>
+                            <input type="text" class="form-control form-control-solid" id="editSatuan" name="satuan"
+                                required>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editJenisObat" name="jenis_obat" required>
+                            <input type="text" class="form-control form-control-solid" id="editJenisObat"
+                                name="jenis_obat" required>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
-                                <span class="indicator-progress">Tunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="indicator-progress">Tunggu... <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
                     </form>
@@ -208,7 +258,7 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 
 @push('script')
@@ -217,13 +267,18 @@
             tabel = $('#TabelObat').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('apoteker-dataobat') }}", // Pastikan route ini mengembalikan data yang sesuai
+                ajax: {
+                    url: "{{ route('apoteker-dataobat') }}",
+                    data: function(d) {
+                        d.nama_obat = $('#filterNamaObat').val();
+                        d.data_jenis_obat = $('#filterJenisObat').val();
+                    }
+                }, // Pastikan route ini mengembalikan data yang sesuai
                 order: [
                     [0, 'asc'], // Urutkan berdasarkan kolom pertama (ID)
                     [1, 'desc'], // Jika ingin urutkan nama misalnya
                 ],
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex', // Data untuk nomor urut otomatis
                         name: 'DT_RowIndex',
                         searchable: false,
@@ -317,11 +372,27 @@
             });
         });
 
+        // Event listener untuk filter nama pasien
+        $('#filterNamaObat').on('change', function() {
+            tabel.ajax.reload();
+        });
 
-            // Fix tampilan tabel berubah setelah dilakukan responsif
-            $(window).resize(function() {
-                tabel.columns.adjust().responsive.recalc();
-            });
+        // Event listener untuk filter tanggal
+        $('#filterJenisObat').on('change', function() {
+            tabel.ajax.reload();
+        });
+
+        // Event listener untuk reset filter
+        document.querySelector('button[type="reset"]').addEventListener('click', function() {
+            document.getElementById('filterNamaObat').value = '';
+            document.getElementById('filterJenisObat').value = '';
+            $('#TabelObat').DataTable().ajax.reload();
+        });
+
+        // Fix tampilan tabel berubah setelah dilakukan responsif
+        $(window).resize(function() {
+            tabel.columns.adjust().responsive.recalc();
+        });
 
         // Clear form modal add
         $('#modalAdd').on('hidden.bs.modal', function() {
@@ -337,7 +408,7 @@
             $('#detailJenisObat').val(jenis_obat);
             $('#detailSatuan').val(satuan);
             $('#detailQty').val(qty);
-            
+
             // Menampilkan modal detail
             $('#modalDetail').modal('show');
         }

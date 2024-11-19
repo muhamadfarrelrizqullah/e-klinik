@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ObatTambahRequest;
 use App\Http\Requests\ObatEditRequest;
 use App\Services\SQL\ApotekerObatSQL;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 
 class ObatController extends Controller
@@ -18,19 +20,27 @@ class ObatController extends Controller
     {
         $this->DataObat = $DataObat;
     }
-  
+
     public function indexApoteker()
     {
-        return view('apoteker.obat');
+        $obats = Obat::select('jenis_obat', 'nama')
+            ->distinct('jenis_obat')
+            ->orderBy('jenis_obat', 'asc')
+            ->get();
+        return view('apoteker.obat', compact('obats'));
     }
-  
-   public function indexAdmin()
+
+    public function indexAdmin()
     {
         return view('admin.obat');
     }
 
-    public function read(){
-        $data = $this->DataObat->getObatData();
+    public function read(Request $request)
+    {
+        $nama_obat = $request->input('nama');
+        $data_jenis_obat = $request->input('jenis_obat');
+
+        $data = $this->DataObat->getObatData($nama_obat, $data_jenis_obat);
 
         return datatables()->of($data)
             ->addIndexColumn()

@@ -165,6 +165,7 @@ class UserSeeder extends Seeder
                 'status' => 'Aktif',
                 'role' => 'Apoteker',
                 'divisi_id' => 2,
+                'jabatan' => 'Apoteker',
                 'tanggal_lahir' => '1225-02-15',
                 'tinggi_badan' => 185,
                 'berat_badan' => 69,
