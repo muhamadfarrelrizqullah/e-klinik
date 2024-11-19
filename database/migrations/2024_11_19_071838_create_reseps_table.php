@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obats', function (Blueprint $table) {
+        Schema::create('reseps', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->unsignedBigInteger('id_jenis');
-            $table->enum('satuan', ['Strip', 'Botol', 'Box'])->default('Strip');
-            $table->integer('qty');
+            $table->unsignedBigInteger('id_pengajuan');
+            $table->string('kode_resep')->unique();
+            $table->enum('status', ['Diproses', 'Selesai'])->default('Diproses');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('id_jenis')->references('id')->on('jenis_obats');
+            $table->foreign('id_pengajuan')->references('id')->on('pengajuans');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obats');
+        Schema::dropIfExists('reseps');
     }
 };

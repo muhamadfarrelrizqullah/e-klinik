@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Rekap;
 use App\Models\Poli;
 use App\Models\Rating;
+use App\Models\Resep;
 
 class Pengajuan extends Model
 {
@@ -16,7 +17,7 @@ class Pengajuan extends Model
 
     protected $fillable = [
         'id_pasien', 'id_dokter', 'id_poli', 'keluhan', 'status', 'tanggal_pengajuan', 
-        'tanggal_pemeriksaan', 'qrcode', 'status_qrcode', 'catatan'
+        'tanggal_pemeriksaan', 'qrcode', 'status_qrcode', 'catatan', 'id_rating'
     ];
 
     public function pasien()
@@ -44,8 +45,8 @@ class Pengajuan extends Model
         return $this->hasMany(Rekap::class, 'id_pengajuan');
     }
 
-    public function ratings()
+    public function reseps()
     {
-        return $this->hasMany(Rating::class, 'id_pengajuan');
+        return $this->belongsTo(Resep::class, 'id_pengajuan');
     }
 }

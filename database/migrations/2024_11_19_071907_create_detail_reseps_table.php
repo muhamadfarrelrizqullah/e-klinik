@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obats', function (Blueprint $table) {
+        Schema::create('detail_reseps', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->unsignedBigInteger('id_jenis');
-            $table->enum('satuan', ['Strip', 'Botol', 'Box'])->default('Strip');
-            $table->integer('qty');
-            $table->softDeletes();
+            $table->unsignedBigInteger('id_resep');
+            $table->unsignedBigInteger('id_obat');
+            $table->integer('jumlah');
             $table->timestamps();
 
-            $table->foreign('id_jenis')->references('id')->on('jenis_obats');
+            $table->foreign('id_resep')->references('id')->on('reseps');
+            $table->foreign('id_obat')->references('id')->on('obats');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obats');
+        Schema::dropIfExists('detail_reseps');
     }
 };
