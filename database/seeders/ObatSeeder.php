@@ -16,7 +16,7 @@ class ObatSeeder extends Seeder
         DB::table('obats')->insert([
             [
                 'nama' => 'Paracetamol',
-                'jenis_obat' => 'Tablet',
+                'id_jenis' => 1,
                 'satuan' => 'Box',
                 'qty' => 50,
                 'created_at' => now(),
@@ -24,7 +24,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'nama' => 'Amoxicillin',
-                'jenis_obat' => 'Kapsul',
+                'id_jenis' => 2,
                 'satuan' => 'Strip',
                 'qty' => 30,
                 'created_at' => now(),
@@ -32,7 +32,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'nama' => 'Vitamin C',
-                'jenis_obat' => 'Tablet',
+                'id_jenis' => 1,
                 'satuan' => 'Botol',
                 'qty' => 100,
                 'created_at' => now(),
@@ -40,7 +40,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'nama' => 'Ibuprofen',
-                'jenis_obat' => 'Tablet',
+                'id_jenis' => 1,
                 'satuan' => 'Box',
                 'qty' => 25,
                 'created_at' => now(),
@@ -48,7 +48,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'nama' => 'Cough Syrup',
-                'jenis_obat' => 'Syrup',
+                'id_jenis' => 3,
                 'satuan' => 'Botol',
                 'qty' => 40,
                 'created_at' => now(),

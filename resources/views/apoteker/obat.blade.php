@@ -134,22 +134,32 @@
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Nama Obat</label>
                             <input type="text" class="form-control form-control-solid" id="addNamaObat"
-                                name="nama" placeholder="Masukkan Nama Obat" required>
+                                name="nama" placeholder="Masukkan Nama Obat">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="text" class="form-control form-control-solid" id="addQty" pattern="\d{8}" name="qty"
-                                placeholder="Masukkan jumlah" required>
+                            <input type="text" class="form-control form-control-solid" id="addQty" name="qty"
+                                placeholder="Masukkan jumlah">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="addSatuan" name="satuan"
-                                placeholder="Masukkan satuan (contoh: Tablet, Botol, Kapsul)" required>
+                            <label class="required fs-6 fw-semibold mb-2">Satuan</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="addSatuan" name="satuan">
+                                <option value="" selected disabled>Masukkan satuan obat</option>
+                                <option value="Strip">Strip</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Box">Box</option>
+                            </select>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="addJenisObat"
-                                name="jenis_obat" placeholder="Masukkan jenis obat (contoh: Generik, Paten)" required>
+                            <label class="required fs-6 fw-semibold mb-2">Jenis Obat</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="addJenisObat" name="jenis_obat">
+                                <option value="" selected disabled>Masukkan jenis obat</option>
+                                @foreach ($jenis_obats as $jenis)
+                                    <option value="{{ $jenis->id }}">{{ $jenis->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
@@ -164,7 +174,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="modalEdit" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalEditLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -182,28 +191,38 @@
                     <form class="form" action="{{ route('apoteker-dataobat-edit') }}" method="PUT">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" id="editId" name="id">
+                        <input type="hidden" id="id" name="id">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Nama Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editNamaObat"
-                                name="nama" required>
+                            <input type="text" class="form-control form-control-solid" id="updateNamaObat"
+                                name="nama">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="fs-6 fw-semibold form-label mb-2 required">Qty</label>
-                            <input type="text" class="form-control form-control-solid" id="editQty" pattern="\d{8}" name="qty"
-                                required>
+                            <input type="text" class="form-control form-control-solid" id="updateQty" name="qty">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2 required">Satuan</label>
-                            <input type="text" class="form-control form-control-solid" id="editSatuan" name="satuan"
-                                required>
+                            <label class="required fs-6 fw-semibold mb-2">Satuan</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="updateSatuan" name="satuan">
+                                <option value="" selected disabled>Pilih satuan obat</option>
+                                <option value="Strip">Strip</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Box">Box</option>
+                            </select>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold form-label mb-2 required">Jenis Obat</label>
-                            <input type="text" class="form-control form-control-solid" id="editJenisObat"
-                                name="jenis_obat" required>
+                            <label class="required fs-6 fw-semibold mb-2">Jenis Obat</label>
+                            <select class="form-select form-select-solid" data-placeholder="" data-hide-search="true"
+                                id="updateJenisObat" name="jenis_obat">
+                                <option value="" selected disabled>Pilih jenis obat</option>
+                                @foreach ($jenis_obats as $jenis)
+                                    <option value="{{ $jenis->id }}">{{ $jenis->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="text-end pt-15">
+                        <div class="text-end
+                                pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Simpan</span>
@@ -226,7 +245,6 @@
                 serverSide: true,
                 ajax: "{{ route('apoteker-dataobat') }}",
                 order: [
-                    [0, 'asc'],
                     [1, 'asc'],
                 ],
                 columns: [{
@@ -251,7 +269,7 @@
                         name: 'qty',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
                         }
                     },
                     {
@@ -259,7 +277,15 @@
                         name: 'satuan',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            if (data === "Strip") {
+                                return `<span class="badge badge-light-primary">${data}</span>`;
+                            } else if (data === "Botol") {
+                                return `<span class="badge badge-light-warning">${data}</span>`;
+                            } else if (data === "Box") {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-secondary">${data}</span>`;
+                            }
                         }
                     },
                     {
@@ -267,7 +293,7 @@
                         name: 'jenis_obat',
                         orderable: true,
                         render: function(data, type, row, meta) {
-                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
                         }
                     },
                     {
@@ -283,7 +309,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalEdit('${row.id}', '${row.nama}', '${row.qty}', '${row.satuan}', '${row.jenis_obat}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <a onclick="modalEdit('${row.id}', '${row.nama}', '${row.qty}', '${row.satuan}', '${row.id_jenis}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
                                     <i class="ki-duotone ki-wrench fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -393,12 +419,12 @@
         });
 
         // Pengambilan data old modal edit
-        function modalEdit(id, nama, qty, satuan, jenis_obat) {
-            $('#editId').val(id);
-            $('#editNamaObat').val(nama);
-            $('#editQty').val(qty);
-            $('#editSatuan').val(satuan);
-            $('#editJenisObat').val(jenis_obat);
+        function modalEdit(id, nama, qty, satuan, id_jenis) {
+            $('#id').val(id);
+            $('#updateNamaObat').val(nama);
+            $('#updateQty').val(qty);
+            $('#updateSatuan').val(satuan);
+            $('#updateJenisObat').val(id_jenis);
             $('#modalEdit').modal('show');
         }
 

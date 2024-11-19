@@ -24,7 +24,7 @@ class ObatTambahRequest extends FormRequest
         return [
             'nama' => 'required|string|max:255',
             'qty' => 'required|integer|min:1',
-            'satuan' => 'required|string|max:50',
+            'satuan' => 'required|string|max:50|in:Strip,Botol,Box',
             'jenis_obat' => 'required|string|max:100',
         ];
     }

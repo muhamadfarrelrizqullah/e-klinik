@@ -7,6 +7,7 @@ use App\Models\Obat;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ObatTambahRequest;
 use App\Http\Requests\ObatEditRequest;
+use App\Models\JenisObat;
 use App\Services\SQL\ApotekerObatSQL;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ObatController extends Controller
 {
     public function indexApoteker()
     {
-        return view('apoteker.obat');
+        $jenis_obats = JenisObat::all();
+        return view('apoteker.obat', compact('jenis_obats'));
     }
 
     public function indexAdmin()
@@ -44,7 +46,7 @@ class ObatController extends Controller
         $obat->nama = $request->nama;
         $obat->qty = $request->qty;
         $obat->satuan = $request->satuan;
-        $obat->jenis_obat = $request->jenis_obat;
+        $obat->id_jenis = $request->jenis_obat;
         $obat->save();
 
         return redirect()->back()->with('success', 'Obat berhasil ditambah.');
@@ -67,7 +69,7 @@ class ObatController extends Controller
             $obat->nama = $request->nama;
             $obat->qty = $request->qty;
             $obat->satuan = $request->satuan;
-            $obat->jenis_obat = $request->jenis_obat;
+            $obat->id_jenis = $request->jenis_obat;
             $obat->save();
             return response()->json(['success' => 'Obat berhasil diupdate.']);
         } catch (\Throwable $th) {
