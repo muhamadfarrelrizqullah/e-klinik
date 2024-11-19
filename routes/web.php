@@ -152,6 +152,11 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::put('/data-obat-edit', [ObatController::class, 'update'])->name('dataobat-edit');
     Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
 
+    Route::get('/data-jenis-obat', [JenisObatController::class, 'read'])->name('datajenisobat');
+    Route::post('/data-jenis-obat-tambah', [JenisObatController::class, 'store'])->name('datajenisobat-tambah');
+    Route::put('/data-jenis-obat-edit', [JenisObatController::class, 'update'])->name('datajenisobat-edit');
+    Route::delete('/data-jenis-obat-delete/{id}', [JenisObatController::class, 'destroy'])->name('datajenisobat-delete');
+
     Route::get('/profil-edit', [ProfilController::class, 'editApoteker'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });

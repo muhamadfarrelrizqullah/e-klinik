@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->unsignedBigInteger('id_jenis');
-            $table->string('satuan');
+            $table->enum('satuan', ['Strip', 'Botol', 'Box'])->default('Strip');
             $table->integer('qty');
             $table->timestamps();
 

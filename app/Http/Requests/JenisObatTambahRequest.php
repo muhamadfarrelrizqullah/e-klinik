@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ObatEditRequest extends FormRequest
+class JenisObatTambahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,6 @@ class ObatEditRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'qty' => 'required|integer',
-            'satuan' => 'required|string|max:50|in:Strip,Botol,Box',
-            'jenis_obat' => 'required|string|max:100',
         ];
     }
 
@@ -35,14 +32,6 @@ class ObatEditRequest extends FormRequest
             'nama.required' => 'Nama harus diisi.',
             'nama.string' => 'Nama harus berupa teks.',
             'nama.max' => 'Nama maksimal 255 karakter.',
-            'qty.required' => 'Kuantitas (qty) harus diisi.',
-            'qty.integer' => 'Kuantitas harus berupa angka.',
-            'satuan.required' => 'Satuan harus diisi.',
-            'satuan.string' => 'Satuan harus berupa teks.',
-            'satuan.max' => 'Satuan maksimal 50 karakter.',
-            'jenis_obat.required' => 'Jenis Obat harus diisi.',
-            'jenis_obat.string' => 'Jenis Obat harus berupa teks.',
-            'jenis_obat.max' => 'Jenis Obat maksimal 100 karakter.',
         ];
     }
 }
