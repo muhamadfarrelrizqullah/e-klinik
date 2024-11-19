@@ -89,6 +89,11 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'updateAdmin'])->name('datajadwaldokter-edit');
     Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
+    Route::get('/data-obat', [ObatController::class, 'read'])->name('dataobat');
+    Route::post('/data-obat-tambah', [ObatController::class, 'store'])->name('dataobat-tambah');
+    Route::put('/data-obat-edit', [ObatController::class, 'update'])->name('dataobat-edit');
+    Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
+
     Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
