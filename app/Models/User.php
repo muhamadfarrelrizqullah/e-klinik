@@ -7,13 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Divisi;
-use App\Models\Pengajuan;
-use App\Models\Rekap;
-use App\Models\PivotPolisUser;
-use App\Models\Rating;
-
-
 
 class User extends Authenticatable
 {

@@ -11,7 +11,8 @@ class Rating extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'rating', 'komentar'
+        'rating',
+        'komentar'
     ];
 
     public function pengajuan()

@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Models\JenisObat;
-use App\Models\DetailResep;
-
 class Obat extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nama', 'id_jenis', 'qty', 'satuan'];
+    protected $fillable = [
+        'nama',
+        'id_jenis',
+        'qty',
+        'satuan'
+    ];
 
     public function jenisObat()
     {
@@ -22,6 +24,6 @@ class Obat extends Model
 
     public function detailResep()
     {
-        return $this->belongsTo(DetailResep::class, 'id_obat');
+        return $this->hasMany(DetailResep::class, 'id_obat');
     }
 }

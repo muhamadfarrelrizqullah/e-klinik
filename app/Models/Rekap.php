@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Pengajuan;
 
 class Rekap extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'no_rekap', 'id_pasien', 'id_dokter', 'id_pengajuan', 'qrcode', 'surat_izin'
+        'no_rekap',
+        'id_pasien',
+        'id_dokter',
+        'id_pengajuan',
+        'qrcode',
+        'surat_izin'
     ];
 
     public function pasien()

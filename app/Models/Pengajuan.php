@@ -5,19 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
-use App\Models\Rekap;
-use App\Models\Poli;
-use App\Models\Rating;
-use App\Models\Resep;
 
 class Pengajuan extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_pasien', 'id_dokter', 'id_poli', 'keluhan', 'status', 'tanggal_pengajuan', 
-        'tanggal_pemeriksaan', 'qrcode', 'status_qrcode', 'catatan', 'id_rating'
+        'id_pasien',
+        'id_dokter',
+        'id_poli',
+        'keluhan',
+        'status',
+        'tanggal_pengajuan',
+        'tanggal_pemeriksaan',
+        'qrcode',
+        'status_qrcode',
+        'catatan',
+        'id_rating'
     ];
 
     public function pasien()
@@ -42,7 +46,7 @@ class Pengajuan extends Model
 
     public function rekaps()
     {
-        return $this->hasMany(Rekap::class, 'id_pengajuan');
+        return $this->belongsTo(Rekap::class, 'id_pengajuan');
     }
 
     public function reseps()

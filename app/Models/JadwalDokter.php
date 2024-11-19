@@ -10,7 +10,10 @@ class JadwalDokter extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_dokter', 'hari', 'jam_mulai', 'jam_selesai'
+        'id_dokter',
+        'hari',
+        'jam_mulai',
+        'jam_selesai'
     ];
 
     public function dokter()
