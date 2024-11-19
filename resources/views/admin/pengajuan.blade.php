@@ -659,6 +659,7 @@
                 jsPDF
             } = window.jspdf;
             document.getElementById('bt-download').addEventListener('click', function() {
+                var filterNama = document.getElementById('filterNama').value;
                 var filterDataTanggal = document.getElementById('filterDataTanggal').value;
                 var filterTanggalSetelah = document.getElementById('filterTanggalSetelah').value;
                 var filterTanggalSebelum = document.getElementById('filterTanggalSebelum').value;
@@ -666,6 +667,7 @@
                     url: "{{ route('admin-datapengajuan') }}",
                     type: "GET",
                     data: {
+                        id_pasien: filterNama,
                         data_tanggal: filterDataTanggal,
                         tanggal_setelah: filterTanggalSetelah,
                         tanggal_sebelum: filterTanggalSebelum
