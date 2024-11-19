@@ -21,7 +21,8 @@ class ObatController extends Controller
 
     public function indexAdmin()
     {
-        return view('admin.obat');
+        $jenis_obats = JenisObat::all();
+        return view('admin.obat', compact('jenis_obats'));
     }
 
     protected $DataObat;
