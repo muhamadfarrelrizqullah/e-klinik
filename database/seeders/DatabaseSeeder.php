@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PengajuanSeeder::class);
         $this->call(PivotPoliUserSeeder::class);
         $this->call(PivotPoliUserSeeder::class);
+        $this->call(JenisObatSeeder::class);
         $this->call(ObatSeeder::class);
         $this->call(JadwalDokterSeeder::class);
     }
