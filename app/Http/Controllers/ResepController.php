@@ -9,15 +9,18 @@ use App\Models\Resep;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\SQL\DokterResepSQL;
+use App\Services\SQL\ApotekerResepSQL;
 use Illuminate\Support\Facades\Auth;
 
 class ResepController extends Controller
 {
     protected $DokterResep;
+    protected $ApotekerResep;
 
-    public function __construct(DokterResepSQL $DokterResepSQL)
+    public function __construct(DokterResepSQL $DokterResepSQL, ApotekerResepSQL $ApotekerResepSQL)
     {
         $this->DokterResep = $DokterResepSQL;
+        $this->ApotekerResep = $ApotekerResepSQL;
     }
 
     public function indexDokter()
@@ -31,7 +34,12 @@ class ResepController extends Controller
 
     public function indexApoteker()
     {
-        return view('apoteker.resep');
+        $userId = Auth::id();
+        $users = User::findOrFail($userId);
+        $obats = Obat::all();
+        $pasiens = User::where('role', 'Pasien')->orderBy('nama', 'asc')->get();
+        $dokters = User::where('role', 'Dokter')->orderBy('nama', 'asc')->get();
+        return view('apoteker.resep', compact('users', 'pasiens', 'obats', 'dokters'));
     }
 
     public function readDokter(Request $request)
@@ -42,6 +50,19 @@ class ResepController extends Controller
         $tanggal_sebelum = $request->input('tanggal_sebelum');
 
         $data = $this->DokterResep->getResepData($id_pasien, $data_tanggal, $tanggal_setelah, $tanggal_sebelum);
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function readApoteker(Request $request)
+    {
+        $id_pasien = $request->input('id_pasien');
+        $id_dokter = $request->input('id_dokter');
+        $tanggal_dibuat = $request->input('tanggal_dibuat');
+
+        $data = $this->ApotekerResep->getResepData($id_pasien, $id_dokter, $tanggal_dibuat);
 
         return datatables()->of($data)
             ->addIndexColumn()

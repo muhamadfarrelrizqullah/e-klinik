@@ -168,6 +168,8 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::put('/data-jenis-obat-edit', [JenisObatController::class, 'update'])->name('datajenisobat-edit');
     Route::delete('/data-jenis-obat-delete/{id}', [JenisObatController::class, 'destroy'])->name('datajenisobat-delete');
 
+    Route::get('/data-resep', [ResepController::class, 'readApoteker'])->name('dataresep');
+
     Route::get('/profil-edit', [ProfilController::class, 'editApoteker'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
