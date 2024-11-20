@@ -17,6 +17,7 @@ use App\Http\Controllers\QrController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
+use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -105,6 +106,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::get('/pemeriksaan', [PemeriksaanController::class, 'indexDokter'])->name('pemeriksaan');
     Route::get('/histori-pengajuan', [RekapController::class, 'indexDokter'])->name('historipengajuan');
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexDokter'])->name('jadwaldokter');
+    Route::get('/resep', [ResepController::class, 'indexDokter'])->name('resep');
     Route::get('/profil', [ProfilController::class, 'indexDokter'])->name('profil');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('datapengajuan');
