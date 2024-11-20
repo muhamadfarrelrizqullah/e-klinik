@@ -29,6 +29,11 @@ class ResepController extends Controller
         return view('dokter.resep', compact('users', 'pasiens', 'obats'));
     }
 
+    public function indexApoteker()
+    {
+        return view('apoteker.resep');
+    }
+
     public function readDokter(Request $request)
     {
         $id_pasien = $request->input('id_pasien');

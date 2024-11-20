@@ -156,6 +156,7 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::get('/profil', [ProfilController::class, 'indexApoteker'])->name('profil');
     Route::get('/obat-keluar', [ObatKeluarController::class, 'indexApoteker'])->name('obatkeluar');
     Route::get('/jenis-obat', [JenisObatController::class, 'indexApoteker'])->name('jenisobat');
+    Route::get('/resep', [ResepController::class, 'indexApoteker'])->name('resep');
 
     Route::get('/data-obat', [ObatController::class, 'read'])->name('dataobat');
     Route::post('/data-obat-tambah', [ObatController::class, 'store'])->name('dataobat-tambah');

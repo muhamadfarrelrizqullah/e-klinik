@@ -59,6 +59,20 @@
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a class="menu-link {{ Request::routeIs('apoteker-resep') ? 'active' : '' }}"
+                            href="{{ route('apoteker-resep') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-directbox-default fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Data Resep</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a class="menu-link {{ Request::routeIs('apoteker-obatkeluar') ? 'active' : '' }}"
                             href="{{ route('apoteker-obatkeluar') }}">
                             <span class="menu-icon">
