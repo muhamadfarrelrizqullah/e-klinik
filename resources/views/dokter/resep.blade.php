@@ -17,11 +17,397 @@
                         <li class="breadcrumb-item text-muted">Resep</li>
                     </ul>
                 </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Range Filter</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Pasien:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNama" name="nama">
+                                        <option value="" selected disabled>Pilih nama pasien</option>
+                                        @foreach ($pasiens as $pasien)
+                                            <option value="{{ $pasien->id }}">{{ $pasien->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Data tanggal:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterDataTanggal">
+                                        <option value="" selected disabled>Pilih data tanggal</option>
+                                        <option value="tanggal_pengajuan">Tanggal Pengajuan</option>
+                                        <option value="tanggal_pemeriksaan">Tanggal Pemeriksaan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal setelah:</label>
+                                    <input type="date" id="filterTanggalSetelah" name="date-before"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal sebelum:</label>
+                                    <input type="date" id="filterTanggalSebelum" name="date-after"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="TabelResep"
+                                        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+                                        style="width: 100%">
+                                        <thead class="thead-dark">
+                                            <tr class="fw-bold text-muted">
+                                                <th>No</th>
+                                                <th>Nama Pasien</th>
+                                                <th>Poli</th>
+                                                <th>Keluhan</th>
+                                                <th>Status</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Tanggal Pemeriksaan</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+
+@section('modals')
+    <div id="modalDetail" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Pengajuan</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNipPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNamaPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Keluhan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailKeluhan"
+                                readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Poli</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailNamaPoli" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Status</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailStatus" readonly>
+                            </div>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pengajuan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailTanggalPengajuan" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pemeriksaan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detailTanggalPemeriksaan" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Catatan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailCatatan"
+                                readonly>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('script')
+    <script>
+        // Inisialisasi datatable
+        $(document).ready(function() {
+            tabel = $('#TabelResep').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('dokter-dataresep') }}",
+                    data: function(d) {
+                        d.id_pasien = $('#filterNama').val();
+                        d.data_tanggal = $('#filterDataTanggal').val();
+                        d.tanggal_setelah = $('#filterTanggalSetelah').val();
+                        d.tanggal_sebelum = $('#filterTanggalSebelum').val();
+                    }
+                },
+                order: [
+                    [5, 'asc'],
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama_pasien',
+                        name: 'nama_pasien',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama_poli',
+                        name: 'nama_poli',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'keluhan',
+                        name: 'keluhan',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-6">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Pending') {
+                                return `<span class="badge badge-light-secondary">${data}</span>`;
+                            } else if (data === 'Ditolak') {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            } else if (data === 'Diterima') {
+                                return `<span class="badge badge-light-info">${data}</span>`;
+                            } else if (data === 'Diproses') {
+                                return `<span class="badge badge-light-primary">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'tanggal_pengajuan',
+                        name: 'tanggal_pengajuan',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            var tanggal = new Date(data);
+                            var day = tanggal.getDate().toString().padStart(2, '0');
+                            var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                            var year = tanggal.getFullYear();
+                            return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
+                        }
+                    },
+                    {
+                        data: 'tanggal_pemeriksaan',
+                        name: 'tanggal_pemeriksaan',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            var tanggal = new Date(data);
+                            var day = tanggal.getDate().toString().padStart(2, '0');
+                            var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                            var year = tanggal.getFullYear();
+                            return `<span class="text-gray-900 fw-bold fs-6">${day}-${month}-${year}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                            </div>`;
+                        }
+                    }
+                ],
+                aLengthMenu: [
+                    [10, 30, 50, -1],
+                    [10, 30, 50, "All"]
+                ],
+                iDisplayLength: 10,
+                responsive: true,
+                language: {
+                    paginate: {
+                        "previous": "Sebelumnya",
+                        "next": "Selanjutnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ entri",
+                    zeroRecords: "Tidak ditemukan data yang sesuai",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
+                },
+            });
+
+            // Event listener untuk filter nama pasien
+            $('#filterNama').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal
+            $('#filterDataTanggal').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal setelah
+            $('#filterTanggalSetelah').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal sebelum
+            $('#filterTanggalSebelum').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterNama').value = '';
+                document.getElementById('filterDataTanggal').value = '';
+                document.getElementById('filterTanggalSetelah').value = '';
+                document.getElementById('filterTanggalSebelum').value = '';
+                $('#TabelResep').DataTable().ajax.reload();
+            });
+
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabel.columns.adjust().responsive.recalc();
+            });
+        });
+
+        // Pengambilan data modal detail
+        function modalDetail(nama_pasien, nip_pasien, keluhan, status, tanggal_pengajuan,
+            tanggal_pemeriksaan, catatan, nama_poli) {
+            $('#detailNamaPasien').val(nama_pasien);
+            $('#detailNipPasien').val(nip_pasien);
+            $('#detailKeluhan').val(keluhan);
+            $('#detailStatus').val(status);
+            let datePengajuan = new Date(tanggal_pengajuan);
+            let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
+            let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
+            let yearPengajuan = String(datePengajuan.getFullYear());
+            let formattedBirthdatePengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
+            $('#detailTanggalPengajuan').val(formattedBirthdatePengajuan);
+            let datePemeriksaan = new Date(tanggal_pemeriksaan);
+            let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
+            let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
+            let yearPemeriksaan = String(datePemeriksaan.getFullYear());
+            let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
+            $('#detailTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
+            $('#detailCatatan').val(catatan);
+            $('#detailNamaPoli').val(nama_poli);
+            $('#modalDetail').modal('show');
+        }
+    </script>
+@endpush
+
+@push('style')
+    <style>
+        #bt-download,
+        #TabelResep td,
+        #TabelResep th {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        #TabelResep thead th:first-child {
+            cursor: default;
+        }
+
+        #TabelResep thead th:first-child::after,
+        #TabelResep thead th:first-child::before {
+            display: none !important;
+            pointer-events: none;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #TabelResep td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        }
+    </style>
+@endpush

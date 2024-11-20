@@ -122,6 +122,8 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::put('/data-jadwal-dokter-edit', [JadwalDokterController::class, 'update'])->name('datajadwaldokter-edit');
     Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
+    Route::get('/data-resep', [ResepController::class, 'readDokter'])->name('dataresep');
+
     Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });

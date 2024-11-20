@@ -23,6 +23,14 @@ class PivotPoliUserSeeder extends Seeder
                 'id_poli' => '2',
             ],
             [
+                'id_dokter'  => '2',
+                'id_poli' => '3',
+            ],
+            [
+                'id_dokter'  => '2',
+                'id_poli' => '4',
+            ],
+            [
                 'id_dokter'  => '9',
                 'id_poli' => '2',
             ],
