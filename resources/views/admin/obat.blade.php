@@ -19,6 +19,56 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
+                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Filter Obat</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Jenis:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterJenis" name="jenis">
+                                        <option value="" selected disabled>Pilih jenis obat</option>
+                                        @foreach ($jenis_obats as $jenis)
+                                            <option value="{{ $jenis->id }}">{{ $jenis->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Satuan:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterSatuan" name="satuan">
+                                        <option value="" selected disabled>Pilih satuan obat</option>
+                                        <option value="Strip">Strip</option>
+                                        <option value="Botol">Botol</option>
+                                        <option value="Box">Box</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
+                    <div class="m-0">
                         <a class="btn btn-sm btn-flex btn-primary fw-bold" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end" data-bs-toggle="modal" data-bs-target="#modalAdd">
                             <i class="ki-duotone ki-plus fs-6 me-1">
@@ -243,7 +293,13 @@
             tabel = $('#TabelObat').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin-dataobat') }}",
+                ajax: {
+                    url: "{{ route('admin-dataobat') }}",
+                    data: function(d) {
+                        d.data_jenis = $('#filterJenis').val();
+                        d.data_satuan = $('#filterSatuan').val();
+                    }
+                },
                 order: [
                     [1, 'asc'],
                 ],
@@ -347,11 +403,28 @@
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 }
             });
-        });
 
-        // Fix tampilan tabel berubah setelah dilakukan responsif
-        $(window).resize(function() {
-            tabel.columns.adjust().responsive.recalc();
+            // Event listener untuk filter jenis
+            $('#filterJenis').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter satuan
+            $('#filterSatuan').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterJenis').value = '';
+                document.getElementById('filterSatuan').value = '';
+                $('#TabelObat').DataTable().ajax.reload();
+            });
+
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabel.columns.adjust().responsive.recalc();
+            });
         });
 
         // Clear form modal add
