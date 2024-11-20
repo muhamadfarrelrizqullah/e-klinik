@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResepTambahRequest;
+use App\Models\DetailResep;
+use App\Models\Obat;
+use App\Models\Resep;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\SQL\DokterResepSQL;
@@ -20,8 +24,9 @@ class ResepController extends Controller
     {
         $userId = Auth::id();
         $users = User::findOrFail($userId);
+        $obats = Obat::all();
         $pasiens = User::where('role', 'Pasien')->orderBy('nama', 'asc')->get();
-        return view('dokter.resep', compact('users', 'pasiens'));
+        return view('dokter.resep', compact('users', 'pasiens', 'obats'));
     }
 
     public function readDokter(Request $request)
@@ -36,5 +41,26 @@ class ResepController extends Controller
         return datatables()->of($data)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function storeResep(ResepTambahRequest $request)
+    {
+        $pengajuanId = $request->id_pengajuan;
+        $noResep = 'RSP' . now()->format('dmY') . $pengajuanId;
+        $resep = new Resep();
+        $resep->id_pengajuan = $pengajuanId;
+        $resep->kode_resep = $noResep;
+        $resep->status = 'Diproses';
+        $resep->save();
+
+        foreach ($request->obat as $detail) {
+            $detailResep = new DetailResep();
+            $detailResep->id_resep = $resep->id;
+            $detailResep->id_obat = $detail['id_obat'];
+            $detailResep->jumlah = $detail['jumlah'];
+            $detailResep->save();
+        }
+
+        return redirect()->back()->with('success', 'Resep berhasil ditambah.');
     }
 }

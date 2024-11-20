@@ -123,6 +123,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::delete('/data-jadwal-dokter-delete/{id}', [JadwalDokterController::class, 'destroy'])->name('datajadwaldokter-delete');
 
     Route::get('/data-resep', [ResepController::class, 'readDokter'])->name('dataresep');
+    Route::post('/data-resep-tambah', [ResepController::class, 'storeResep'])->name('dataresep-tambah');
 
     Route::get('/profil-edit', [ProfilController::class, 'editDokter'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');

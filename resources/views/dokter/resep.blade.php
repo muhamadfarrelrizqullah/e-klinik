@@ -139,8 +139,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Keluhan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailKeluhan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailKeluhan" readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -178,8 +178,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Catatan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailCatatan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailCatatan" readonly>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -190,10 +190,150 @@
             </div>
         </div>
     </div>
+
+    <div id="modalAddResep" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalAddResepLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tambah Resep</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1"></i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="{{ route('dokter-dataresep-tambah') }}" method="POST"
+                        id="formAddResep">
+                        @csrf
+                        <input type="hidden" id="detId" name="id_pengajuan">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNipPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNamaPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Keluhan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detKeluhan"
+                                readonly>
+                        </div>
+                        <div id="obatContainer">
+                            <div class="row g-9 mb-8" id="row_0">
+                                <div class="col-md-8 fv-row">
+                                    <label for="obat_0"
+                                        class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih
+                                        Obat</label>
+                                    <select name="obat[0][id_obat]" class="form-select form-select-solid"
+                                        data-placeholder="" data-hide-search="true">
+                                        <option value="" selected disabled>Masukkan jenis obat</option>
+                                        @foreach ($obats as $obat)
+                                            <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3 fv-row">
+                                    <label for="jumlah_0"
+                                        class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Jumlah</label>
+                                    <input type="text" id="addJumlah" name="obat[0][jumlah]"
+                                        class="form-control form-control-solid" placeholder="0">
+                                </div>
+                                <div class="col-md-1 d-flex align-items-end">
+                                    <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" id="addObatRow" class="btn btn-success">Tambah Obat</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script')
     <script>
+        // Tambahkan baris obat baru
+        $(document).ready(function() {
+            let obatIndex = 1;
+            // Event untuk menambahkan baris obat
+            $('#addObatRow').click(function() {
+                let newRow = `
+                    <div class="row g-9 mb-8" id="row_${obatIndex}">
+                        <div class="col-md-8 fv-row">
+                            <label for="obat_${obatIndex}" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih Obat</label>
+                            <select name="obat[${obatIndex}][id_obat]" class="form-select form-select-solid" data-placeholder="" data-hide-search="true">
+                                <option value="" selected disabled>Masukkan jenis obat</option>
+                                @foreach ($obats as $obat)
+                                    <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3 fv-row">
+                            <label for="jumlah_${obatIndex}" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Jumlah</label>
+                            <input type="text" name="obat[${obatIndex}][jumlah]" class="form-control form-control-solid" placeholder="0">
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
+                        </div>
+                    </div>`;
+                $('#obatContainer').append(newRow);
+                obatIndex++;
+            });
+            // Event untuk menghapus baris obat
+            $(document).on('click', '.remove-row', function() {
+                $(this).closest('.row').remove();
+            });
+            // Reset form ketika modal ditutup
+            $('#modalAddResep').on('hidden.bs.modal', function() {
+                $('#obatContainer').html(`
+                    <div class="row g-9 mb-8" id="row_0">
+                        <div class="col-md-8 fv-row">
+                            <label for="obat_0" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih Obat</label>
+                            <select name="obat[0][id_obat]" class="form-select form-select-solid" data-placeholder="" data-hide-search="true">
+                                <option value="" selected disabled>Masukkan jenis obat</option>
+                                @foreach ($obats as $obat)
+                                    <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3 fv-row">
+                            <label for="jumlah_0" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Jumlah</label>
+                            <input type="text" name="obat[0][jumlah]" class="form-control form-control-solid" placeholder="0">
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
+                        </div>
+                    </div>
+                `);
+                obatIndex = 1;
+            });
+        });
+
+        // Regex input qty
+        function restrictInputToNumbers(event) {
+            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+        }
+        const inputs = document.querySelectorAll(
+            'input[id="addJumlah"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', restrictInputToNumbers);
+        });
+
         // Inisialisasi datatable
         $(document).ready(function() {
             tabel = $('#TabelResep').DataTable({
@@ -299,6 +439,13 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
+                                <a onclick="modalAddResep('${row.id}', '${row.nip_pasien}', '${row.nama_pasien}', '${row.keluhan}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddResep">
+                                    <i class="ki-duotone ki-add-files fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </i>
+                                </a>
                             </div>`;
                         }
                     }
@@ -358,6 +505,11 @@
             });
         });
 
+        // Clear form modal add catatan
+        $('#modalAddResep').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
         // Pengambilan data modal detail
         function modalDetail(nama_pasien, nip_pasien, keluhan, status, tanggal_pengajuan,
             tanggal_pemeriksaan, catatan, nama_poli) {
@@ -381,6 +533,52 @@
             $('#detailNamaPoli').val(nama_poli);
             $('#modalDetail').modal('show');
         }
+
+        function modalAddResep(id, nip_pasien, nama_pasien, keluhan) {
+            $('#detId').val(id);
+            $('#detNamaPasien').val(nama_pasien);
+            $('#detNipPasien').val(nip_pasien);
+            $('#detKeluhan').val(keluhan);
+            $('#modalAddResep').modal('show');
+        }
+
+        // Menangani penanganan form modal add
+        $('#modalAddResep form').on('submit', function(e) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            e.preventDefault();
+            let form = $(this)[0];
+            let data = new FormData(form);
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#modalAddResep').modal('hide');
+                    tabel.ajax.reload();
+                    swalMixinSuccess.fire(
+                        'Success!',
+                        'Resep berhasil ditambah.',
+                        'success'
+                    );
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseJSON.message);
+                    Swal.fire(
+                        'Error!',
+                        'Error menambahkan resep: ' + xhr.responseJSON.message,
+                        'error'
+                    );
+                }
+            });
+        });
     </script>
 @endpush
 

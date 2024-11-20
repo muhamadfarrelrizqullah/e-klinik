@@ -45,7 +45,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 7,
-                'id_dokter' => 9,
+                'id_dokter' => 2,
                 'id_poli' => 2,
                 'keluhan' => 'Sakit perut',
                 'status' => 'Selesai',

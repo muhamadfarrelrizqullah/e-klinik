@@ -37,7 +37,11 @@ class DokterResepSQL
                 'polis.nama as nama_poli',
             ])
             ->where('pengajuans.id_dokter', '=', $userId)
-            ->where('pengajuans.status', '=', 'Selesai');
+            ->where('pengajuans.status', '=', 'Selesai')
+            ->whereNotIn('pengajuans.id', function ($subQuery) {
+                $subQuery->select('id_pengajuan')
+                    ->from('reseps');
+            });
 
         // Filter berdasarkan id_pasien
         if ($id_pasien) {
