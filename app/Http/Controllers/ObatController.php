@@ -37,7 +37,6 @@ class ObatController extends Controller
         $data_jenis = $request->input('data_jenis');
         $data_satuan = $request->input('data_satuan');
 
-
         $data = $this->DataObat->getObatData($data_jenis, $data_satuan);
 
         return datatables()->of($data)

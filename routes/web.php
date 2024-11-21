@@ -171,6 +171,8 @@ Route::prefix('apoteker')->name('apoteker-')->middleware('role:Apoteker')->group
     Route::get('/data-resep', [ResepController::class, 'readApoteker'])->name('dataresep');
     Route::post('/data-resep-update-status/{id}', [ResepController::class, 'updateStatus'])->name('dataresepstatus-update');
 
+    Route::get('/data-obat-keluar', [ObatKeluarController::class, 'readApoteker'])->name('dataobatkeluar');
+
     Route::get('/profil-edit', [ProfilController::class, 'editApoteker'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');
 });
