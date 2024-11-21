@@ -13,7 +13,7 @@ class ApotekerResepSQL
             ->leftJoin('users as dokter', 'pengajuans.id_dokter', '=', 'dokter.id')
             ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
             ->leftJoin('divisis', 'pasien.divisi_id', '=', 'divisis.id')
-            ->leftJoin('reseps', 'reseps.id_pengajuan', '=', 'pengajuans.id')
+            ->join('reseps', 'reseps.id_pengajuan', '=', 'pengajuans.id')
             ->leftJoin('detail_reseps', 'detail_reseps.id_resep', '=', 'reseps.id')
             ->leftJoin('obats', 'detail_reseps.id_obat', '=', 'obats.id')
             ->select([
@@ -32,8 +32,7 @@ class ApotekerResepSQL
                 'dokter.nama as nama_dokter',
                 DB::raw('STRING_AGG(obats.nama, \', \') as nama_obat'),
                 DB::raw('STRING_AGG(detail_reseps.jumlah::text, \', \') as jumlah_obat')
-            ])
-            ->where('reseps.status', '=', 'Diproses');
+            ]);
 
         // Filter berdasarkan id_pasien
         if ($id_pasien) {

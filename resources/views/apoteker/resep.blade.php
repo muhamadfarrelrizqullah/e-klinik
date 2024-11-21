@@ -253,7 +253,13 @@
                         name: 'status_resep',
                         orderable: true,
                         render: function(data, type, row) {
-                            return `<span class="badge badge-light-primary">${data}</span>`;
+                            if (data === 'Diproses') {
+                                return `<span class="badge badge-light-primary">${data}</span>`;
+                            } else if (data === 'Selesai') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge">${data}</span>`;
+                            }
                         }
                     },
                     {
@@ -274,26 +280,57 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
-                                    <i class="ki-duotone ki-capsule fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="downloadResep('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}', '${row.nama_obat}', '${row.jumlah_obat}', '${row.nama_dokter}')" class="btn btn-icon btn-light-success btn-xl">
+                            let buttons = '';
+                            // Tombol detail selalu muncul
+                            buttons += `
+                            <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <i class="ki-duotone ki-scroll fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </a>`;
+                            // Tombol detail resep selalu muncul
+                            buttons += `
+                            <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
+                                <i class="ki-duotone ki-capsule fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </a>`;
+                            // Tombol download resep selalu muncul
+                            buttons += `
+                            <a onclick="downloadResep('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}', '${row.nama_obat}', '${row.jumlah_obat}', '${row.nama_dokter}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                <i class="ki-duotone ki-file-down fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </a>`;
+                            // Tombol download surat izin muncul jika surat_izin ada
+                            if (row.surat_izin) {
+                                buttons += `
+                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
                                     </i>
-                                </a>
-                            </div>`;
+                                </a>`;
+                            }
+                            // Tombol rating muncul jika rating belum diberikan
+                            if (row.status_resep == "Diproses") {
+                                buttons += `
+                                <a onclick="prosesResep(${row.id_resep}, 'Selesai')" class="btn btn-icon btn-light-success btn-xl">
+                                    <i class="ki-duotone ki-check fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </a>`;
+                            }
+                            buttons += '</div>';
+                            return buttons;
                         }
                     }
                 ],
@@ -392,6 +429,69 @@
             // Tambahkan ke dalam elemen container obat
             $('#detailObatContainer').html(obatContent);
             $('#modalDetailResep').modal('show');
+        }
+
+        // Handler update status
+        function prosesResep(id, status) {
+            const swalMixinSuccess = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+
+            const swalConfig = {
+                title: 'Apakah Anda yakin?',
+                text: `Anda akan mengubah status menjadi ${status}.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, ubah!',
+                cancelButtonText: 'Tidak'
+            };
+
+            Swal.fire(swalConfig).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/apoteker/data-resep-update-status/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                status: status
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.message);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Updated:', data);
+                            tabel.ajax.reload();
+                            swalMixinSuccess.fire(
+                                'Berhasil!',
+                                `Status berhasil diubah menjadi ${status}.`,
+                                'success'
+                            );
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Terjadi kesalahan saat memperbarui status: ' + error.message,
+                                'error'
+                            );
+                        });
+                }
+            });
         }
 
         async function downloadResep(namaPasien, nipPasien, keluhan, kodeResep, statusResep, tanggalDibuat, namaObat,

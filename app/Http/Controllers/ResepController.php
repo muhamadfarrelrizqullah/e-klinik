@@ -89,4 +89,35 @@ class ResepController extends Controller
 
         return redirect()->back()->with('success', 'Resep berhasil ditambah.');
     }
+
+    public function updateStatus(Request $request)
+    {
+        try {
+            $resep = Resep::findOrFail($request->id);
+
+            if ($request->status === 'Selesai') {
+                $details = DetailResep::where('id_resep', $resep->id)->get();
+                foreach ($details as $detail) {
+                    $obat = Obat::findOrFail($detail->id_obat);
+
+                    // Periksa apakah stok cukup
+                    if ($obat->qty < $detail->jumlah) {
+                        return response()->json([
+                            'message' => "Stok obat {$obat->nama} tidak mencukupi."
+                        ], 400);
+                    }
+
+                    $obat->qty -= $detail->jumlah;
+                    $obat->save();
+                }
+            }
+
+            $resep->status = $request->status;
+            $resep->save();
+
+            return response()->json(['success' => 'Status resep berhasil diperbarui.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
+    }
 }
