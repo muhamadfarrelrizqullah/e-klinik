@@ -301,7 +301,7 @@
                     }
                 },
                 order: [
-                    [1, 'asc'],
+                    [1, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -329,6 +329,14 @@
                         }
                     },
                     {
+                        data: 'jenis_obat',
+                        name: 'jenis_obat',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                        }
+                    },
+                    {
                         data: 'satuan',
                         name: 'satuan',
                         orderable: true,
@@ -342,14 +350,6 @@
                             } else {
                                 return `<span class="badge badge-light-secondary">${data}</span>`;
                             }
-                        }
-                    },
-                    {
-                        data: 'jenis_obat',
-                        name: 'jenis_obat',
-                        orderable: true,
-                        render: function(data, type, row, meta) {
-                            return `<span class="badge badge-light-secondary">${data}</span>`;
                         }
                     },
                     {

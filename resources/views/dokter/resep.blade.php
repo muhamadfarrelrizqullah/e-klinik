@@ -349,7 +349,7 @@
                     }
                 },
                 order: [
-                    [5, 'asc'],
+                    [6, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',

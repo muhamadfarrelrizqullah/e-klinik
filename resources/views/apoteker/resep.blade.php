@@ -28,7 +28,7 @@
                         <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
                             id="kt_menu_658cdae763501">
                             <div class="px-7 py-5">
-                                <div class="fs-5 text-gray-900 fw-bold">Range Filter</div>
+                                <div class="fs-5 text-gray-900 fw-bold">Filter Resep</div>
                             </div>
                             <div class="separator border-gray-200"></div>
                             <div class="px-7 py-5">
@@ -213,7 +213,7 @@
                     }
                 },
                 order: [
-                    [5, 'asc'],
+                    [5, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -258,7 +258,7 @@
                             } else if (data === 'Selesai') {
                                 return `<span class="badge badge-light-success">${data}</span>`;
                             } else {
-                                return `<span class="badge">${data}</span>`;
+                                return `<span class="badge badge-light-secondary">${data}</span>`;
                             }
                         }
                     },

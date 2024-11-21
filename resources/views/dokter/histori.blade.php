@@ -223,7 +223,7 @@
                 serverSide: true,
                 ajax: "{{ route('dokter-datarekap') }}",
                 order: [
-                    [6, 'asc'],
+                    [5, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',

@@ -259,7 +259,7 @@
                 ajax: "{{ route('dokter-datapengajuan') }}",
                 order: [
                     [8, 'asc'],
-                    [5, 'asc'],
+                    [5, 'desc'],
                 ],
                 columns: [{
                         data: 'DT_RowIndex',
