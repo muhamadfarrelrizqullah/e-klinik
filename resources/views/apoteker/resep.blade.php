@@ -281,8 +281,14 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
+                                <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
                                     <i class="ki-duotone ki-capsule fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="downloadResep('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}', '${row.nama_obat}', '${row.jumlah_obat}', '${row.nama_dokter}')" class="btn btn-icon btn-light-success btn-xl">
+                                    <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
@@ -386,6 +392,121 @@
             // Tambahkan ke dalam elemen container obat
             $('#detailObatContainer').html(obatContent);
             $('#modalDetailResep').modal('show');
+        }
+
+        async function downloadResep(namaPasien, nipPasien, keluhan, kodeResep, statusResep, tanggalDibuat, namaObat,
+            jumlahObat, namaDokter) {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Fetch logo perusahaan
+            const response = await fetch('/logo-base64');
+            const logoResponse = await response.json();
+            const companyLogo = logoResponse.base64;
+
+            // Konfigurasi layout halaman
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const logoWidth = 50;
+            const centerX = pageWidth / 2;
+
+            // Menambahkan logo perusahaan
+            doc.addImage(companyLogo, 'PNG', 15, 10, logoWidth, 10);
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.text(`Kode: ${kodeResep}`, 15, 30);
+
+            // Menambahkan judul
+            doc.setFontSize(20);
+            doc.setFont("helvetica", "bold");
+            const title = `DETAIL RESEP DOKTER`;
+            const textWidth = doc.getTextWidth(title);
+            const textX = centerX - textWidth / 2;
+            const textY = 50;
+            doc.text(title, textX, textY);
+
+            // Menambahkan garis bawah
+            const lineWidth = textWidth;
+            const lineY = textY + 2;
+            doc.line(textX, lineY, textX + lineWidth, lineY);
+
+            // Menambahkan detail resep
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            let posY = 70;
+            const lineHeight = 10;
+            const labelWidth = 60;
+
+            // Fungsi helper untuk menambahkan teks
+            function addText(label, text) {
+                doc.text(label, 15, posY);
+                doc.text(text, 15 + labelWidth, posY);
+                posY += lineHeight;
+            }
+
+            // Mengubah tanggal_dibuat ke format dd/mm/yyyy
+            const formattedTanggalDibuat = new Date(tanggalDibuat).toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            });
+
+            // Menambahkan informasi resep
+            addText(`NIP Pasien`, `: ${nipPasien}`);
+            addText(`Nama Pasien`, `: ${namaPasien}`);
+            addText(`Keluhan`, `: ${keluhan}`);
+            addText(`Status Resep`, `: ${statusResep}`);
+            addText(`Tanggal Dibuat`, `: ${formattedTanggalDibuat}`);
+
+            // Memproses nama_obat dan jumlah_obat menjadi array
+            const listNamaObat = namaObat.split(',').map(item => item.trim());
+            const listJumlahObat = jumlahObat.split(',').map(item => item.trim());
+
+            // Menambahkan tabel resep
+            posY += 10;
+            doc.setFont("helvetica", "bold");
+            doc.text(`Daftar Resep:`, 15, posY);
+            posY += lineHeight;
+
+            // Header tabel
+            doc.text(`No`, 15, posY);
+            const namaObatX = 50;
+            doc.text(`Nama Obat`, namaObatX, posY, {
+                align: 'center'
+            });
+            doc.text(`Jumlah`, 120, posY, {
+                align: 'center'
+            });
+            posY += lineHeight;
+
+            // Menambahkan isi tabel dengan jarak antar kolom
+            doc.setFont("helvetica", "normal");
+            listNamaObat.forEach((obat, index) => {
+                const jumlah = listJumlahObat[index] || "-";
+                doc.text(`${index + 1}`, 15, posY);
+                doc.text(obat, namaObatX, posY, {
+                    align: 'center'
+                });
+                doc.text(jumlah, 120, posY, {
+                    align: 'center'
+                });
+                posY += lineHeight;
+            });
+
+            // Menambahkan footer
+            const currentDate = new Date();
+            const tanggalHariIni = currentDate.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            });
+            doc.text(`${tanggalHariIni}`, 150, 190);
+            doc.text(`Dokter yang memeriksa`, 140, 200);
+            doc.text(`${namaDokter}`, 150, 230);
+
+            // Unduh file PDF
+            doc.save(`Data_Resep_${namaPasien}_${kodeResep}.pdf`);
         }
     </script>
 @endpush
