@@ -160,6 +160,31 @@
                             <input type="text" class="form-control form-control-solid" placeholder=""
                                 id="detailTanggalDibuat" readonly>
                         </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetailResep" class="modal fade" tabindex="-1" aria-hidden="true"
+        aria-labelledby="modalDetailResepLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Resep</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
                         <div id="detailObatContainer" class="pt-15"></div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -250,8 +275,14 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}', '${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.kode_resep}', '${row.status_resep}', '${row.tanggal_dibuat}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
+                                    <i class="ki-duotone ki-capsule fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
@@ -310,8 +341,7 @@
         });
 
         // Pengambilan data modal detail
-        function modalDetail(nama_pasien, nip_pasien, keluhan, kode_resep, status_resep, tanggal_dibuat, nama_obat,
-            jumlah_obat) {
+        function modalDetail(nama_pasien, nip_pasien, keluhan, kode_resep, status_resep, tanggal_dibuat) {
             $('#detailNamaPasien').val(nama_pasien);
             $('#detailNipPasien').val(nip_pasien);
             $('#detailKeluhan').val(keluhan);
@@ -325,7 +355,11 @@
             let formattedBirthdateDibuat = `${dayDibuat}/${monthDibuat}/${yearDibuat}`;
             $('#detailTanggalDibuat').val(formattedBirthdateDibuat);
 
-            // Proses nama obat dan jumlah obat untuk ditampilkan secara dinamis
+            $('#modalDetail').modal('show');
+        }
+
+        // Pegambilan data resep
+        function detailResep(nama_obat, jumlah_obat) {
             let namaObatArray = nama_obat.split(', ');
             let jumlahObatArray = jumlah_obat.split(', ');
             let obatContent = '';
@@ -351,7 +385,7 @@
 
             // Tambahkan ke dalam elemen container obat
             $('#detailObatContainer').html(obatContent);
-            $('#modalDetail').modal('show');
+            $('#modalDetailResep').modal('show');
         }
     </script>
 @endpush
