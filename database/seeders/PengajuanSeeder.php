@@ -20,7 +20,7 @@ class PengajuanSeeder extends Seeder
                 'id_dokter' => 2,
                 'id_poli' => 1,
                 'keluhan' => 'Pusing',
-                'status' => 'Selesai',
+                'status' => 'Diproses',
                 'tanggal_pengajuan' => Carbon::now()->subDays(3),
                 'tanggal_pemeriksaan' => Carbon::now()->addDays(2),
                 'qrcode' => 'example-qrcode-1',
@@ -31,10 +31,10 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 5,
-                'id_dokter' => 2,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Mual',
-                'status' => 'Selesai',
+                'status' => 'Diterima',
                 'tanggal_pengajuan' => Carbon::now()->subDays(2),
                 'tanggal_pemeriksaan' => Carbon::now()->addDays(3),
                 'qrcode' => 'example-qrcode-2',
@@ -45,10 +45,10 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 7,
-                'id_dokter' => 2,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Sakit perut',
-                'status' => 'Selesai',
+                'status' => 'Diproses',
                 'tanggal_pengajuan' => Carbon::now()->subDays(2),
                 'tanggal_pemeriksaan' => Carbon::now()->addDays(3),
                 'qrcode' => 'example-qrcode-3',
@@ -59,7 +59,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 6,
-                'id_dokter' => 10,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Demam',
                 'status' => 'Diproses',
@@ -73,7 +73,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 5,
-                'id_dokter' => 10,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Liver',
                 'status' => 'Diproses',
@@ -87,7 +87,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 5,
-                'id_dokter' => 9,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Pusing',
                 'status' => 'Diterima',
@@ -101,7 +101,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 6,
-                'id_dokter' => 2,
+                'id_dokter' => null,
                 'id_poli' => 1,
                 'keluhan' => 'Pusing',
                 'status' => 'Diterima',
@@ -115,7 +115,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 7,
-                'id_dokter' => 2,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Pusing',
                 'status' => 'Diterima',
@@ -129,7 +129,7 @@ class PengajuanSeeder extends Seeder
             ],
             [
                 'id_pasien' => 8,
-                'id_dokter' => 9,
+                'id_dokter' => null,
                 'id_poli' => 2,
                 'keluhan' => 'Pusing',
                 'status' => 'Diterima',

@@ -298,7 +298,7 @@
                                 </label>
                                 <input type="text" class="form-control form-control-solid"
                                     placeholder="Masukkan pangkat/golongan" id="addPangkatGolongan"
-                                    name="pangkat_golongan">
+                                    name="pangkat_golongan" readonly>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
@@ -597,7 +597,7 @@
             let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
             $('#detTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
             $('#detNamaPoli').val(nama_poli);
-            $('#detJabatan').val(jabatan);
+            $('#addPangkatGolongan').val(jabatan);
             $('#modalAddPemeriksaan').modal('show');
         }
 

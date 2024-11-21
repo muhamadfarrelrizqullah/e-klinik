@@ -136,8 +136,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Catatan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailCatatan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailCatatan" readonly>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -177,6 +177,32 @@
                             <input type="text" class="form-control form-control-solid" placeholder=""
                                 id="detailStatusQR" readonly>
                         </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetailResep" class="modal fade" tabindex="-1" aria-hidden="true"
+        aria-labelledby="modalDetailResepLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Resep</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div id="detailObatContainer" class="pt-15"></div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -262,57 +288,55 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            if (row.surat_izin){
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id_pengajuan}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl">
+                            let buttons = '';
+                            // Tombol detail selalu muncul
+                            buttons += `
+                            <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <i class="ki-duotone ki-scroll fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </a>`;
+                            // Tombol QR selalu muncul
+                            buttons += `
+                            <a onclick="modalDetailQR('${row.id_pengajuan}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                                <i class="ki-duotone ki-scan-barcode fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                    <span class="path6"></span>
+                                    <span class="path7"></span>
+                                    <span class="path8"></span>
+                                </i>
+                            </a>`;
+                            // Tombol download surat izin muncul jika surat_izin ada
+                            if (row.surat_izin) {
+                                buttons += `
+                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                         <span class="path3"></span>
                                         <span class="path4"></span>
                                     </i>
-                                </a>
-                            </div>`;
-                            } else {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id_pengajuan}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
+                                </a>`;
+                            }
+                            // Tombol rating muncul jika rating belum diberikan
+                            if (row.kode_resep) {
+                                buttons += `
+                                <a onclick="detailResep('${row.nama_obat}', '${row.jumlah_obat}')" class="btn btn-icon btn-light-warning btn-xl" data-bs-toggle="modal" data-bs-target="#modalDetailResep">
+                                    <i class="ki-duotone ki-capsule fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                         <span class="path3"></span>
                                         <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
                                     </i>
-                                </a>
-                            </div>`;
+                                </a>`;
                             }
+                            buttons += '</div>';
+                            return buttons;
                         }
                     }
                 ],
@@ -358,7 +382,8 @@
                             success: function(logoResponse) {
                                 // Urutkan data berdasarkan nama
                                 var sortedData = response.data.sort((a, b) => {
-                                    return a.no_rekap.localeCompare(b.no_rekap);
+                                    return a.no_rekap.localeCompare(b
+                                        .no_rekap);
                                 });
                                 var doc = new jsPDF();
                                 // Menambahkan kop perusahaan
@@ -394,7 +419,7 @@
                                     row.nip_pasien,
                                     row.nama_pasien,
                                     row.divisi_pasien.replace(/&amp;/g,
-                                    '&'),
+                                        '&'),
                                     row.nama_dokter,
                                     row.nama_poli.replace(/&amp;/g, '&'),
                                     row.keluhan.replace(/&amp;/g, '&'),
@@ -476,6 +501,36 @@
                     confirmButtonText: 'OK'
                 });
             }
+        }
+
+        // Pegambilan data resep
+        function detailResep(nama_obat, jumlah_obat) {
+            let namaObatArray = nama_obat.split(', ');
+            let jumlahObatArray = jumlah_obat.split(', ');
+            let obatContent = '';
+            for (let i = 0; i < namaObatArray.length; i++) {
+                obatContent += `
+            <div class="row g-9 mb-8">
+                <div class="col-md-6 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                        <span>Nama Obat</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder=""
+                        value="${namaObatArray[i]}" readonly>
+                </div>
+                <div class="col-md-6 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                        <span>Jumlah Obat</span>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder=""
+                        value="${jumlahObatArray[i]}" readonly>
+                </div>
+            </div>`;
+            }
+
+            // Tambahkan ke dalam elemen container obat
+            $('#detailObatContainer').html(obatContent);
+            $('#modalDetailResep').modal('show');
         }
     </script>
 @endpush
