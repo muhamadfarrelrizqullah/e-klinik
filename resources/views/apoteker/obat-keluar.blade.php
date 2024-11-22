@@ -64,6 +64,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,8 +127,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Nama Obat</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailNamaObat"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailNamaObat" readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -332,6 +341,92 @@
 
             $('#modalDetail').modal('show');
         }
+
+        // Handle download pdf
+        document.addEventListener("DOMContentLoaded", function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            document.getElementById('bt-download').addEventListener('click', function() {
+                var filterNama = $('#filterNamaObat').val();
+                var filterJenis = $('#filterJenisObat').val();
+                var filterTanggal = $('#filterTanggalKeluar').val();
+                $.ajax({
+                    url: "{{ route('apoteker-dataobatkeluar') }}",
+                    type: "GET",
+                    data: {
+                        data_nama: filterNama,
+                        data_jenis: filterJenis,
+                        data_tanggal: filterTanggal
+                    },
+                    success: function(response) {
+                        $.ajax({
+                            url: "/logo-base64",
+                            type: "GET",
+                            success: function(logoResponse) {
+                                // Menambahkan kop perusahaan
+                                var doc = new jsPDF();
+                                var companyLogo = logoResponse.base64;
+                                var companyAddress =
+                                    'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
+                                var companyContact =
+                                    'Telp (62-31) 329 2275 Fax (62-31) 329 2530';
+                                var pageWidth = doc.internal.pageSize.getWidth();
+                                var logoWidth = 50;
+                                var centerX = pageWidth / 2;
+                                doc.addImage(companyLogo, 'PNG', centerX -
+                                    logoWidth / 2, 10, logoWidth, 10);
+                                doc.setFontSize(10);
+                                doc.setFont("helvetica", "normal");
+                                doc.text(companyAddress, centerX, 30, {
+                                    align: "center"
+                                });
+                                doc.text(companyContact, centerX, 35, {
+                                    align: "center"
+                                });
+                                doc.setFontSize(10);
+                                doc.text('Data Obat Keluar Pt. PAL Indonesia', 14,
+                                    55);
+                                // Menambahkan tabel
+                                var columns = ["No", "Nama Obat", "Satuan", "Jenis",
+                                    "Jumlah Keluar",
+                                    "Stok", "Tanggal Keluar"
+                                ];
+                                var data = response.data.map((row, index) => [
+                                    index + 1,
+                                    row.nama_obat.replace(/&amp;/g, '&'),
+                                    row.satuan,
+                                    row.jenis_obat,
+                                    row.jumlah_keluar,
+                                    row.jumlah_total,
+                                    formatDate(row.tanggal_keluar)
+                                ]);
+                                doc.autoTable({
+                                    head: [columns],
+                                    body: data,
+                                    startY: 60,
+                                    styles: {
+                                        halign: 'center'
+                                    },
+                                    headStyles: {
+                                        halign: 'center'
+                                    }
+                                });
+                                doc.save('Data_Obat_Keluar_Report.pdf');
+                            }
+                        });
+                    }
+                });
+            });
+
+            function formatDate(dateStr) {
+                var tanggal = new Date(dateStr);
+                var day = tanggal.getDate().toString().padStart(2, '0');
+                var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                var year = tanggal.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+        });
     </script>
 @endpush
 
