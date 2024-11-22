@@ -23,7 +23,7 @@ class UserEditRequest extends FormRequest
     {
         $rules = [
             'id' => 'required|exists:users,id',
-            'nip' => 'required|digits:8',
+            'nip' => 'required|digits:8|unique:users,nip,' . $this->id,
             'nama' => 'required|string|max:255',
             'status' => 'required|in:Aktif,Tidak Aktif',
             'role' => 'required|in:Admin,Dokter,Pasien,Apoteker',
@@ -50,6 +50,7 @@ class UserEditRequest extends FormRequest
             'id.required' => 'ID tidak ditemukan.',
             'nip.required' => 'NIP harus diisi.',
             'nip.digits' => 'NIP harus terdiri dari 8 digit.',
+            'nip.unique' => 'NIP sudah terdaftar, gunakan NIP yang lain.',
             'nama.required' => 'Nama harus diisi.',
             'nama.string' => 'Nama harus berupa teks.',
             'nama.max' => 'Nama maksimal 255 karakter.',

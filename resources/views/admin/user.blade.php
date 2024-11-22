@@ -7,14 +7,10 @@
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
             <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-                    <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
+                    <h1 class="page-heading d-flex text-gray-900 fw-bold fs-8 flex-column justify-content-center my-0">
                         Data User</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-                        <li class="breadcrumb-item text-muted">Home</li>
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
-                        </li>
-                        <li class="breadcrumb-item text-muted">User</li>
+                        <li class="breadcrumb-item text-muted fs-8">Admin - User</li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
@@ -24,7 +20,7 @@
                             <i class="ki-duotone ki-folder-down fs-6 me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
-                            </i>Download</a>
+                            </i>Download PDF</a>
                         <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
                             id="kt_menu_658cdae763501">
                             <div class="px-7 py-5">
@@ -1191,7 +1187,7 @@
 
         // Inisialisasi datatable
         $(document).ready(function() {
-            tabelAdmin = $('#TabelUserApoteker').DataTable({
+            tabelApoteker = $('#TabelUserApoteker').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin-datauser-apoteker') }}",
@@ -1312,7 +1308,7 @@
             });
             // Fix tampilan tabel berubah setelah dilakukan responsif
             $(window).resize(function() {
-                tabelAdmin.columns.adjust().responsive.recalc();
+                tabelApoteker.columns.adjust().responsive.recalc();
             });
         });
 
@@ -1573,6 +1569,7 @@
             tabelPasien.columns.adjust().responsive.recalc();
             tabelDokter.columns.adjust().responsive.recalc();
             tabelAdmin.columns.adjust().responsive.recalc();
+            tabelApoteker.columns.adjust().responsive.recalc();
         });
 
         // Menangani penanganan form modal add
@@ -1597,6 +1594,7 @@
                     tabelPasien.ajax.reload();
                     tabelDokter.ajax.reload();
                     tabelAdmin.ajax.reload();
+                    tabelApoteker.ajax.reload();
                     swalMixinSuccess.fire(
                         'Success!',
                         'User berhasil ditambah.',
@@ -1655,6 +1653,7 @@
                             tabelPasien.ajax.reload();
                             tabelDokter.ajax.reload();
                             tabelAdmin.ajax.reload();
+                            tabelApoteker.ajax.reload();
                             swalMixinSuccess.fire(
                                 'Deleted!',
                                 'User berhasil dihapus.',
@@ -1782,6 +1781,7 @@
                             tabelPasien.ajax.reload();
                             tabelDokter.ajax.reload();
                             tabelAdmin.ajax.reload();
+                            tabelApoteker.ajax.reload();
                             swalMixinSuccess.fire(
                                 'Saved!',
                                 'User berhasil diupdate.',

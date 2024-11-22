@@ -12,10 +12,10 @@
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <div class="row gy-5 g-xl-10">
                     <div class="col-xl-8 mb-xl-10 h-100">
-                        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                        <div class="card mb-5 mb-xl-10 mt-5" id="kt_profile_details_view">
                             <div class="card-header cursor-pointer">
                                 <div class="card-title m-0">
-                                    <h3 class="fw-bold m-0">Detail Profil</h3>
+                                    <h3 class="fw-bold m-0 fs-8">Detail Profil</h3>
                                 </div>
                                 <a href="{{ route('apoteker-profil-edit') }}"
                                     class="btn btn-sm btn-primary align-self-center">Edit

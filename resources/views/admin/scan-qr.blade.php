@@ -11,7 +11,7 @@
                         <div class="card">
                             <div class="card-header cursor-pointer">
                                 <div class="card-title m-0">
-                                    <h3 class="fw-bold m-0">Scan QR Code</h3>
+                                    <h3 class="fw-bold m-0 fs-8">Scan QR Code</h3>
                                 </div>
                             </div>
                             <div class="card-body d-flex align-items-center justify-content-center">

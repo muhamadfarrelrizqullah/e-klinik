@@ -126,7 +126,7 @@
                                     <span class="path4"></span>
                                 </i>
                             </span>
-                            <span class="menu-title">Jadwal Dokter</span>
+                            <span class="menu-title">Jadwal</span>
                         </a>
                     </div>
                     <div class="menu-item pt-5">
