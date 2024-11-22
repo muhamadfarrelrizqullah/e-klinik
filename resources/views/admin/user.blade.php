@@ -33,10 +33,14 @@
                             <div class="separator border-gray-200"></div>
                             <div class="px-7 py-5 d-flex justify-content-center">
                                 <button type="button" class="btn btn-sm fw-bold btn-secondary me-2" id="bt-download">
-                                    Download PDF Pasien
+                                    Data Pasien
                                 </button>
-                                <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download-dokter">
-                                    Download PDF Dokter
+                                <button type="button" class="btn btn-sm fw-bold btn-secondary me-2"
+                                    id="bt-download-dokter">
+                                    Data Dokter
+                                </button>
+                                <button type="button" class="btn btn-sm fw-bold btn-secondary" id="bt-download-apoteker">
+                                    Data Apoteker
                                 </button>
                             </div>
                         </div>
@@ -1466,6 +1470,89 @@
                                     }
                                 });
                                 doc.save('Data_Dokter_Report.pdf');
+                            }
+                        });
+                    }
+                });
+            });
+            // Fungsi untuk format tanggal
+            function formatDate(dateStr) {
+                var tanggal = new Date(dateStr);
+                var day = tanggal.getDate().toString().padStart(2, '0');
+                var month = (tanggal.getMonth() + 1).toString().padStart(2, '0');
+                var year = tanggal.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+        });
+
+        // Handle download pdf dokter
+        document.addEventListener("DOMContentLoaded", function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            document.getElementById('bt-download-apoteker').addEventListener('click', function() {
+                $.ajax({
+                    url: "{{ route('admin-datauser-apoteker') }}",
+                    type: "GET",
+                    success: function(response) {
+                        $.ajax({
+                            url: "/logo-base64",
+                            type: "GET",
+                            success: function(logoResponse) {
+                                // Urutkan data berdasarkan nama
+                                var sortedData = response.data.sort((a, b) => {
+                                    return a.nama.localeCompare(b.nama);
+                                });
+                                var doc = new jsPDF();
+                                // Menambahkan kop perusahaan
+                                var companyLogo = logoResponse.base64;
+                                var companyAddress =
+                                    'Jl. Ujung Kel. Ujung, Kec. Semampir, PO BOX 1134 Surabaya 60155';
+                                var companyContact =
+                                    'Telp (62-31) 329 2275 Fax (62-31) 329 2530';
+                                var pageWidth = doc.internal.pageSize.getWidth();
+                                var logoWidth = 50;
+                                var centerX = pageWidth / 2;
+                                doc.addImage(companyLogo, 'PNG', centerX -
+                                    logoWidth / 2, 10, logoWidth, 10);
+                                doc.setFontSize(10);
+                                doc.setFont("helvetica", "normal");
+                                doc.text(companyAddress, centerX, 30, {
+                                    align: "center"
+                                });
+                                doc.text(companyContact, centerX, 35, {
+                                    align: "center"
+                                });
+                                doc.setFontSize(10);
+                                doc.text('Data Apoteker Pt. PAL Indonesia', 14, 55);
+                                // Menambahkan tabel
+                                var columns = ["No", "NIP", "Nama", "Status",
+                                    "Role", "Divisi", "Tanggal Lahir",
+                                    "Tinggi Badan", "Berat Badan"
+                                ];
+                                var data = sortedData.map((row, index) => [
+                                    index + 1,
+                                    row.nip,
+                                    row.nama,
+                                    row.status,
+                                    row.role,
+                                    row.divisi_nama.replace(/&amp;/g, '&'),
+                                    formatDate(row.tanggal_lahir),
+                                    row.tinggi_badan,
+                                    row.berat_badan
+                                ]);
+                                doc.autoTable({
+                                    head: [columns],
+                                    body: data,
+                                    startY: 60,
+                                    styles: {
+                                        halign: 'center'
+                                    },
+                                    headStyles: {
+                                        halign: 'center'
+                                    }
+                                });
+                                doc.save('Data_Apoteker_Report.pdf');
                             }
                         });
                     }
