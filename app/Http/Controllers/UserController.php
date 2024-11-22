@@ -58,6 +58,15 @@ class UserController extends Controller
             ->make(true);
     }
 
+    public function readApoteker()
+    {
+        $data = $this->DataUser->getApotekerData();
+
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
     public function store(UserTambahRequest $request)
     {
         $user = new User;

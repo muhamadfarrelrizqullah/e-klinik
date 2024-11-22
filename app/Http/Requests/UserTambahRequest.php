@@ -25,7 +25,7 @@ class UserTambahRequest extends FormRequest
             'nip' => 'required|digits:8',
             'nama' => 'required|string|max:255',
             'status' => 'required|in:Aktif,Tidak Aktif',
-            'role' => 'required|in:Admin,Dokter,Pasien',
+            'role' => 'required|in:Admin,Dokter,Pasien,Apoteker',
             'divisi' => 'required|exists:divisis,id',
             'tanggal_lahir' => 'required|date|date_format:Y-m-d',
             'tinggi_badan' => 'nullable|integer',

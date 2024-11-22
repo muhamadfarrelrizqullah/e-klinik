@@ -100,6 +100,26 @@
                                         <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-row overflow-hidden w-100 h-auto p-3"
                                             data-bs-toggle="pill" href="#kt_stats_widget_6_tab_3">
                                             <div class="nav-icon me-3 d-flex align-items-center">
+                                                <i class="ki-duotone ki-capsule fs-1">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                    <span class="path4"></span>
+                                                    <span class="path5"></span>
+                                                    <span class="path6"></span>
+                                                    <span class="path7"></span>
+                                                </i>
+                                            </div>
+                                            <span
+                                                class="nav-text text-gray-800 fw-bold fs-6 lh-1 d-flex align-items-center">Apoteker</span>
+                                            <span
+                                                class="bullet-custom position-absolute start-0 bottom-0 w-100 h-4px bg-primary"></span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item mb-3 me-3 me-lg-6">
+                                        <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-row overflow-hidden w-100 h-auto p-3"
+                                            data-bs-toggle="pill" href="#kt_stats_widget_6_tab_4">
+                                            <div class="nav-icon me-3 d-flex align-items-center">
                                                 <i class="ki-duotone ki-brifecase-timer fs-1">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -158,6 +178,25 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="kt_stats_widget_6_tab_3">
+                                        <div class="table-responsive">
+                                            <table id="TabelUserApoteker"
+                                                class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+                                                style="width: 100%">
+                                                <thead class="thead-dark">
+                                                    <tr class="fw-bold text-muted">
+                                                        <th>No</th>
+                                                        <th>NIP</th>
+                                                        <th>Nama</th>
+                                                        <th>Status</th>
+                                                        <th>Role</th>
+                                                        <th>Divisi</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="kt_stats_widget_6_tab_4">
                                         <div class="table-responsive">
                                             <table id="TabelUserAdmin"
                                                 class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
@@ -511,6 +550,7 @@
                                     <option value="Pasien">Pasien</option>
                                     <option value="Dokter">Dokter</option>
                                     <option value="Admin">Admin</option>
+                                    <option value="Apoteker">Apoteker</option>
                                 </select>
                             </div>
                             <div class="col-md-6 fv-row">
@@ -1111,11 +1151,138 @@
                                     </i>
                                 </a>
                                 <a onclick="resetPasswordModal('${row.id}', '${row.tanggal_lahir}')" class="btn btn-icon btn-light-warning btn-xl">
-                            <i class="ki-duotone ki-timer fs-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </a>
+                                    <i class="ki-duotone ki-timer fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                            </div>`;
+                        }
+                    }
+                ],
+                aLengthMenu: [
+                    [10, 30, 50, -1],
+                    [10, 30, 50, "All"]
+                ],
+                iDisplayLength: 10,
+                responsive: true,
+                language: {
+                    paginate: {
+                        "previous": "Sebelumnya",
+                        "next": "Selanjutnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ entri",
+                    zeroRecords: "Tidak ditemukan data yang sesuai",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
+                },
+            });
+            // Fix tampilan tabel berubah setelah dilakukan responsif
+            $(window).resize(function() {
+                tabelAdmin.columns.adjust().responsive.recalc();
+            });
+        });
+
+        // Inisialisasi datatable
+        $(document).ready(function() {
+            tabelAdmin = $('#TabelUserApoteker').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin-datauser-apoteker') }}",
+                order: [
+                    [2, 'asc']
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nip',
+                        name: 'nip',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="text-gray-900 fw-bold fs-8">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Aktif') {
+                                return `<span class="badge badge-light-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-light-danger">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'role',
+                        name: 'role',
+                        orderable: true,
+                        render: function(data, type, row) {
+                            if (data === 'Admin') {
+                                return `<span class="badge badge-primary">${data}</span>`;
+                            } else if (data === 'Dokter') {
+                                return `<span class="badge badge-warning">${data}</span>`;
+                            } else if (data === 'Pasien') {
+                                return `<span class="badge badge-success">${data}</span>`;
+                            } else {
+                                return `<span class="badge badge-info">${data}</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'divisi_nama',
+                        name: 'divisi_nama',
+                        orderable: true,
+                        render: function(data, type, row, meta) {
+                            return `<span class="badge badge-light-secondary">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<div class="d-flex justify-content-center flex-shrink-0">
+                                <a onclick="modalDetail('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="ki-duotone ki-scroll fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="modalEdit('${row.id}', '${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_id}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}', '${row.jabatan}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                    <i class="ki-duotone ki-wrench fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </a>
+                                <a onclick="deleteData(${row.id})" class="btn btn-icon btn-light-danger btn-xl">
+                                    <i class="ki-duotone ki-trash fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                        <span class="path5"></span>
+                                    </i>
+                                </a>
                             </div>`;
                         }
                     }
@@ -1570,12 +1737,10 @@
                     $('#updatePoli').val(selectedPolis).trigger('change');
                 }
                 $('#updateJabatan').prop('disabled', true).val('');
-            }
-            else if (role === 'Pasien') {
+            } else if (role === 'Pasien') {
                 $('#updateJabatan').prop('disabled', false).val(poli_or_jabatan);
                 $('#updatePoli').prop('disabled', true).val(null).trigger('change');
-            }
-            else {
+            } else {
                 $('#updatePoli').prop('disabled', true).val(null).trigger('change');
                 $('#updateJabatan').prop('disabled', true).val('');
             }
@@ -1708,14 +1873,17 @@
         #TabelUserDokter td,
         #TabelUserDokter th,
         #TabelUserPasien td,
-        #TabelUserPasien th {
+        #TabelUserPasien th,
+        #TabelUserApoteker td,
+        #TabelUserApoteker th {
             text-align: center;
             white-space: nowrap;
         }
 
         #TabelUserAdmin thead th:first-child,
         #TabelUserDokter thead th:first-child,
-        #TabelUserPasien thead th:first-child {
+        #TabelUserPasien thead th:first-child,
+        #TabelUserApoteker thead th:first-child {
             cursor: default;
         }
 
@@ -1724,7 +1892,9 @@
         #TabelUserDokter thead th:first-child::after,
         #TabelUserDokter thead th:first-child::before,
         #TabelUserPasien thead th:first-child::after,
-        #TabelUserPasien thead th:first-child::before {
+        #TabelUserPasien thead th:first-child::before,
+        #TabelUserApoteker thead th:first-child::after,
+        #TabelUserApoteker thead th:first-child::before {
             display: none !important;
             pointer-events: none;
         }
@@ -1733,7 +1903,8 @@
 
             #TabelUserAdmin td,
             #TabelUserDokter td,
-            #TabelUserPasien td {
+            #TabelUserPasien td,
+            #TabelUserApoteker td {
                 white-space: normal;
                 word-wrap: break-word;
             }

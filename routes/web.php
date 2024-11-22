@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
     Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
     Route::get('/data-user-admin', [UserController::class, 'readAdmin'])->name('datauser-admin');
+    Route::get('/data-user-apoteker', [UserController::class, 'readApoteker'])->name('datauser-apoteker');
     Route::post('/data-user-tambah', [UserController::class, 'store'])->name('datauser-tambah');
     Route::put('/data-user-edit', [UserController::class, 'update'])->name('datauser-edit');
     Route::delete('/data-user-delete/{id}', [UserController::class, 'destroy'])->name('datauser-delete');
