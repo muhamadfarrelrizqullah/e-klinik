@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class AdminRekamMedisSQL
 {
-    public function getRekamMedisData()
+    public function getRekamMedisData($id_dokter, $id_pasien, $data_tanggal, $tanggal_setelah, $tanggal_sebelum)
     {
         $userId = Auth::id();
 
-        return Rekap::join('users as pasien', 'rekaps.id_pasien', '=', 'pasien.id')
+        $query = Rekap::join('users as pasien', 'rekaps.id_pasien', '=', 'pasien.id')
             ->leftJoin('users as dokter', 'rekaps.id_dokter', '=', 'dokter.id')
             ->leftJoin('pengajuans', 'rekaps.id_pengajuan', '=', 'pengajuans.id')
             ->leftJoin('polis', 'pengajuans.id_poli', '=', 'polis.id')
@@ -33,6 +33,7 @@ class AdminRekamMedisSQL
                 'pasien.tinggi_badan as tb_pasien',
                 'pasien.berat_badan as bb_pasien',
                 'rekaps.id_dokter',
+                'dokter.nip as nip_dokter',
                 'dokter.nama as nama_dokter',
                 'rekaps.id_pengajuan',
                 'polis.nama as nama_poli',
@@ -64,6 +65,7 @@ class AdminRekamMedisSQL
                 'pasien.tinggi_badan',
                 'pasien.berat_badan',
                 'rekaps.id_dokter',
+                'dokter.nip',
                 'dokter.nama',
                 'rekaps.id_pengajuan',
                 'polis.nama',
@@ -80,7 +82,35 @@ class AdminRekamMedisSQL
                 'rekaps.qrcode',
                 'reseps.kode_resep',
                 'reseps.status'
-            ])
-            ->get();
+            ]);
+
+        // Filter berdasarkan id_dokter
+        if ($id_dokter) {
+            $query->where('rekaps.id_dokter', $id_dokter);
+        }
+
+        // Filter berdasarkan id_pasien
+        if ($id_pasien) {
+            $query->where('rekaps.id_pasien', $id_pasien);
+        }
+
+        // Tambahkan filter berdasarkan input tanggal
+        if ($data_tanggal === 'tanggal_pengajuan') {
+            if ($tanggal_setelah) {
+                $query->where('pengajuans.tanggal_pengajuan', '>=', $tanggal_setelah);
+            }
+            if ($tanggal_sebelum) {
+                $query->where('pengajuans.tanggal_pengajuan', '<=', $tanggal_sebelum);
+            }
+        } elseif ($data_tanggal === 'tanggal_pemeriksaan') {
+            if ($tanggal_setelah) {
+                $query->where('pengajuans.tanggal_pemeriksaan', '>=', $tanggal_setelah);
+            }
+            if ($tanggal_sebelum) {
+                $query->where('pengajuans.tanggal_pemeriksaan', '<=', $tanggal_sebelum);
+            }
+        }
+
+        return $query->get();
     }
 }

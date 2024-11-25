@@ -15,8 +15,8 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
-                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        <a class="btn btn-sm btn-flex btn-light-secondary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
                             <i class="ki-duotone ki-filter fs-6 text-muted me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
@@ -626,7 +626,7 @@
                             url: "/logo-base64",
                             type: "GET",
                             success: function(logoResponse) {
-                                 // Menambahkan kop perusahaan
+                                // Menambahkan kop perusahaan
                                 var doc = new jsPDF();
                                 var companyLogo = logoResponse.base64;
                                 var companyAddress =

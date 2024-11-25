@@ -15,8 +15,8 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <a href="#" class="btn btn-sm btn-flex btn-light-secondary fw-bold"
-                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        <a class="btn btn-sm btn-flex btn-light-secondary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
                             <i class="ki-duotone ki-filter fs-6 text-muted me-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
@@ -130,8 +130,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Keluhan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder=""
-                                id="detailKeluhan" readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailKeluhan"
+                                readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">

@@ -13,6 +13,77 @@
                         <li class="breadcrumb-item text-muted fs-8">Admin - Rekam Medis</li>
                     </ul>
                 </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-light-secondary fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                            id="kt_menu_658cdae763501">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-gray-900 fw-bold">Filter Rekam Medis</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Pasien:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNamaPasien" name="nama_pasien">
+                                        <option value="" selected disabled>Pilih nama pasien</option>
+                                        @foreach ($pasiens as $pasien)
+                                            <option value="{{ $pasien->id }}">{{ $pasien->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Nama Dokter:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterNamaDokter" name="nama_dokter">
+                                        <option value="" selected disabled>Pilih nama dokter</option>
+                                        @foreach ($dokters as $dokter)
+                                            <option value="{{ $dokter->id }}">{{ $dokter->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Data tanggal:</label>
+                                    <select class="form-select form-select-solid" data-placeholder=""
+                                        data-hide-search="true" id="filterDataTanggal">
+                                        <option value="" selected disabled>Pilih data tanggal</option>
+                                        <option value="tanggal_pengajuan">Tanggal Pengajuan</option>
+                                        <option value="tanggal_pemeriksaan">Tanggal Pemeriksaan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal setelah:</label>
+                                    <input type="date" id="filterTanggalSetelah" name="date-before"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">Tanggal sebelum:</label>
+                                    <input type="date" id="filterTanggalSebelum" name="date-after"
+                                        class="form-control form-control-sm me-2">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-danger btn-active-light-primary me-2"
+                                        data-kt-menu-dismiss="true">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0">
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end" id="bt-download">
+                            <i class="ki-duotone ki-folder-down fs-6 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>Download PDF</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -130,8 +201,8 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                 <span>Keluhan</span>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="" id="detailKeluhan"
-                                readonly>
+                            <input type="text" class="form-control form-control-solid" placeholder=""
+                                id="detailKeluhan" readonly>
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -263,7 +334,16 @@
             tabel = $('#TabelRekamMedis').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin-datarekammedis') }}",
+                ajax: {
+                    url: "{{ route('admin-datarekammedis') }}",
+                    data: function(d) {
+                        d.id_dokter = $('#filterNamaDokter').val();
+                        d.id_pasien = $('#filterNamaPasien').val();
+                        d.data_tanggal = $('#filterDataTanggal').val();
+                        d.tanggal_setelah = $('#filterTanggalSetelah').val();
+                        d.tanggal_sebelum = $('#filterTanggalSebelum').val();
+                    }
+                },
                 order: [
                     [5, 'desc'],
                 ],
@@ -357,7 +437,7 @@
                             // Tombol download surat izin muncul jika surat_izin ada
                             if (row.surat_izin) {
                                 buttons += `
-                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                <a onclick="downloadFile('')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -401,6 +481,41 @@
                     infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
                     infoFiltered: "(disaring dari _MAX_ entri keseluruhan)"
                 },
+            });
+
+            // Event listener untuk filter nama dokter
+            $('#filterNamaDokter').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter nama pasien
+            $('#filterNamaPasien').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal
+            $('#filterDataTanggal').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal setelah
+            $('#filterTanggalSetelah').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk filter tanggal sebelum
+            $('#filterTanggalSebelum').on('change', function() {
+                tabel.ajax.reload();
+            });
+
+            // Event listener untuk reset filter
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.getElementById('filterNamaDokter').value = '';
+                document.getElementById('filterNamaPasien').value = '';
+                document.getElementById('filterDataTanggal').value = '';
+                document.getElementById('filterTanggalSetelah').value = '';
+                document.getElementById('filterTanggalSebelum').value = '';
+                $('#TabelRekamMedis').DataTable().ajax.reload();
             });
 
             // Fix tampilan tabel berubah setelah dilakukan responsif
@@ -448,18 +563,8 @@
         }
 
         // Pengambilan data nama file
-        function downloadFile(suratIzin) {
-            if (suratIzin) {
-                var downloadUrl = `/storage/pdf/${suratIzin}`;
-                window.location.href = downloadUrl;
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Tidak Ditemukan',
-                    text: 'Surat izin tidak ditemukan.',
-                    confirmButtonText: 'OK'
-                });
-            }
+        function downloadFile() {
+
         }
 
         // Pegambilan data resep

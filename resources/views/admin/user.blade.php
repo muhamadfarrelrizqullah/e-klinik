@@ -15,7 +15,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <a href="#" class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
+                        <a class="btn btn-sm btn-flex btn-success fw-bold" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
                             <i class="ki-duotone ki-folder-down fs-6 me-1">
                                 <span class="path1"></span>
