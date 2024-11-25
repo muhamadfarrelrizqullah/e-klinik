@@ -1999,6 +1999,11 @@
             #navRole {
                 justify-content: center;
             }
+
+            .dtr-title {
+                text-align: left;
+                color: #99a1b7 !important;
+            }
         }
     </style>
 @endpush

@@ -602,6 +602,11 @@
                 white-space: normal;
                 word-wrap: break-word;
             }
+
+            .dtr-title {
+                text-align: left;
+                color: #99a1b7 !important;
+            }
         }
     </style>
 @endpush
