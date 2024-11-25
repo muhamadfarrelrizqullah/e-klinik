@@ -36,7 +36,7 @@ class DokterRekapSQL
                 'pengajuans.tanggal_pengajuan',
                 'pengajuans.tanggal_pemeriksaan',
                 'pengajuans.catatan',
-                'pengajuans.status_qrcode',
+                'rekaps.qrcode',
                 'rekaps.surat_izin',
                 'reseps.kode_resep',
                 'reseps.status as status_resep',
@@ -60,7 +60,7 @@ class DokterRekapSQL
                 'pengajuans.tanggal_pengajuan',
                 'pengajuans.tanggal_pemeriksaan',
                 'pengajuans.catatan',
-                'pengajuans.status_qrcode',
+                'rekaps.qrcode',
                 'rekaps.surat_izin',
                 'reseps.kode_resep',
                 'reseps.status'

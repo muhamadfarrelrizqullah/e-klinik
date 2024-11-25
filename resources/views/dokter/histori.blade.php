@@ -166,13 +166,6 @@
                             <img src="" alt="QR Code" class="img-fluid" id="detailQR"
                                 style="max-width: 200px;">
                         </div>
-                        <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Status QR Code</span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" placeholder=""
-                                id="detailStatusQR" readonly>
-                        </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -198,7 +191,7 @@
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                     <form class="form" action="#">
-                        <div id="detailObatContainer" class="pt-15"></div>
+                        <div id="detailObatContainer"></div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -296,7 +289,7 @@
                             </a>`;
                             // Tombol QR selalu muncul
                             buttons += `
-                            <a onclick="modalDetailQR('${row.id_pengajuan}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
+                            <a onclick="modalDetailQR('${row.id}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
                                 <i class="ki-duotone ki-scan-barcode fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -477,11 +470,10 @@
         }
 
         // Pengambilan data modal detail QR
-        function modalDetailQR(id, status_qrcode) {
-            var qrcodeUrl = '{{ asset('storage/qr_codes/') }}' + '/' + id + '.png';
+        function modalDetailQR(id) {
+            var qrcodeUrl = '{{ asset('storage/qr_codes/rekap_') }}' + id + '.png';
             // Mengatur URL gambar QR Code
             $('#detailQR').attr('src', qrcodeUrl);
-            $('#detailStatusQR').val(status_qrcode);
             $('#modalDetailQR').modal('show');
         }
 

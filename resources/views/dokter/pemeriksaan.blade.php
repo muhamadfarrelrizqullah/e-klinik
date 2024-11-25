@@ -205,7 +205,6 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="detId" name="id_pengajuan">
-                        <input type="hidden" id="detQRCode" name="qrcode">
                         <input type="hidden" id="detIdDokter" value="{{ $users->id }}" name="id_dokter">
                         <input type="hidden" id="detIdPasien" name="id_pasien">
                         <input type="hidden" id="detDivisiPasien" name="divisi_pasien">
@@ -470,7 +469,7 @@
                                         <span class="path2"></span>
                                     </i>
                                 </a>
-                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.qrcode}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}', '${row.jabatan}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
+                                <a onclick="modalAddPemeriksaan('${row.id}', '${row.tanggal_lahir}', '${row.id_pasien}', '${row.nama_pasien}', '${row.divisi_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.nama_poli}', '${row.jabatan}')" class="btn btn-icon btn-light-success btn-xl" data-bs-toggle="modal" data-bs-target="#modalAddPemeriksaan">
                                     <i class="ki-duotone ki-add-files fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -565,7 +564,7 @@
             $('#modalDetail').modal('show');
         }
 
-        function modalAddPemeriksaan(id, tanggal_lahir, qrcode, id_pasien, nama_pasien, divisi_pasien, nip_pasien,
+        function modalAddPemeriksaan(id, tanggal_lahir, id_pasien, nama_pasien, divisi_pasien, nip_pasien,
             keluhan, tanggal_pengajuan, tanggal_pemeriksaan, nama_poli, jabatan) {
             $('#detId').val(id);
             let datelahir = new Date(tanggal_lahir);
@@ -574,7 +573,6 @@
             let yearlahir = String(datelahir.getFullYear());
             let formattedBirthdatelahir = `${daylahir}/${monthlahir}/${yearlahir}`;
             $('#detTanggalLahir').val(formattedBirthdatelahir);
-            $('#detQRCode').val(qrcode);
             $('#detIdPasien').val(id_pasien);
             $('#detNamaPasien').val(nama_pasien);
             $('#detNipPasien').val(nip_pasien);

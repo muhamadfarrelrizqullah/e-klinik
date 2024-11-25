@@ -7,8 +7,10 @@ use App\Models\Pengajuan;
 use App\Models\Rekap;
 use App\Models\User;
 use App\Services\SQL\DokterPemeriksaanSQL;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PemeriksaanController extends Controller
 {
@@ -65,8 +67,15 @@ class PemeriksaanController extends Controller
         $rekap->id_pasien = $request->id_pasien;
         $rekap->id_dokter = $request->id_dokter;
         $rekap->id_pengajuan = $request->id_pengajuan;
-        $rekap->qrcode = $request->qrcode;
         $rekap->surat_izin = $fileName;
+        $rekap->save();
+
+        // Generate QR Code based on Rekap ID only
+        $qrCodeContent = url('/rekap/' . $rekap->id);
+        $qrCodeImage = QrCode::format('png')->size(300)->generate($qrCodeContent);
+        $qrCodePath = 'public/qr_codes/rekap_' . $rekap->id . '.png';
+        Storage::put($qrCodePath, $qrCodeImage);
+        $rekap->qrcode = Storage::url($qrCodePath);
         $rekap->save();
 
         return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
