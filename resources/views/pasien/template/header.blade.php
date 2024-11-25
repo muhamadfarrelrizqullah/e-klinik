@@ -26,7 +26,7 @@
                 data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
             </div>
             <div class="app-navbar flex-shrink-0">
-                <div class="app-navbar-item ms-1 ms-md-4">
+                {{-- <div class="app-navbar-item ms-1 ms-md-4">
                     <a href="#"
                         class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px"
                         data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
@@ -94,7 +94,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="app-navbar-item ms-1 ms-md-4" id="kt_header_user_menu_toggle">
                     <div class="cursor-pointer symbol symbol-35px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
