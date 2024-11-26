@@ -37,7 +37,7 @@
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
-                    <div class="w-lg-500px p-10">
+                    <div class="w-lg-500px p-10 pt-20 mt-20 pt-lg-0 mt-lg-0">
                         <form class="form w-100" action="{{ route('login-process') }}" method="POST" id="loginForm">
                             @csrf
                             <div class="text-center mb-11">
@@ -70,7 +70,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="w-lg-500px d-flex flex-stack px-10 mx-auto">
+                <div class="w-lg-500px d-flex flex-stack px-10 pt-20 pt-lg-0 mx-auto">
                     <div class="me-10">
                         <a><img alt="Logo" src="assets/media/logos/bumn.png"
                                 class="theme-light-show h-40px app-sidebar-logo-default" /></a>
@@ -84,7 +84,7 @@
             </div>
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2"
                 style="background-image: url(assets/media/misc/background.png)">
-                <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
+                <div class="d-flex flex-column flex-center py-20 py-lg-15 px-5 px-md-15 w-100">
                     <a href="{{ route('landing') }}" class="mb-0 mb-lg-12">
                         <img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-60px h-lg-80px" />
                     </a>

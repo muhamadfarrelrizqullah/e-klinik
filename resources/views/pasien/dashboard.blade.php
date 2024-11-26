@@ -25,7 +25,7 @@
                                                         class="position-absolute opacity-15 bottom-0 start-0 border-4 border-danger border-bottom w-100">
                                                     </span>
                                                 </span>.
-                                                <br /> Kami hadir untuk memberikan pelayanan terbaik dengan proses yang cepat,<br />  aman, dan nyaman karena kesehatan Anda adalah prioritas utama kami.
+                                                <br /> Kami hadir untuk memberikan pelayanan terbaik dengan proses yang <br /> cepat, aman, dan nyaman karena kesehatan Anda adalah prioritas utama kami.
                                             </div>
                                         </span>
                                     </div>
