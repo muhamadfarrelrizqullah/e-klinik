@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ResepTambahRequest extends FormRequest
@@ -26,6 +27,16 @@ class ResepTambahRequest extends FormRequest
             'obat.*.id_obat' => 'required|exists:obats,id',
             'obat.*.jumlah' => 'required|integer|min:1',
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator) {
+            $obatIds = array_column($this->input('obat'), 'id_obat');
+            if (count($obatIds) !== count(array_unique($obatIds))) {
+                $validator->errors()->add('obat', 'Obat tidak boleh duplikat.');
+            }
+        });
     }
 
     public function messages()

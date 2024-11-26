@@ -226,13 +226,13 @@
                         </div>
                         <div id="obatContainer">
                             <div class="row g-9 mb-8" id="row_0">
-                                <div class="col-md-8 fv-row">
+                                <div class="col-md-9 fv-row">
                                     <label for="obat_0"
                                         class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih
                                         Obat</label>
                                     <select name="obat[0][id_obat]" class="form-select form-select-solid"
                                         data-placeholder="" data-hide-search="true">
-                                        <option value="" selected disabled>Masukkan jenis obat</option>
+                                        <option value="" selected disabled>Masukkan nama obat</option>
                                         @foreach ($obats as $obat)
                                             <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
                                         @endforeach
@@ -244,9 +244,9 @@
                                     <input type="text" id="addJumlah" name="obat[0][jumlah]"
                                         class="form-control form-control-solid" placeholder="0">
                                 </div>
-                                <div class="col-md-1 d-flex align-items-end">
+                                {{-- <div class="col-md-1 d-flex align-items-end">
                                     <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="text-end pt-15">
@@ -270,7 +270,7 @@
             $('#addObatRow').click(function() {
                 let newRow = `
                     <div class="row g-9 mb-8" id="row_${obatIndex}">
-                        <div class="col-md-8 fv-row">
+                        <div class="col-md-9 fv-row">
                             <label for="obat_${obatIndex}" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih Obat</label>
                             <select name="obat[${obatIndex}][id_obat]" class="form-select form-select-solid" data-placeholder="" data-hide-search="true">
                                 <option value="" selected disabled>Masukkan jenis obat</option>
@@ -283,22 +283,22 @@
                             <label for="jumlah_${obatIndex}" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Jumlah</label>
                             <input type="text" name="obat[${obatIndex}][jumlah]" class="form-control form-control-solid" placeholder="0">
                         </div>
-                        <div class="col-md-1 d-flex align-items-end">
+                        {{-- <div class="col-md-1 d-flex align-items-end">
                             <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
-                        </div>
+                        </div> --}}
                     </div>`;
                 $('#obatContainer').append(newRow);
                 obatIndex++;
             });
             // Event untuk menghapus baris obat
-            $(document).on('click', '.remove-row', function() {
-                $(this).closest('.row').remove();
-            });
+            // $(document).on('click', '.remove-row', function() {
+            //     $(this).closest('.row').remove();
+            // });
             // Reset form ketika modal ditutup
             $('#modalAddResep').on('hidden.bs.modal', function() {
                 $('#obatContainer').html(`
                     <div class="row g-9 mb-8" id="row_0">
-                        <div class="col-md-8 fv-row">
+                        <div class="col-md-9 fv-row">
                             <label for="obat_0" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Pilih Obat</label>
                             <select name="obat[0][id_obat]" class="form-select form-select-solid" data-placeholder="" data-hide-search="true">
                                 <option value="" selected disabled>Masukkan jenis obat</option>
@@ -311,9 +311,9 @@
                             <label for="jumlah_0" class="d-flex align-items-center fs-6 fw-semibold form-label mb-2 required">Jumlah</label>
                             <input type="text" name="obat[0][jumlah]" class="form-control form-control-solid" placeholder="0">
                         </div>
-                        <div class="col-md-1 d-flex align-items-end">
+                        {{-- <div class="col-md-1 d-flex align-items-end">
                             <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
-                        </div>
+                        </div> --}}
                     </div>
                 `);
                 obatIndex = 1;
