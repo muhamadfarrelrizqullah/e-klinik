@@ -221,6 +221,93 @@
         </div>
     </div>
 
+    <div id="modalDetailNoDokter" class="modal fade" tabindex="-1" aria-hidden="true"
+        aria-labelledby="modalDetailNoDokterLabel">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Pengajuan</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                    <form class="form" action="#">
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>NIP Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNipPasien" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Nama Pasien</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNamaPasien" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Keluhan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detKeluhan"
+                                readonly>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Poli</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detNamaPoli" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Status</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detStatus" readonly>
+                            </div>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pengajuan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detTanggalPengajuan" readonly>
+                            </div>
+                            <div class="col-md-6 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                    <span>Tanggal Pemeriksaan</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder=""
+                                    id="detTanggalPemeriksaan" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Catatan</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="" id="detCatatan"
+                                readonly>
+                        </div>
+                        <div class="text-end pt-15">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                class="btn btn-light me-3">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modalDetailQR" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="modalDetailQRLabel">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
@@ -474,49 +561,45 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            if (row.status === 'Diproses' || row.status === 'Selesai' && !row
-                                .surat_izin) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                            let buttons = '';
+                            // Tombol detail selalu muncul
+                            buttons += '<div class="d-flex justify-content-center flex-shrink-0">';
+                            if (row.status === "Selesai") {
+                                buttons += `
+                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}', '${row.jabatan}', '${row.tl_pasien}', '${row.tb_pasien}', '${row.bb_pasien}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Diproses' || row.status === 'Selesai' && row
-                                .surat_izin) {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                </a>`;
+                            } else {
+                                buttons += `
+                                <a onclick="modalDetailNoDokter('${row.nama_pasien}', '${row.nip_pasien}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}', '${row.jabatan}', '${row.tl_pasien}', '${row.tb_pasien}', '${row.bb_pasien}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailNoDokter">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                </a>
+                                </a>`;
+                            }
+                            // Tombol qr muncul jika qr ada
+                            if (row.qrcode) {
+                                buttons += `
                                 <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
+                                        <i class="ki-duotone ki-scan-barcode fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                            <span class="path5"></span>
+                                            <span class="path6"></span>
+                                            <span class="path7"></span>
+                                            <span class="path8"></span>
+                                        </i>
+                                    </a>`;
+                            }
+                            // Tombol download surat izin muncul jika surat_izin ada
+                            if (row.surat_izin) {
+                                buttons += `
                                 <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
@@ -524,28 +607,11 @@
                                         <span class="path3"></span>
                                         <span class="path4"></span>
                                     </i>
-                                </a>
-                            </div>`
-                            } else if (row.status === 'Diterima') {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                <a onclick="modalDetailQR('${row.id}', '${row.status_qrcode}')" class="btn btn-icon btn-light-info btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailQR">
-                                    <i class="ki-duotone ki-scan-barcode fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                        <span class="path7"></span>
-                                        <span class="path8"></span>
-                                    </i>
-                                </a>
+                                </a>`;
+                            }
+                            // Tombol update status hanya saat status diterima
+                            if (row.status === "Diterima") {
+                                buttons += `
                                 <a onclick="updateStatus(${row.id}, 'Diproses')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-check fs-2">
                                         <span class="path1"></span>
@@ -557,18 +623,10 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                </a>
-                            </div>`
-                            } else {
-                                return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetail('${row.nama_pasien}', '${row.nip_pasien}', '${row.nama_dokter}', '${row.nip_dokter}', '${row.keluhan}', '${row.status}', '${row.tanggal_pengajuan}', '${row.tanggal_pemeriksaan}', '${row.catatan}', '${row.nama_poli}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                    <i class="ki-duotone ki-scroll fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </a>
-                                </div>`
-                            };
+                                </a>`;
+                            }
+                            buttons += '</div>';
+                            return buttons;
                         }
                     },
                     {
@@ -769,6 +827,30 @@
             $('#detailCatatan').val(catatan);
             $('#detailNamaPoli').val(nama_poli);
             $('#modalDetail').modal('show');
+        }
+
+        // Pengambilan data modal detail tanpa dokter
+        function modalDetailNoDokter(nama_pasien, nip_pasien, keluhan, status, tanggal_pengajuan,
+            tanggal_pemeriksaan, catatan, nama_poli) {
+            $('#detNamaPasien').val(nama_pasien);
+            $('#detNipPasien').val(nip_pasien);
+            $('#detKeluhan').val(keluhan);
+            $('#detStatus').val(status);
+            let datePengajuan = new Date(tanggal_pengajuan);
+            let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
+            let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
+            let yearPengajuan = String(datePengajuan.getFullYear());
+            let formattedPengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
+            $('#detTanggalPengajuan').val(formattedPengajuan);
+            let datePemeriksaan = new Date(tanggal_pemeriksaan);
+            let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
+            let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
+            let yearPemeriksaan = String(datePemeriksaan.getFullYear());
+            let formattedPemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
+            $('#detTanggalPemeriksaan').val(formattedPemeriksaan);
+            $('#detCatatan').val(catatan);
+            $('#detNamaPoli').val(nama_poli);
+            $('#modalDetailNoDokter').modal('show');
         }
 
         // Pengambilan data modal detail QR
