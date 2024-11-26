@@ -437,7 +437,7 @@
                             // Tombol download surat izin muncul jika surat_izin ada
                             if (row.surat_izin) {
                                 buttons += `
-                                <a onclick="downloadFile('')" class="btn btn-icon btn-light-success btn-xl me-2">
+                                <a onclick="downloadFile('${row.surat_izin}')" class="btn btn-icon btn-light-success btn-xl me-2">
                                     <i class="ki-duotone ki-file-down fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -563,8 +563,18 @@
         }
 
         // Pengambilan data nama file
-        function downloadFile() {
-
+        function downloadFile(suratIzin) {
+            if (suratIzin) {
+                var downloadUrl = `/storage/pdf/${suratIzin}`;
+                window.location.href = downloadUrl;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tidak Ditemukan',
+                    text: 'Surat izin tidak ditemukan.',
+                    confirmButtonText: 'OK'
+                });
+            }
         }
 
         // Pegambilan data resep
