@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Authentication
+// Authentication
 Route::get('/', [LandingController::class, 'landing'])->name('landing');
 Route::get('/antrian-pemeriksaan', [LandingController::class, 'antrian'])->name('antrian');
 Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'])->name('antrian-data');
@@ -40,8 +40,12 @@ Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
 
+// Logo Pal
 Route::get('/logo-base64', [PdfController::class, 'getLogoBase64']);
-Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr');
+
+// Scan qr admin
+Route::post('/qr-scan/{id}', [QRController::class, 'scanQr'])->name('update-status-from-qr')->middleware('role:Admin');
+Route::get('/rekap/{id}', [QRController::class, 'readQr'])->name('get-rekap-data')->middleware('role:Admin,Dokter');
 
 // Admin Routes
 Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function () {
@@ -111,6 +115,7 @@ Route::prefix('dokter')->name('dokter-')->middleware('role:Dokter')->group(funct
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexDokter'])->name('jadwaldokter');
     Route::get('/resep', [ResepController::class, 'indexDokter'])->name('resep');
     Route::get('/profil', [ProfilController::class, 'indexDokter'])->name('profil');
+    Route::get('/scan-qr', [QrController::class, 'indexDokter'])->name('scanqr');
 
     Route::get('/data-pengajuan', [PengajuanController::class, 'readDokter'])->name('datapengajuan');
     Route::post('/data-pengajuan-tambah', [PengajuanController::class, 'store'])->name('datapengajuan-tambah');
