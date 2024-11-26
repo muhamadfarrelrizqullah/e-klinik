@@ -392,8 +392,8 @@
             let dayDibuat = String(dateDibuat.getDate()).padStart(2, '0');
             let monthDibuat = String(dateDibuat.getMonth() + 1).padStart(2, '0');
             let yearDibuat = String(dateDibuat.getFullYear());
-            let formattedBirthdateDibuat = `${dayDibuat}/${monthDibuat}/${yearDibuat}`;
-            $('#detailTanggalDibuat').val(formattedBirthdateDibuat);
+            let formattedDibuat = `${dayDibuat}/${monthDibuat}/${yearDibuat}`;
+            $('#detailTanggalDibuat').val(formattedDibuat);
 
             $('#modalDetail').modal('show');
         }

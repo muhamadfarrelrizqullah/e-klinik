@@ -332,8 +332,8 @@
             let dayKeluar = String(dateKeluar.getDate()).padStart(2, '0');
             let monthKeluar = String(dateKeluar.getMonth() + 1).padStart(2, '0');
             let yearKeluar = String(dateKeluar.getFullYear());
-            let formattedBirthdateKeluar = `${dayKeluar}/${monthKeluar}/${yearKeluar}`;
-            $('#detailTanggalKeluar').val(formattedBirthdateKeluar);
+            let formattedKeluar = `${dayKeluar}/${monthKeluar}/${yearKeluar}`;
+            $('#detailTanggalKeluar').val(formattedKeluar);
 
             $('#modalDetail').modal('show');
         }

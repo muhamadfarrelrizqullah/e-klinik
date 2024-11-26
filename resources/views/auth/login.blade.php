@@ -129,7 +129,7 @@
                     type: 'POST',
                     data: formData,
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.success) {
                             swalMixinSuccess.fire({
                                 icon: 'success',
@@ -147,7 +147,7 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr.responseJSON);
+                        // console.log(xhr.responseJSON);
                         let errorMessage = 'Unknown error occurred. Please try again.';
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
                             errorMessage = Object.values(xhr.responseJSON.errors).join('<br>');

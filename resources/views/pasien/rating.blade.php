@@ -266,28 +266,28 @@
         });
 
         // Pengambilan data modal detail
-        function modalDetail(nama_pasien, nip_pasien, keluhan, status, tanggal_pengajuan,
-            tanggal_pemeriksaan, catatan, nama_poli) {
-            $('#detailNamaPasien').val(nama_pasien);
-            $('#detailNipPasien').val(nip_pasien);
-            $('#detailKeluhan').val(keluhan);
-            $('#detailStatus').val(status);
-            let datePengajuan = new Date(tanggal_pengajuan);
-            let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
-            let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
-            let yearPengajuan = String(datePengajuan.getFullYear());
-            let formattedBirthdatePengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
-            $('#detailTanggalPengajuan').val(formattedBirthdatePengajuan);
-            let datePemeriksaan = new Date(tanggal_pemeriksaan);
-            let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
-            let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
-            let yearPemeriksaan = String(datePemeriksaan.getFullYear());
-            let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
-            $('#detailTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
-            $('#detailCatatan').val(catatan);
-            $('#detailNamaPoli').val(nama_poli);
-            $('#modalDetail').modal('show');
-        }
+        // function modalDetail(nama_pasien, nip_pasien, keluhan, status, tanggal_pengajuan,
+        //     tanggal_pemeriksaan, catatan, nama_poli) {
+        //     $('#detailNamaPasien').val(nama_pasien);
+        //     $('#detailNipPasien').val(nip_pasien);
+        //     $('#detailKeluhan').val(keluhan);
+        //     $('#detailStatus').val(status);
+        //     let datePengajuan = new Date(tanggal_pengajuan);
+        //     let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
+        //     let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
+        //     let yearPengajuan = String(datePengajuan.getFullYear());
+        //     let formattedPengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
+        //     $('#detailTanggalPengajuan').val(formattedPengajuan);
+        //     let datePemeriksaan = new Date(tanggal_pemeriksaan);
+        //     let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
+        //     let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
+        //     let yearPemeriksaan = String(datePemeriksaan.getFullYear());
+        //     let formattedPemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
+        //     $('#detailTanggalPemeriksaan').val(formattedPemeriksaan);
+        //     $('#detailCatatan').val(catatan);
+        //     $('#detailNamaPoli').val(nama_poli);
+        //     $('#modalDetail').modal('show');
+        // }
     </script>
 @endpush
 

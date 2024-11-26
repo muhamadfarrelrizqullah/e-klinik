@@ -758,14 +758,14 @@
             let dayPengajuan = String(datePengajuan.getDate()).padStart(2, '0');
             let monthPengajuan = String(datePengajuan.getMonth() + 1).padStart(2, '0');
             let yearPengajuan = String(datePengajuan.getFullYear());
-            let formattedBirthdatePengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
-            $('#detailTanggalPengajuan').val(formattedBirthdatePengajuan);
+            let formattedPengajuan = `${dayPengajuan}/${monthPengajuan}/${yearPengajuan}`;
+            $('#detailTanggalPengajuan').val(formattedPengajuan);
             let datePemeriksaan = new Date(tanggal_pemeriksaan);
             let dayPemeriksaan = String(datePemeriksaan.getDate()).padStart(2, '0');
             let monthPemeriksaan = String(datePemeriksaan.getMonth() + 1).padStart(2, '0');
             let yearPemeriksaan = String(datePemeriksaan.getFullYear());
-            let formattedBirthdatePemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
-            $('#detailTanggalPemeriksaan').val(formattedBirthdatePemeriksaan);
+            let formattedPemeriksaan = `${dayPemeriksaan}/${monthPemeriksaan}/${yearPemeriksaan}`;
+            $('#detailTanggalPemeriksaan').val(formattedPemeriksaan);
             $('#detailCatatan').val(catatan);
             $('#detailNamaPoli').val(nama_poli);
             $('#modalDetail').modal('show');
