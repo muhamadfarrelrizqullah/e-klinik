@@ -471,7 +471,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Updated:', data);
+                            // console.log('Updated:', data);
                             tabel.ajax.reload();
                             swalMixinSuccess.fire(
                                 'Berhasil!',
@@ -480,7 +480,7 @@
                             );
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            // console.error('Error:', error);
                             Swal.fire(
                                 'Error!',
                                 'Terjadi kesalahan saat memperbarui status: ' + error.message,

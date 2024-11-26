@@ -125,7 +125,7 @@
                             });
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseJSON.message);
+                            // console.log(xhr.responseJSON.message);
                             Swal.fire(
                                 'Error!',
                                 'Error updating data: ' + xhr.responseJSON.message,

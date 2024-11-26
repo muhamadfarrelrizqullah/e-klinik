@@ -1589,7 +1589,7 @@
                 type: "POST",
                 data: data,
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     $('#modalAdd').modal('hide');
                     tabelPasien.ajax.reload();
                     tabelDokter.ajax.reload();
@@ -1602,7 +1602,7 @@
                     );
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON.message);
+                    // console.log(xhr.responseJSON.message);
                     Swal.fire(
                         'Error!',
                         'Error menambahkan user: ' + xhr.responseJSON.message,
@@ -1649,7 +1649,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Deleted:', data);
+                            // console.log('Deleted:', data);
                             tabelPasien.ajax.reload();
                             tabelDokter.ajax.reload();
                             tabelAdmin.ajax.reload();
@@ -1661,7 +1661,7 @@
                             );
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            // console.error('Error:', error);
                             Swal.fire(
                                 'Error!',
                                 'Error menghapus user: ' + error.message,
@@ -1776,7 +1776,7 @@
                         type: "PUT",
                         data: data,
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             $('#modalEdit').modal('hide');
                             tabelPasien.ajax.reload();
                             tabelDokter.ajax.reload();
@@ -1789,7 +1789,7 @@
                             );
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseJSON.message);
+                            // console.log(xhr.responseJSON.message);
                             Swal.fire(
                                 'Error!',
                                 'Error mengupdate user: ' + xhr.responseJSON.message,

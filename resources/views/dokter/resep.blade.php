@@ -566,7 +566,7 @@
                     );
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON.message);
+                    // console.log(xhr.responseJSON.message);
                     Swal.fire(
                         'Error!',
                         'Error menambahkan resep: ' + xhr.responseJSON.message,

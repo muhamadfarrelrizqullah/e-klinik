@@ -299,7 +299,7 @@
                         type: "PUT",
                         data: data,
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             $('#modalEdit').modal('hide');
                             tabel.ajax.reload();
                             swalMixinSuccess.fire(
@@ -309,7 +309,7 @@
                             );
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseJSON.message);
+                            // console.log(xhr.responseJSON.message);
                             Swal.fire(
                                 'Error!',
                                 'Error mengupdate jenis obat: ' + xhr.responseJSON.message,
@@ -345,7 +345,7 @@
                 type: "POST",
                 data: data,
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     $('#modalAdd').modal('hide');
                     tabel.ajax.reload();
                     swalMixinSuccess.fire(
@@ -355,7 +355,7 @@
                     );
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON.message);
+                    // console.log(xhr.responseJSON.message);
                     Swal.fire(
                         'Error!',
                         'Error menambahkan Jenis Obat: ' + xhr.responseJSON.message,
@@ -402,7 +402,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Deleted:', data);
+                            // console.log('Deleted:', data);
                             tabel.ajax.reload();
                             swalMixinSuccess.fire(
                                 'Deleted!',
@@ -411,7 +411,7 @@
                             );
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            // console.error('Error:', error);
                             Swal.fire(
                                 'Error!',
                                 'Error menghapus jenis obat: ' + error.message,

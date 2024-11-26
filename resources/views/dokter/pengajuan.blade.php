@@ -440,7 +440,7 @@
                 type: "POST",
                 data: data,
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     $('#modalAdd').modal('hide');
                     tabel.ajax.reload();
                     swalMixinSuccess.fire(
@@ -450,7 +450,7 @@
                     );
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON.message);
+                    // console.log(xhr.responseJSON.message);
                     Swal.fire(
                         'Error!',
                         'Error menambahkan pengajuan: ' + xhr.responseJSON.message,

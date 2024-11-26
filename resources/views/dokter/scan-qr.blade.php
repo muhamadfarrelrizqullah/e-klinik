@@ -49,7 +49,7 @@
             const urlSegments = decodedText.split('/');
             const lastSegment = urlSegments.pop();
 
-            console.log(lastSegment);
+            // console.log(lastSegment);
             fetch(`{{ route('get-rekap-data', ':id') }}`.replace(':id', lastSegment))
                 .then(response => response.json())
                 .then(data => {
