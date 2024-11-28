@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisiSeeder::class);
         $this->call(PoliSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PengajuanSeeder::class);
         $this->call(PivotPoliUserSeeder::class);
+        $this->call(JadwalDokterSeeder::class);
         $this->call(JenisObatSeeder::class);
         $this->call(ObatSeeder::class);
-        $this->call(JadwalDokterSeeder::class);
+        // $this->call(PengajuanSeeder::class);
         // $this->call(ResepSeeder::class);
         // $this->call(DetailResepSeeder::class);
     }
