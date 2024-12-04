@@ -75,15 +75,15 @@
                                         id="kt_landing_menu">
                                         <div class="menu-item">
                                             <a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Home</a>
+                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->main_page_header}}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Dokter Kami</a>
+                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->second_page_header}}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Berita</a>
+                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->third_page_header}}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#portfolio"
@@ -100,7 +100,7 @@
                 </div>
                 <div class="d-flex flex-column flex-center w-100 min-h-350px min-h-lg-500px px-9">
                     <div class="text-center mb-5 mb-lg-10 py-10 py-lg-20">
-                        <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">Selamat Datang di e-Klinik
+                        <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">{{ $companyProfiles->main_page_title}}
                             <br />Solusi Kesehatan Digital Anda!
                         </h1>
                         {{-- <a href="{{ route('antrian') }}" class="btn btn-primary">Cek Antrian</a> --}}
@@ -112,10 +112,10 @@
             <div class="container">
                 <div class="text-center mb-17">
                     <h3 class="fs-2hx text-gray-900 mb-5" id="how-it-works"
-                        data-kt-scroll-offset="{default: 100, lg: 150}">Dokter Kami</h3>
-                    <div class="fs-5 text-muted fw-bold">Tenaga kesehatan yang siap membantu
-                        <br />dalam pelayanan kesehatan anda
-                    </div>
+                        data-kt-scroll-offset="{default: 100, lg: 150}">{{ $companyProfiles->second_page_title}}</h3>
+                    <div class="fs-5 text-muted fw-bold">{{ $companyProfiles->second_page_desc}}</div>
+                        {{-- <br />dalam pelayanan kesehatan anda --}}
+                    {{-- </div> --}}
                 </div>
                 <div class="row w-100 gy-10 mb-md-20 justify-content-center">
                     @foreach ($dataDokter as $dokter)
@@ -172,7 +172,7 @@
                 <div class="container">
                     <div class="text-center mt-15 mb-18" id="achievements"
                         data-kt-scroll-offset="{default: 100, lg: 150}">
-                        <h3 class="fs-2hx text-white fw-bold mb-5">Berita Terbaru</h3>
+                        <h3 class="fs-2hx text-white fw-bold mb-5">{{ $companyProfiles->third_page_title }}</h3>
                         {{-- <div class="fs-5 text-gray-700 fw-bold">Berikut info card total data
                             <br />website e-klinik Pt. PAL Indonesia
                         </div> --}}

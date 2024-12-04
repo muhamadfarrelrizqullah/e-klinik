@@ -19,6 +19,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PengaturanHalaman;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +57,9 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/poli', [PoliController::class, 'index'])->name('poli');
     Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
-    Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
+    Route::get('/scan-qr', action: [QrController::class, 'indexAdmin'])->name('scanqr');
+    Route::get('/pengaturan-halaman', action: [PengaturanHalaman::class, 'indexAdmin'])->name('pengaturanhalaman');
+    Route::get('/edit-pengaturan-halaman', action: [PengaturanHalaman::class, 'update'])->name('company-profile.update');
     Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
     Route::get('/rekam-medis', [RekamMedisController::class, 'indexAdmin'])->name('rekammedis');

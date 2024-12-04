@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Models\PivotPoliUser;
 use App\Models\User;
+use App\Models\CompanyProfile;
 use App\Services\SQL\LandingPengajuanSQL;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,8 +20,10 @@ class LandingController extends Controller
         $dataDokter = User::where('role', 'Dokter')
         ->with('polis')
         ->get();
+        $companyProfiles = CompanyProfile::first();
+        // dd($companyProfiles);
         // dd($dataDokter);
-        return view('landing', compact('totalDokter','totalPengajuan','totalPasien', 'dataDokter'));
+        return view('landing', compact('totalDokter','totalPengajuan','totalPasien', 'dataDokter', 'companyProfiles'));
     }
 
     public function landing_antrian()
