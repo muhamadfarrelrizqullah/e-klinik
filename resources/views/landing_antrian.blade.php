@@ -79,11 +79,13 @@
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Dokter Kami</a>
+                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Cara
+                                                Pengajuan</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Berita</a>
+                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Total
+                                                Data</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#portfolio"
@@ -103,7 +105,7 @@
                         <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">Selamat Datang di e-Klinik
                             <br />Solusi Kesehatan Digital Anda!
                         </h1>
-                        {{-- <a href="{{ route('antrian') }}" class="btn btn-primary">Cek Antrian</a> --}}
+                        <a href="{{ route('antrian') }}" class="btn btn-primary">Cek Antrian</a>
                     </div>
                 </div>
             </div>
@@ -112,51 +114,53 @@
             <div class="container">
                 <div class="text-center mb-17">
                     <h3 class="fs-2hx text-gray-900 mb-5" id="how-it-works"
-                        data-kt-scroll-offset="{default: 100, lg: 150}">Dokter Kami</h3>
-                    <div class="fs-5 text-muted fw-bold">Tenaga kesehatan yang siap membantu
-                        <br />dalam pelayanan kesehatan anda
+                        data-kt-scroll-offset="{default: 100, lg: 150}">Cara Pengajuan</h3>
+                    <div class="fs-5 text-muted fw-bold">Berikut 3 step cara mengajukan pemerikaan kesehatan <br>
+                        melalui website e-klinik Pt. PAL Indonesia
                     </div>
                 </div>
-                <div class="row w-100 gy-10 mb-md-20 justify-content-center">
-                    @foreach ($dataDokter as $dokter)
-                        <div class="col-md-4 px-5">
-                            <div class="text-center mb-10 mb-md-0">
-                                <img src="assets/media/illustrations/sigma-1/16.png" class="mh-125px mb-9" alt="" />
-                                <div class="d-flex flex-center mb-5">
-                                    {{-- <span class="badge badge-circle badge-light-success fw-bold p-5 me-3 fs-3">1</span> --}}
-                                    <div class="fs-5 fs-lg-3 fw-bold text-gray-900">{{ $dokter->nama }}</div>
-                                </div>
-                                <div class="fw-semibold fs-6 fs-lg-4 text-muted">
-                                    @php
-                                    // Ambil data dokter spesialis
-                                    echo $dokter->spesialis;
-
-                                    // Ambil relasi pivot_poli_users dan load data poli untuk setiap dokter
-                                    $pivotuser = \App\Models\PivotPoliUser::with('poli') // Memuat relasi poli
-                                        ->where('id_dokter', $dokter->id)
-                                        ->get();
-
-                                    // Buat array untuk menampung nama poli
-                                    $poliUser = [];
-
-                                    // Loop melalui data pivotuser dan ambil nama poli dari relasi poli
-                                    foreach ($pivotuser as $value) {
-                                        $poliUser[] = $value->poli->nama; // Ambil nama poli dari relasi
-                                    }
-                                    @endphp
-
-                                    @if (!empty($poliUser))
-                                        Poli: {{ implode(', ', $poliUser) }} <!-- Menampilkan daftar nama poli -->
-                                    @else
-                                        Poli: -
-                                    @endif
-                                </div>
-
-
+                <div class="row w-100 gy-10 mb-md-20">
+                    <div class="col-md-4 px-5">
+                        <div class="text-center mb-10 mb-md-0">
+                            <img src="assets/media/illustrations/sigma-1/16.png" class="mh-125px mb-9" alt="" />
+                            <div class="d-flex flex-center mb-5">
+                                <span class="badge badge-circle badge-light-success fw-bold p-5 me-3 fs-3">1</span>
+                                <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Pasien melakukan Login</div>
+                            </div>
+                            <div class="fw-semibold fs-6 fs-lg-4 text-muted">Pasien mengakses website e-klinik
+                                <br />kemudian melaukan login sesuai akun
+                                <br />yang telah dibuat.
                             </div>
                         </div>
-
-                    @endforeach
+                    </div>
+                    <div class="col-md-4 px-5">
+                        <div class="text-center mb-10 mb-md-0">
+                            <img src="assets/media/illustrations/sigma-1/4.png" class="mh-125px mb-9"
+                                alt="" />
+                            <div class="d-flex flex-center mb-5">
+                                <span class="badge badge-circle badge-light-success fw-bold p-5 me-3 fs-3">2</span>
+                                <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Pasien mengajukan Pemeriksaan</div>
+                            </div>
+                            <div class="fw-semibold fs-6 fs-lg-4 text-muted">Pasien mengajukan pemeriksaan kesehatan
+                                <br />yang kemudian nantinya akan dicek
+                                <br />terlebih dahulu oleh dokter.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-5">
+                        <div class="text-center mb-10 mb-md-0">
+                            <img src="assets/media/illustrations/sigma-1/17.png" class="mh-125px mb-9"
+                                alt="" />
+                            <div class="d-flex flex-center mb-5">
+                                <span class="badge badge-circle badge-light-success fw-bold p-5 me-3 fs-3">3</span>
+                                <div class="fs-5 fs-lg-3 fw-bold text-gray-900">Pasien melakukan Review</div>
+                            </div>
+                            <div class="fw-semibold fs-6 fs-lg-4 text-muted">Pasien melakukan review terhadap
+                                <br />kinerja dokter yang menangani
+                                <br />pengajuan pemeriksaan.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,65 +176,30 @@
                 <div class="container">
                     <div class="text-center mt-15 mb-18" id="achievements"
                         data-kt-scroll-offset="{default: 100, lg: 150}">
-                        <h3 class="fs-2hx text-white fw-bold mb-5">Berita Terbaru</h3>
-                        {{-- <div class="fs-5 text-gray-700 fw-bold">Berikut info card total data
+                        <h3 class="fs-2hx text-white fw-bold mb-5">Total Data</h3>
+                        <div class="fs-5 text-gray-700 fw-bold">Berikut info card total data
                             <br />website e-klinik Pt. PAL Indonesia
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="d-flex flex-center">
                         <div class="d-flex flex-wrap flex-center justify-content-lg-between mb-15 mx-auto w-xl-900px">
                             <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
                                 style="background-image: url('assets/media/svg/misc/octagon.svg')">
                                 <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                    {{-- <span class="path1"></span>
+                                    <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
-                                    <span class="path4">a</span> --}}
+                                    <span class="path4"></span>
                                 </i>
                                 <div class="mb-0">
                                     <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
                                         <div class="min-w-70px text-center" data-kt-countup="true"
-                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                            >Berita 1</div>
+                                            data-kt-countup-value="{{ $totalDokter }}">0</div>
                                     </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 1</span>
+                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Total Dokter</span>
                                 </div>
                             </div>
                             <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                            style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                            <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                {{-- <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4">a</span> --}}
-                            </i>
-                            <div class="mb-0">
-                                <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                    <div class="min-w-70px text-center" data-kt-countup="true"
-                                        {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                        >Berita 2</div>
-                                </div>
-                                <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 2</span>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                        style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                        <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                            {{-- <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4">a</span> --}}
-                        </i>
-                        <div class="mb-0">
-                            <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                <div class="min-w-70px text-center" data-kt-countup="true"
-                                    {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                    >Berita 3</div>
-                            </div>
-                            <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 3</span>
-                        </div>
-                    </div>
-                            {{-- <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
                                 style="background-image: url('assets/media/svg/misc/octagon.svg')">
                                 <i class="ki-duotone ki-profile-user fs-2tx text-white mb-3">
                                     <span class="path1"></span>
@@ -260,7 +229,7 @@
                                     </div>
                                     <span class="text-gray-600 fw-semibold fs-5 lh-0">Total Pengajuan Selesai</span>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>

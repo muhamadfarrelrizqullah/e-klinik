@@ -21,4 +21,9 @@ class Poli extends Model
     {
         return $this->hasMany(Pengajuan::class, 'id_poli');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'pivot_poli_users', 'id_poli', 'id_dokter');
+    }
 }

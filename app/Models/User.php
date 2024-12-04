@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(PivotPoliUser::class, 'id_dokter');
     }
 
+    public function polis()
+    {
+        return $this->belongsToMany(Poli::class, 'pivot_poli_users', 'id_dokter', 'id_poli');
+    }
+
     public function ratingsAsPasien()
     {
         return $this->hasMany(Rating::class, 'id_pasien');

@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication
 Route::get('/', [LandingController::class, 'landing'])->name('landing');
+Route::get('/landing-antrian', [LandingController::class, 'landing_antrian'])->name('landing');
 Route::get('/antrian-pemeriksaan', [LandingController::class, 'antrian'])->name('antrian');
 Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'])->name('antrian-data');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
