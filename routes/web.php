@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutentikasiController;
+use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JadwalDokterController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PengaturanHalaman;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication
 Route::get('/', [LandingController::class, 'landing'])->name('landing');
-Route::get('/landing-antrian', [LandingController::class, 'landing_antrian'])->name('landing');
+Route::get('/landing-antrian', [LandingController::class, 'landing_antrian'])->name('landing_antrian');
 Route::get('/antrian-pemeriksaan', [LandingController::class, 'antrian'])->name('antrian');
 Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'])->name('antrian-data');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
@@ -57,9 +57,8 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/poli', [PoliController::class, 'index'])->name('poli');
     Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
-    Route::get('/scan-qr', action: [QrController::class, 'indexAdmin'])->name('scanqr');
-    Route::get('/pengaturan-halaman', action: [PengaturanHalaman::class, 'indexAdmin'])->name('pengaturanhalaman');
-    Route::get('/edit-pengaturan-halaman', action: [PengaturanHalaman::class, 'update'])->name('company-profile.update');
+    Route::get('/scan-qr', [QrController::class, 'indexAdmin'])->name('scanqr');
+    Route::get('/profil-perusahaan', [CompanyProfileController::class, 'indexAdmin'])->name('profilperusahaan');
     Route::get('/rating', [RatingController::class, 'indexAdmin'])->name('rating');
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
     Route::get('/rekam-medis', [RekamMedisController::class, 'indexAdmin'])->name('rekammedis');
@@ -105,6 +104,10 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::delete('/data-obat-delete/{id}', [ObatController::class, 'destroy'])->name('dataobat-delete');
 
     Route::get('/data-rekam-medis', [RekamMedisController::class, 'read'])->name('datarekammedis');
+    
+    Route::get('/data-pengaturan-halaman', [CompanyProfileController::class, 'read'])->name('datapengaturanhalaman');
+    Route::put('/data-pengaturan-halaman-edit', [CompanyProfileController::class, 'update'])->name('datapengaturanhalaman-edit');
+
 
     Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');

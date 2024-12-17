@@ -166,12 +166,11 @@
                             <span class="menu-title">Scan QR</span>
                         </a>
                     </div>
-
                     <div class="menu-item">
-                        <a class="menu-link {{ Request::routeIs('admin-pengaturanhalaman') ? 'active' : '' }}"
-                            href="{{ route('admin-pengaturanhalaman') }}">
+                        <a class="menu-link {{ Request::routeIs('admin-profilperusahaan') ? 'active' : '' }}"
+                            href="{{ route('admin-profilperusahaan') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-technology fs-2">
+                                <i class="ki-duotone ki-abstract-31 fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
@@ -186,7 +185,6 @@
                             <span class="menu-title">Pengaturan Halaman</span>
                         </a>
                     </div>
-
                     <div class="menu-item pt-5">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-7">Akun</span>

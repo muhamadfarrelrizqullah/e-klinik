@@ -75,15 +75,18 @@
                                         id="kt_landing_menu">
                                         <div class="menu-item">
                                             <a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->main_page_header}}</a>
+                                                data-kt-scroll-toggle="true"
+                                                data-kt-drawer-dismiss="true">{{ $companyProfiles->main_page_header }}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->second_page_header}}</a>
+                                                data-kt-scroll-toggle="true"
+                                                data-kt-drawer-dismiss="true">{{ $companyProfiles->second_page_header }}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">{{ $companyProfiles->third_page_header}}</a>
+                                                data-kt-scroll-toggle="true"
+                                                data-kt-drawer-dismiss="true">{{ $companyProfiles->third_page_header }}</a>
                                         </div>
                                         <div class="menu-item">
                                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#portfolio"
@@ -100,7 +103,8 @@
                 </div>
                 <div class="d-flex flex-column flex-center w-100 min-h-350px min-h-lg-500px px-9">
                     <div class="text-center mb-5 mb-lg-10 py-10 py-lg-20">
-                        <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">{{ $companyProfiles->main_page_title}}
+                        <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mt-10 mb-6">
+                            {{ $companyProfiles->main_page_title }}
                             <br />Solusi Kesehatan Digital Anda!
                         </h1>
                         {{-- <a href="{{ route('antrian') }}" class="btn btn-primary">Cek Antrian</a> --}}
@@ -112,50 +116,27 @@
             <div class="container">
                 <div class="text-center mb-17">
                     <h3 class="fs-2hx text-gray-900 mb-5" id="how-it-works"
-                        data-kt-scroll-offset="{default: 100, lg: 150}">{{ $companyProfiles->second_page_title}}</h3>
-                    <div class="fs-5 text-muted fw-bold">{{ $companyProfiles->second_page_desc}}</div>
-                        {{-- <br />dalam pelayanan kesehatan anda --}}
-                    {{-- </div> --}}
+                        data-kt-scroll-offset="{default: 100, lg: 150}">{{ $companyProfiles->second_page_title }}</h3>
+                    <div class="fs-5 text-muted fw-bold">{{ $companyProfiles->second_page_desc }}</div>
                 </div>
                 <div class="row w-100 gy-10 mb-md-20 justify-content-center">
                     @foreach ($dataDokter as $dokter)
-                        <div class="col-md-4 px-5">
-                            <div class="text-center mb-10 mb-md-0">
-                                <img src="assets/media/illustrations/sigma-1/16.png" class="mh-125px mb-9" alt="" />
-                                <div class="d-flex flex-center mb-5">
-                                    {{-- <span class="badge badge-circle badge-light-success fw-bold p-5 me-3 fs-3">1</span> --}}
-                                    <div class="fs-5 fs-lg-3 fw-bold text-gray-900">{{ $dokter->nama }}</div>
+                        <div class="col-6 col-sm-4 col-md-3">
+                            <!-- Menggunakan col-6 di hp, col-sm-4 di tablet, dan col-md-3 di desktop -->
+                            <div class="card shadow-sm">
+                                <img src="assets/media/illustrations/sigma-1/16.png" class="card-img-top"
+                                    alt="Dokter Image">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title fs-5 fs-lg-3 fw-bold text-gray-900">{{ $dokter->nama }}</h5>
+                                    <!-- Menampilkan badge untuk setiap poli -->
+                                    <div class="mb-2">
+                                        @foreach (explode(',', $dokter->poli_nama) as $poli)
+                                            <span class="badge badge-light-primary">{{ trim($poli) }}</span>
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div class="fw-semibold fs-6 fs-lg-4 text-muted">
-                                    @php
-                                    // Ambil data dokter spesialis
-                                    echo $dokter->spesialis;
-
-                                    // Ambil relasi pivot_poli_users dan load data poli untuk setiap dokter
-                                    $pivotuser = \App\Models\PivotPoliUser::with('poli') // Memuat relasi poli
-                                        ->where('id_dokter', $dokter->id)
-                                        ->get();
-
-                                    // Buat array untuk menampung nama poli
-                                    $poliUser = [];
-
-                                    // Loop melalui data pivotuser dan ambil nama poli dari relasi poli
-                                    foreach ($pivotuser as $value) {
-                                        $poliUser[] = $value->poli->nama; // Ambil nama poli dari relasi
-                                    }
-                                    @endphp
-
-                                    @if (!empty($poliUser))
-                                        Poli: {{ implode(', ', $poliUser) }} <!-- Menampilkan daftar nama poli -->
-                                    @else
-                                        Poli: -
-                                    @endif
-                                </div>
-
-
                             </div>
                         </div>
-
                     @endforeach
                 </div>
             </div>
@@ -173,6 +154,7 @@
                     <div class="text-center mt-15 mb-18" id="achievements"
                         data-kt-scroll-offset="{default: 100, lg: 150}">
                         <h3 class="fs-2hx text-white fw-bold mb-5">{{ $companyProfiles->third_page_title }}</h3>
+                        <div class="fs-5 text-muted fw-bold">{{ $companyProfiles->third_page_desc }}</div>
                         {{-- <div class="fs-5 text-gray-700 fw-bold">Berikut info card total data
                             <br />website e-klinik Pt. PAL Indonesia
                         </div> --}}
@@ -190,46 +172,43 @@
                                 <div class="mb-0">
                                     <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
                                         <div class="min-w-70px text-center" data-kt-countup="true"
-                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                            >Berita 1</div>
+                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 1</div>
                                     </div>
                                     <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 1</span>
                                 </div>
                             </div>
                             <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                            style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                            <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                {{-- <span class="path1"></span>
+                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
+                                <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
+                                    {{-- <span class="path1"></span>
                                 <span class="path2"></span>
                                 <span class="path3"></span>
                                 <span class="path4">a</span> --}}
-                            </i>
-                            <div class="mb-0">
-                                <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                    <div class="min-w-70px text-center" data-kt-countup="true"
-                                        {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                        >Berita 2</div>
+                                </i>
+                                <div class="mb-0">
+                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
+                                        <div class="min-w-70px text-center" data-kt-countup="true"
+                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 2</div>
+                                    </div>
+                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 2</span>
                                 </div>
-                                <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 2</span>
                             </div>
-                        </div>
-                        <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                        style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                        <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                            {{-- <span class="path1"></span>
+                            <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
+                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
+                                <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
+                                    {{-- <span class="path1"></span>
                             <span class="path2"></span>
                             <span class="path3"></span>
                             <span class="path4">a</span> --}}
-                        </i>
-                        <div class="mb-0">
-                            <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                <div class="min-w-70px text-center" data-kt-countup="true"
-                                    {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}
-                                    >Berita 3</div>
+                                </i>
+                                <div class="mb-0">
+                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
+                                        <div class="min-w-70px text-center" data-kt-countup="true"
+                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 3</div>
+                                    </div>
+                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 3</span>
+                                </div>
                             </div>
-                            <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 3</span>
-                        </div>
-                    </div>
                             {{-- <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
                                 style="background-image: url('assets/media/svg/misc/octagon.svg')">
                                 <i class="ki-duotone ki-profile-user fs-2tx text-white mb-3">
@@ -362,15 +341,18 @@
             <div class="container">
                 <div class="row py-10 py-lg-20">
                     <div class="col-lg-6 pe-lg-16 mb-10 mb-lg-0">
-						<div class="rounded landing-dark-border p-9 mb-10 ml-auto d-flex flex-column align-items-center">
-							<h2 class="text-white mb-6">Kunjungi Kami</h2>
-							<div class="position-relative w-100" style="max-width: 450px; height: 0; padding-bottom: 56.25%;">
-								<iframe
-									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20(Persero)!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid"
-									style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-									allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-							</div>
-						</div>
+                        <div
+                            class="rounded landing-dark-border p-9 mb-10 ml-auto d-flex flex-column align-items-center">
+                            <h2 class="text-white mb-6">Kunjungi Kami</h2>
+                            <div class="position-relative w-100"
+                                style="max-width: 450px; height: 0; padding-bottom: 56.25%;">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.309608484835!2d112.73898467475983!3d-7.205475092800067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9fdd43a47e3%3A0xe81dae64f37a97ee!2sPT%20PAL%20Indonesia%20(Persero)!5e0!3m2!1sid!2sid!4v1721619878386!5m2!1sid!2sid"
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                                    allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-6 ps-lg-16">
                         <div class="d-flex justify-content-center">
@@ -411,7 +393,7 @@
                         <a href="{{ route('landing') }}">
                             <img alt="Logo" src="assets/media/logos/pal-dark.png" class="h-15px h-md-20px" />
                         </a>
-                        <span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" >&copy;
+                        <span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1">&copy;
                             2024 Pt. PAL Indonesia</span>
                     </div>
                     <ul class="menu menu-gray-600 menu-hover-primary fw-semibold fs-6 fs-md-5 order-1 mb-5 mb-md-0">

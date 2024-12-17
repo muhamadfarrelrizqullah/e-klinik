@@ -6,18 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('pivot_poli_users', function (Blueprint $table) {
+        Schema::create('pivot_polis_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_dokter')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id_poli')->constrained('polis')->onDelete('cascade');
+            $table->unsignedBigInteger('id_dokter');
+            $table->unsignedBigInteger('id_poli');
             $table->timestamps();
+            // Foreign keys
+            $table->foreign('id_dokter')->references('id')->on('users');
+            $table->foreign('id_poli')->references('id')->on('polis');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('pivot_poli_users');
+        Schema::dropIfExists('pivot_polis_users');
     }
 };
