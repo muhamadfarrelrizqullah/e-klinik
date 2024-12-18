@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\Pengajuan;
 use App\Models\PivotPoliUser;
 use App\Models\User;
@@ -49,7 +50,8 @@ class LandingController extends Controller
             )
             ->get();
         $companyProfiles = CompanyProfile::first();
-        return view('landing', compact('totalDokter', 'totalPengajuan', 'totalPasien', 'dataDokter', 'companyProfiles'));
+        $dataBerita = Berita::all();
+        return view('landing', compact('totalDokter', 'totalPengajuan', 'totalPasien', 'dataDokter', 'companyProfiles', 'dataBerita'));
     }
 
     public function landing_antrian()

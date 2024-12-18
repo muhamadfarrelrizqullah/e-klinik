@@ -122,13 +122,11 @@
                 <div class="row w-100 gy-10 mb-md-20 justify-content-center">
                     @foreach ($dataDokter as $dokter)
                         <div class="col-6 col-sm-4 col-md-3">
-                            <!-- Menggunakan col-6 di hp, col-sm-4 di tablet, dan col-md-3 di desktop -->
                             <div class="card shadow-sm">
                                 <img src="assets/media/illustrations/sigma-1/16.png" class="card-img-top"
                                     alt="Dokter Image">
                                 <div class="card-body text-center">
                                     <h5 class="card-title fs-5 fs-lg-3 fw-bold text-gray-900">{{ $dokter->nama }}</h5>
-                                    <!-- Menampilkan badge untuk setiap poli -->
                                     <div class="mb-2">
                                         @foreach (explode(',', $dokter->poli_nama) as $poli)
                                             <span class="badge badge-light-primary">{{ trim($poli) }}</span>
@@ -155,92 +153,21 @@
                         data-kt-scroll-offset="{default: 100, lg: 150}">
                         <h3 class="fs-2hx text-white fw-bold mb-5">{{ $companyProfiles->third_page_title }}</h3>
                         <div class="fs-5 text-muted fw-bold">{{ $companyProfiles->third_page_desc }}</div>
-                        {{-- <div class="fs-5 text-gray-700 fw-bold">Berikut info card total data
-                            <br />website e-klinik Pt. PAL Indonesia
-                        </div> --}}
                     </div>
-                    <div class="d-flex flex-center">
-                        <div class="d-flex flex-wrap flex-center justify-content-lg-between mb-15 mx-auto w-xl-900px">
-                            <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                                <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                    {{-- <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4">a</span> --}}
-                                </i>
-                                <div class="mb-0">
-                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                        <div class="min-w-70px text-center" data-kt-countup="true"
-                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 1</div>
+                    <div class="row justify-content-center">
+                        @foreach ($dataBerita as $berita)
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="card shadow-sm border-0">
+                                    <img src="{{ asset('assets/media/illustrations/sigma-1/16.png') }}" class="card-img-top"
+                                        alt="Cover Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-dark">{{ $berita->judul }}</h5>
+                                        <p class="card-text text-muted">{{ $berita->deskripsi }}</p>
+                                        <a href="{{ route('index-berita', $berita->id) }}" class="btn btn-primary">Read More</a>
                                     </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 1</span>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                                <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                    {{-- <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4">a</span> --}}
-                                </i>
-                                <div class="mb-0">
-                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                        <div class="min-w-70px text-center" data-kt-countup="true"
-                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 2</div>
-                                    </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 2</span>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                                <i class="ki-duotone ki-syringe fs-2tx text-white mb-3">
-                                    {{-- <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4">a</span> --}}
-                                </i>
-                                <div class="mb-0">
-                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                        <div class="min-w-70px text-center" data-kt-countup="true"
-                                            {{-- {{-- data-kt-countup-value="{{ $totalDokter }}" --}}>Berita 3</div>
-                                    </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Deskripsi Berita 3</span>
-                                </div>
-                            </div>
-                            {{-- <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                                <i class="ki-duotone ki-profile-user fs-2tx text-white mb-3">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
-                                <div class="mb-0">
-                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                        <div class="min-w-70px text-center" data-kt-countup="true"
-                                            data-kt-countup-value="{{ $totalPasien }}">0</div>
-                                    </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Total Pasien</span>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-center h-200px w-200px h-lg-250px w-lg-250px m-3 bgi-no-repeat bgi-position-center bgi-size-contain"
-                                style="background-image: url('assets/media/svg/misc/octagon.svg')">
-                                <i class="ki-duotone ki-file-added fs-2tx text-white mb-3">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                                <div class="mb-0">
-                                    <div class="fs-lg-2hx fs-2x fw-bold text-white d-flex flex-center">
-                                        <div class="min-w-70px text-center" data-kt-countup="true"
-                                            data-kt-countup-value="{{ $totalPengajuan }}">0</div>
-                                    </div>
-                                    <span class="text-gray-600 fw-semibold fs-5 lh-0">Total Pengajuan Selesai</span>
-                                </div>
-                            </div> --}}
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

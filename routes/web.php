@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutentikasiController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisiController;
@@ -41,6 +42,7 @@ Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');
 Route::post('/logout', [AutentikasiController::class, 'logout'])->name('logout');
+Route::get('/berita/{id}', [BeritaController::class, 'index'])->name('index-berita');
 
 // Logo Pal
 Route::get('/logo-base64', [PdfController::class, 'getLogoBase64']);
