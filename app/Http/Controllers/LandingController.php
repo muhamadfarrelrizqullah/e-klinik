@@ -50,7 +50,7 @@ class LandingController extends Controller
             )
             ->get();
         $companyProfiles = CompanyProfile::first();
-        $dataBerita = Berita::all();
+        $dataBerita = Berita::orderBy('created_at', 'desc')->take(3)->get();
         return view('landing', compact('totalDokter', 'totalPengajuan', 'totalPasien', 'dataDokter', 'companyProfiles', 'dataBerita'));
     }
 

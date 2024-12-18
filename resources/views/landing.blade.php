@@ -158,12 +158,13 @@
                         @foreach ($dataBerita as $berita)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                 <div class="card shadow-sm border-0">
-                                    <img src="{{ asset('assets/media/illustrations/sigma-1/16.png') }}" class="card-img-top"
-                                        alt="Cover Image">
+                                    <img src="{{ asset('storage/covers/' . $berita->cover) }}" class="card-img-top p-2"
+                                        alt="Cover Image" style="width: 310px; height: 150px; border-radius: 10px;">
                                     <div class="card-body">
                                         <h5 class="card-title text-dark">{{ $berita->judul }}</h5>
                                         <p class="card-text text-muted">{{ $berita->deskripsi }}</p>
-                                        <a href="{{ route('index-berita', $berita->id) }}" class="btn btn-primary">Read More</a>
+                                        <a href="{{ route('index-berita', $berita->id) }}"
+                                            class="btn btn-primary">Read More</a>
                                     </div>
                                 </div>
                             </div>

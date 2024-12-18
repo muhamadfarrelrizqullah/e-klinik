@@ -21,6 +21,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\UserController;
+use App\Models\Berita;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +66,7 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/jadwal-dokter', [JadwalDokterController::class, 'indexAdmin'])->name('jadwaldokter');
     Route::get('/rekam-medis', [RekamMedisController::class, 'indexAdmin'])->name('rekammedis');
     Route::get('/obat', [ObatController::class, 'indexAdmin'])->name('obat');
+    Route::get('/berita', [BeritaController::class, 'indexAdmin'])->name('berita');
 
     Route::get('/data-user-pasien', [UserController::class, 'readPasien'])->name('datauser-pasien');
     Route::get('/data-user-dokter', [UserController::class, 'readDokter'])->name('datauser-dokter');
@@ -110,6 +112,10 @@ Route::prefix('admin')->name('admin-')->middleware('role:Admin')->group(function
     Route::get('/data-pengaturan-halaman', [CompanyProfileController::class, 'read'])->name('datapengaturanhalaman');
     Route::put('/data-pengaturan-halaman-edit', [CompanyProfileController::class, 'update'])->name('datapengaturanhalaman-edit');
 
+    Route::get('/data-berita', [BeritaController::class, 'read'])->name('databerita');
+    Route::post('/data-berita-tambah', [BeritaController::class, 'store'])->name('databerita-tambah');
+    Route::put('/data-berita-edit', [BeritaController::class, 'update'])->name('databerita-edit');
+    Route::delete('/data-berita-delete/{id}', [BeritaController::class, 'destroy'])->name('databerita-delete');
 
     Route::get('/profil-edit', [ProfilController::class, 'edit'])->name('profil-edit');
     Route::post('/profil-edit', [ProfilController::class, 'update'])->name('profil-update');

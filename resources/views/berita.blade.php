@@ -76,9 +76,9 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="d-flex justify-content-center">
-                                    <img src="{{ asset('assets/media/demo/1600x1200/2.jpg') }}"
+                                    <img src="{{ asset('storage/covers/' . $berita->cover) }}"
                                         class="card-img-top img-fluid" alt="Cover Image"
-                                        style="max-width: 80%; height: auto;">
+                                        style="width: 400px; height: 150px;">
                                 </div>
                                 <p class="card-text fw-bold fs-7 mt-8">Deskripsi:</p>
                                 <p class="card-text text-center text-muted fs-7">{{ $berita->deskripsi }}</p>
