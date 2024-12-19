@@ -124,26 +124,28 @@
                         @csrf
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Judul</span>
+                                <span class="required">Judul</span>
                             </label>
                             <input type="text" class="form-control form-control-solid"
                                 placeholder="Masukkan judul berita" id="addJudul" name="judul">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Deskripsi</span>
+                                <span class="required">Deskripsi</span>
                             </label>
                             <textarea class="form-control form-control-solid" placeholder="Masukkan deskripsi berita" id="addDeskripsi"
                                 name="deskripsi"></textarea>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Isi</span>
+                                <span class="required">Isi</span>
                             </label>
                             <textarea class="form-control form-control-solid" placeholder="Masukkan isi berita" id="addIsi" name="isi"></textarea>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
-                            <label class="fs-6 fw-semibold mb-2">Cover</label>
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span class="required">Cover</span>
+                            </label>
                             <input type="file" class="form-control form-control-solid" name="cover"
                                 accept="image/*">
                         </div>
@@ -181,20 +183,20 @@
                         <input type="hidden" id="id" name="id">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Judul</span>
+                                <span class="required">Judul</span>
                             </label>
                             <input type="text" class="form-control form-control-solid" placeholder=""
                                 id="updateJudul" name="judul">
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Deskripsi</span>
+                                <span class="required">Deskripsi</span>
                             </label>
                             <textarea class="form-control form-control-solid" placeholder="" id="updateDeskripsi" name="deskripsi"></textarea>
                         </div>
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Isi</span>
+                                <span class="required">Isi</span>
                             </label>
                             <textarea class="form-control form-control-solid" placeholder="" id="updateIsi" name="isi"></textarea>
                         </div>

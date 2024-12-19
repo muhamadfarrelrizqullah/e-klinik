@@ -35,6 +35,7 @@ class UserTambahRequest extends FormRequest
         if ($this->role === 'Dokter') {
             $rules['polis'] = 'required|array';
             $rules['polis.*'] = 'required|exists:polis,id';
+            $rules['foto'] = 'required|file|mimes:jpeg,png,jpg,gif|max:2048';
         }
         // Jika role adalah Pasien, tambahkan validasi untuk jabatan
         if ($this->role === 'Pasien') {
@@ -70,6 +71,10 @@ class UserTambahRequest extends FormRequest
             'jabatan.required' => 'Jabatan harus diisi.',
             'jabatan.string' => 'Jabatan harus berupa teks.',
             'jabatan.max' => 'Jabatan maksimal 255 karakter.',
+            'foto.required' => 'Foto harus diisi.',
+            'foto.file' => 'Foto harus berupa file.',
+            'foto.mimes' => 'Foto harus berformat: jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Ukuran foto tidak boleh lebih dari 2 MB.',
         ];
     }
 }

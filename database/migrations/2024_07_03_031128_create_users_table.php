@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->float('tinggi_badan')->nullable();
             $table->float('berat_badan')->nullable();
+            $table->string('foto')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

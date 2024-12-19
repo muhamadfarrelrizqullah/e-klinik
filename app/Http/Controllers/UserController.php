@@ -86,6 +86,14 @@ class UserController extends Controller
         if ($request->role === 'Pasien') {
             $user->jabatan = $request->jabatan;
         }
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('public/fotos', $fileName);
+            $user->foto = $fileName;
+        } else {
+            $user->foto = null;
+        }    
         $user->save();
 
         if ($request->has('polis')) {

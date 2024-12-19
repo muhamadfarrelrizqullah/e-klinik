@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1990-01-01',
                 'tinggi_badan' => 180,
                 'berat_badan' => 75,
+                'foto' => null,
             ],
             [
                 'nip' => '22222222',
@@ -37,6 +38,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1985-05-15',
                 'tinggi_badan' => 165,
                 'berat_badan' => 60,
+                'foto' => 'test.jpg',
             ],
             [
                 'nip' => '33333333',
@@ -49,6 +51,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1985-05-15',
                 'tinggi_badan' => 165,
                 'berat_badan' => 60,
+                'foto' => null,
             ],
             [
                 'nip' => '55555555',
@@ -61,6 +64,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1969-01-01',
                 'tinggi_badan' => 150,
                 'berat_badan' => 45,
+                'foto' => null,
             ],
             [
                 'nip' => '12345678',
@@ -73,6 +77,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1982-05-15',
                 'tinggi_badan' => 175,
                 'berat_badan' => 68,
+                'foto' => null,
             ],
             [
                 'nip' => '87654321',
@@ -85,6 +90,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1945-05-15',
                 'tinggi_badan' => 115,
                 'berat_badan' => 64,
+                'foto' => null,
             ],
             [
                 'nip' => '12121212',
@@ -97,6 +103,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1265-02-15',
                 'tinggi_badan' => 195,
                 'berat_badan' => 62,
+                'foto' => null,
             ],
             [
                 'nip' => '21212121',
@@ -109,6 +116,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1995-05-15',
                 'tinggi_badan' => 155,
                 'berat_badan' => 60,
+                'foto' => null,
             ],
             [
                 'nip' => '12344321',
@@ -121,6 +129,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '2005-01-15',
                 'tinggi_badan' => 175,
                 'berat_badan' => 80,
+                'foto' => 'test.jpg',
             ],
             [
                 'nip' => '43211234',
@@ -133,6 +142,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '2001-02-15',
                 'tinggi_badan' => 165,
                 'berat_badan' => 60,
+                'foto' => 'test.jpg',
             ],
             [
                 'nip' => '56788765',
@@ -145,6 +155,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1956-09-15',
                 'tinggi_badan' => 188,
                 'berat_badan' => 60,
+                'foto' => null,
             ],
             [
                 'nip' => '09900990',
@@ -157,6 +168,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1915-05-15',
                 'tinggi_badan' => 185,
                 'berat_badan' => 69,
+                'foto' => null,
             ],
             [
                 'nip' => '44444444',
@@ -169,6 +181,7 @@ class UserSeeder extends Seeder
                 'tanggal_lahir' => '1225-02-15',
                 'tinggi_badan' => 185,
                 'berat_badan' => 69,
+                'foto' => null,
             ],
         ]);
     }

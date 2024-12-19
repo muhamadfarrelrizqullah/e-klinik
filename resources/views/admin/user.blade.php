@@ -490,6 +490,13 @@
                                     id="detailBeratBadanDokter" readonly>
                             </div>
                         </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <img id="detailFoto" src="" alt="Foto Image" class="img-fluid"
+                                style="width: 200px; height: 200px;">
+                        </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                                 class="btn btn-light me-3">Batal</button>
@@ -513,7 +520,8 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <form class="form" action="{{ route('admin-datauser-tambah') }}" method="POST">
+                    <form class="form" action="{{ route('admin-datauser-tambah') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row g-9 mb-8">
                             <div class="col-md-6 fv-row">
@@ -610,6 +618,12 @@
                                 <input type="text" class="form-control form-control-solid"
                                     placeholder="Masukkan berat badan user" id="addBeratBadan" name="berat_badan">
                             </div>
+                        </div>
+                        <div class="d-flex flex-column mb-7 fv-row">
+                            <label class="fs-6 fw-semibold mb-2">Foto</label>
+                            <input type="file" class="form-control form-control-solid" name="foto"
+                                accept="image/*" id="addFoto">
+                            <small class="text-muted">Input Foto hanya aktif jika Role adalah Dokter.</small>
                         </div>
                         <div class="text-end pt-15">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -784,6 +798,7 @@
 
             handleRoleChange('#updateRole', '#updatePoli');
             handleRoleChange('#addRole', '#addPoli');
+            handleRoleChange('#addRole', '#addFoto');
         });
 
         // Handle jabatan select role pasien
@@ -894,7 +909,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `<div class="d-flex justify-content-center flex-shrink-0">
-                                <a onclick="modalDetailDokter('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}', '${row.poli_nama}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailDokter">
+                                <a onclick="modalDetailDokter('${row.nip}', '${row.nama}', '${row.status}', '${row.role}', '${row.divisi_nama}', '${row.tanggal_lahir}', '${row.tinggi_badan}', '${row.berat_badan}', '${row.poli_nama}', '${row.foto}')" class="btn btn-icon btn-light-primary btn-xl me-2" data-bs-toggle="modal" data-bs-target="#modalDetailDokter">
                                     <i class="ki-duotone ki-scroll fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -1581,13 +1596,15 @@
                 timer: 4000,
                 timerProgressBar: true,
             });
-            e.preventDefault();
-            let data = $(this).serialize();
-            let form = $(this);
+            e.preventDefault()
+            let form = $(this)[0];
+            let formData = new FormData(form);
             $.ajax({
-                url: form.attr('action'),
+                url: form.action,
                 type: "POST",
-                data: data,
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     // console.log(response);
                     $('#modalAdd').modal('hide');
@@ -1730,7 +1747,7 @@
 
         // Pengambilan data modal detail dokter
         function modalDetailDokter(nip, nama, status, role, divisi_nama, tanggal_lahir, tinggi_badan, berat_badan,
-            poli_nama) {
+            poli_nama, foto) {
             $('#detailNipDokter').val(nip);
             $('#detailNamaDokter').val(nama);
             $('#detailStatusDokter').val(status);
@@ -1745,6 +1762,8 @@
             $('#detailTinggiBadanDokter').val(tinggi_badan);
             $('#detailBeratBadanDokter').val(berat_badan);
             $('#detailPoliNamaDokter').val(poli_nama);
+            var fotoUrl = '/storage/fotos/' + foto;
+            $('#detailFoto').attr('src', fotoUrl);
             $('#modalDetailDokter').modal('show');
         }
 

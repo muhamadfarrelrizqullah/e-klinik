@@ -123,7 +123,9 @@
                     @foreach ($dataDokter as $dokter)
                         <div class="col-6 col-sm-4 col-md-3">
                             <div class="card shadow-sm">
-                                <img src="assets/media/illustrations/sigma-1/16.png" class="card-img-top"
+                                <img src="{{ asset('storage/fotos/' . $dokter->foto) }}"
+                                    class="card-img-top d-block mx-auto mt-8 px-8 img-fluid"
+                                    style="border-radius: 20px; max-width: 100%; height: auto; object-fit: cover;"
                                     alt="Dokter Image">
                                 <div class="card-body text-center">
                                     <h5 class="card-title fs-5 fs-lg-3 fw-bold text-gray-900">{{ $dokter->nama }}</h5>
@@ -158,8 +160,9 @@
                         @foreach ($dataBerita as $berita)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                 <div class="card shadow-sm border-0">
-                                    <img src="{{ asset('storage/covers/' . $berita->cover) }}" class="card-img-top p-2"
-                                        alt="Cover Image" style="width: 310px; height: 150px; border-radius: 10px;">
+                                    <img src="{{ asset('storage/covers/' . $berita->cover) }}"
+                                        class="card-img-top p-2 mx-auto d-block" alt="Cover Image"
+                                        style="max-width: 100%; height: auto; border-radius: 10px; object-fit: cover;">
                                     <div class="card-body">
                                         <h5 class="card-title text-dark">{{ $berita->judul }}</h5>
                                         <p class="card-text text-muted">{{ $berita->deskripsi }}</p>

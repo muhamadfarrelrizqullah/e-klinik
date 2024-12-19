@@ -169,7 +169,7 @@
                         <input type="hidden" id="id" name="id" value="1">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span id="fieldLabel"></span>
+                                <span id="fieldLabel" class="required"></span>
                             </label>
                             <input type="text" class="form-control form-control-solid" id="value" name="value">
                         </div>

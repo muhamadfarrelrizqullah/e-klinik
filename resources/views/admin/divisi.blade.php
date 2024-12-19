@@ -121,7 +121,7 @@
                         @csrf
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Nama</span>
+                                <span class="required">Nama</span>
                             </label>
                             <input type="text" class="form-control form-control-solid" placeholder="Masukkan nama divisi"
                                 id="addNama" name="nama">
@@ -159,7 +159,7 @@
                         <input type="hidden" id="id" name="id">
                         <div class="d-flex flex-column mb-7 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span>Nama</span>
+                                <span class="required">Nama</span>
                             </label>
                             <input type="text" class="form-control form-control-solid" placeholder="" id="updateNama"
                                 name="nama">

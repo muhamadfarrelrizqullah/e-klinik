@@ -42,6 +42,7 @@ class AdminUserSQL
                 'users.tanggal_lahir',
                 'users.tinggi_badan',
                 'users.berat_badan',
+                'users.foto',
             ])
             ->selectRaw("string_agg(polis.nama, ', ') as poli_nama")
             ->selectRaw("string_agg(polis.id::text, ', ') as poli_id")
