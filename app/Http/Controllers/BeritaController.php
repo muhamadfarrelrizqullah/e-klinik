@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BeritaEditRequest;
+use App\Http\Requests\BeritaTambahRequest;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 
@@ -27,15 +29,8 @@ class BeritaController extends Controller
             ->make(true);
     }
 
-    public function store(Request $request)
+    public function store(BeritaTambahRequest $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:500',
-            'isi' => 'required|string',
-            'cover' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
         $berita = new Berita();
         $berita->judul = $request->judul;
         $berita->deskripsi = $request->deskripsi;
@@ -47,7 +42,7 @@ class BeritaController extends Controller
             $berita->cover = $fileName;
         } else {
             $berita->cover = null;
-        }        
+        }
         $berita->save();
 
         return redirect()->back()->with('success', 'Berita berhasil ditambahkan.');
@@ -63,15 +58,9 @@ class BeritaController extends Controller
         return response()->json(['message' => 'Berita berhasil dihapus.']);
     }
 
-    public function update(Request $request)
+    public function update(BeritaEditRequest $request)
     {
         try {
-            $request->validate([
-                'judul' => 'required|string|max:255',
-                'deskripsi' => 'required|string|max:500',
-                'isi' => 'required|string',
-            ]);
-
             $berita = Berita::findOrFail($request->id);
             $berita->judul = $request->judul;
             $berita->deskripsi = $request->deskripsi;
