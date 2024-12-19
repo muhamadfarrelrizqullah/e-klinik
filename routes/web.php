@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'landing'])->name('landing');
 Route::get('/landing-antrian', [LandingController::class, 'landing_antrian'])->name('landing_antrian');
 Route::get('/antrian-pemeriksaan', [LandingController::class, 'antrian'])->name('antrian');
+Route::get('/list-berita', [LandingController::class, 'berita'])->name('berita');
+Route::get('/data-berita-landing', [BeritaController::class, 'read'])->name('databerita-landing');
 Route::get('/data-antrian-pemeriksaan', [LandingController::class, 'antrianData'])->name('antrian-data');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login-process', [AutentikasiController::class, 'loginProcess'])->name('login-process');

@@ -69,6 +69,11 @@ class LandingController extends Controller
         return view('antrian', compact('tanggalSekarang'));
     }
 
+    public function berita()
+    {
+        return view('list-berita');
+    }
+
     protected $DataPengajuan;
     public function __construct(LandingPengajuanSQL $LandingPengajuanSQL)
     {
