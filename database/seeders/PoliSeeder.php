@@ -20,15 +20,6 @@ class PoliSeeder extends Seeder
             [
                 'nama' => 'Gigi',
             ],
-            [
-                'nama' => 'Anak',
-            ],
-            [
-                'nama' => 'Kulit',
-            ],
-            [
-                'nama' => 'THT',
-            ],
         ]);
     }
 }

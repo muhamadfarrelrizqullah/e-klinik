@@ -36,6 +36,7 @@ class DivisiSeeder extends Seeder
             ['nama' => 'Teknologi Informasi',],
             ['nama' => 'Satuan Pengawasan Intern',],
             ['nama' => 'Sekretaris Perusahaan',],
+            ['nama' => 'Tim Pembangunan Infrastruktur Fasilitas Kapal Selam PMN APBN TA 2021'],
         ]);
     }
 }
